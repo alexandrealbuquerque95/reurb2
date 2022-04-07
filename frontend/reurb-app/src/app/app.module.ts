@@ -7,14 +7,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
 import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
+
 import { LoginComponent } from './components/login/login.component';
+import { PrimeiroAcessoComponent } from './components/primeiro-acesso/primeiro-acesso.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AddTutorialComponent,
     TutorialDetailsComponent,
-    LoginComponent
+
+    LoginComponent,
+    PrimeiroAcessoComponent
   ],
   imports: [
     BrowserModule,
