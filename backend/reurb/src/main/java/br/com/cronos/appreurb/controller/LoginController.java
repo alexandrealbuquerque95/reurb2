@@ -30,12 +30,21 @@ public class LoginController {
 	LoginRepository loginRepository;
 	
 	@GetMapping("/verificarPermissaoCadastro")
-	public ResponseEntity<List<Login>> getPermissaoCadastroPeloCPF(@RequestParam(required = false) String cpf) 
+	public ResponseEntity<Boolean> getPermissaoCadastroPeloCPF(@RequestParam(required = false) String cpf) 
 	{
 		System.out.println("\n\ngetPermissaoCadastroPeloCPF OK\n\n");
 		
+		if(cpf != null && cpf.equals("052.337.431-32") || cpf.equals("05233743132"))
+		{
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		}
 		
-		return null;
+		if(cpf != null && cpf.equals("539.748.751-15") || cpf.equals("53974875115"))
+		{
+			return new ResponseEntity<>(false, HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(false, HttpStatus.OK);
 	}
 
 	@GetMapping("/login")

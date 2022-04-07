@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Login } from 'src/app/models/login.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { Login } from 'src/app/models/login.model';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-primeiro-acesso',
@@ -10,26 +11,41 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 })
 export class PrimeiroAcessoComponent implements OnInit {
 
-  login: Login = {};
-  cpf: string = "";
-  senha: string = "";
+  public form: FormGroup;
 
-  constructor(private tutorialService: TutorialService) { }
+  cpf: string = "";
+  permissaoAcesso: boolean = false;
+
+
+  constructor(private loginService: LoginService,
+    private builder: FormBuilder) {
+      this.form = this.builder.group({
+        cpf: ['', Validators.required],
+      });
+    }
 
   ngOnInit(): void {
-    //this.retrieveTutorials();
+    this.form = this.builder.group({
+      cpf: ['', Validators.required],
+    });
   }
 
-  logar(): void
+  continuar(): void
   {
+    if(!!this.cpf)
+    {
+      this.permissaoAcesso = false;
 
+      this.loginService.findByCPF(this.cpf)
+        .subscribe(
+          data => {
+            this.permissaoAcesso = data;
+            console.log(this.permissaoAcesso);
+          },
+          error => {
+            console.log(error);
+          });
+    }
   }
-
-  redirecionarPrimeiroCadastro(): void
-  {
-
-  }
-
-
 
 }
