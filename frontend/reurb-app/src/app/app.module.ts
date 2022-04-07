@@ -10,7 +10,7 @@ import { TutorialDetailsComponent } from './components/tutorial-details/tutorial
 
 import { LoginComponent } from './components/login/login.component';
 import { PrimeiroAcessoComponent } from './components/primeiro-acesso/primeiro-acesso.component';
-
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 
 @NgModule({
@@ -26,7 +26,8 @@ import { PrimeiroAcessoComponent } from './components/primeiro-acesso/primeiro-a
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

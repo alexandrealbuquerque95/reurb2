@@ -12,7 +12,8 @@ export class PrimeiroAcessoComponent implements OnInit {
 
   cpf: string = "";
   permissaoAcesso: boolean = false;
-
+  validouCPF: boolean = true;
+  mensagemCPF: string = '';
 
   constructor(private loginService: LoginService) {
 
@@ -33,15 +34,35 @@ export class PrimeiroAcessoComponent implements OnInit {
     {
       this.permissaoAcesso = false;
 
+      if(!(this.cpf.length == 11))
+      {
+        this.validouCPF = false;
+        this.mensagemCPF = 'Preencha um CPF válido'
+        return;
+      }
+
+      this.validouCPF = true;
+
       this.loginService.findByCPF(this.cpf)
         .subscribe(
           data => {
             this.permissaoAcesso = data;
             console.log(this.permissaoAcesso);
+
+            if(!this.permissaoAcesso)
+            {
+              this.validouCPF = false;
+              this.mensagemCPF = 'Você não tem permissão para realizar cadastro. Em caso de dúvidas entre em contato conosco.';
+            }
           },
           error => {
             console.log(error);
           });
+    }
+    else
+    {
+      this.validouCPF = false;
+      this.mensagemCPF = 'Preencha o CPF'
     }
   }
 

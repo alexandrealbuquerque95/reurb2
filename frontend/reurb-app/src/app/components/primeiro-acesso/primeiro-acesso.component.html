@@ -1,18 +1,25 @@
 <br><br><br><br><br><br>
 
-
-  <div class="col-md-6">
+<div class="panel">
+  <div class="col-6 col-md-6 col-lg-6 col-xl-6">
     <div class="input-group mb-1">
 
       <label class="pr-3 pt-1">Preencha seu CPF: </label>
       <input type="text" class="form-control" required placeholder="000.000.000-00" [(ngModel)]="cpf"
-      (keyup)="handleKeyUp($event)"/>
+      name="cpf" mask="000.000.000-00" (keyup)="handleKeyUp($event)"/>
     </div>
   </div>
 
-  <br>
+  <div class="col-6 col-md-6 col-lg-6 col-xl-6" *ngIf="!validouCPF">
+    <span class="text-danger float-right">
+      {{mensagemCPF}}
+    </span>
 
-  <div class="col-md-6">
+  </div>
+
+  <br><br>
+
+  <div class="col-6 col-md-6 col-lg-6 col-xl-6">
     <div class="input-group-append float-right">
       <button class="btn btn-outline-secondary" type="button" (click)="continuar()" >
         Continuar
@@ -20,10 +27,9 @@
     </div>
   </div>
 
-
-<br><br><br>
-{{permissaoAcesso}}
-
+  <br><br><br>
+  {{permissaoAcesso}}
+</div>
 
 <br><br><br>
 
