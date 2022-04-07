@@ -1,26 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { Tutorial } from 'src/app/models/tutorial.model';
+import { Login } from 'src/app/models/login.model';
+
 import { TutorialService } from 'src/app/services/tutorial.service';
 
 @Component({
-  selector: 'app-tutorials-list',
-  templateUrl: './tutorials-list.component.html',
-  styleUrls: ['./tutorials-list.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class TutorialsListComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
-  tutorials?: Tutorial[];
-  currentTutorial: Tutorial = {};
-  currentIndex = -1;
-  title = '';
+  //tutorials?: Tutorial[];
+  login: Login = {};
+  cpf: string = "";
+  senha: string = "";
 
   constructor(private tutorialService: TutorialService) { }
 
   ngOnInit(): void {
-    this.retrieveTutorials();
+    //this.retrieveTutorials();
   }
 
-  retrieveTutorials(): void {
+  logar(): void
+  {
+
+  }
+
+  redirecionarPrimeiroCadastro(): void
+  {
+
+  }
+
+  /*retrieveTutorials(): void {
     this.tutorialService.getAll()
       .subscribe(
         data => {
@@ -69,5 +80,7 @@ export class TutorialsListComponent implements OnInit {
           console.log(error);
         });
   }
+  */
+
 
 }
