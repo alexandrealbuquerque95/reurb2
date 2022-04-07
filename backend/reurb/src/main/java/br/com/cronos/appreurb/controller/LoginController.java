@@ -34,12 +34,12 @@ public class LoginController {
 	{
 		System.out.println("\n\ngetPermissaoCadastroPeloCPF OK\n\n");
 		
-		if(cpf != null && cpf.equals("052.337.431-32") || cpf.equals("05233743132"))
+		if(cpf != null && (cpf.equals("052.337.431-32") || cpf.equals("05233743132")))
 		{
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		}
 		
-		if(cpf != null && cpf.equals("539.748.751-15") || cpf.equals("53974875115"))
+		if(cpf != null && (cpf.equals("539.748.751-15") || cpf.equals("53974875115")))
 		{
 			return new ResponseEntity<>(false, HttpStatus.OK);
 		}

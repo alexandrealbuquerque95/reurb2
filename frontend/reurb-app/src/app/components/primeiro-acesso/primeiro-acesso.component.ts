@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { Login } from 'src/app/models/login.model';
 import { LoginService } from 'src/app/services/login.service';
@@ -11,24 +10,22 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class PrimeiroAcessoComponent implements OnInit {
 
-  public form: FormGroup;
-
   cpf: string = "";
   permissaoAcesso: boolean = false;
 
 
-  constructor(private loginService: LoginService,
-    private builder: FormBuilder) {
-      this.form = this.builder.group({
-        cpf: ['', Validators.required],
-      });
-    }
+  constructor(private loginService: LoginService) {
+
+  }
 
   ngOnInit(): void {
-    this.form = this.builder.group({
-      cpf: ['', Validators.required],
-    });
   }
+
+  handleKeyUp(e: any){
+    if(e.keyCode === 13){
+       this.continuar();
+    }
+ }
 
   continuar(): void
   {
