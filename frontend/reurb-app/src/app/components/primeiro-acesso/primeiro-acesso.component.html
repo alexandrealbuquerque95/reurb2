@@ -1,35 +1,60 @@
-<br><br><br><br><br><br>
+<!-- Versão Desktop -->
+<br><br><br>
 
-<div class="panel">
-  <div class="col-6 col-md-6 col-lg-6 col-xl-6">
-    <div class="input-group mb-1">
+<div class="col-12 col-md-12 col-xl-12 d-flex">
 
-      <label class="pr-3 pt-1">Preencha seu CPF: </label>
-      <input type="text" class="form-control" required placeholder="000.000.000-00" [(ngModel)]="cpf"
-      name="cpf" mask="000.000.000-00" (keyup)="handleKeyUp($event)"/>
+  <div class="col-3 col-md-3 col-xl-3">
+  </div>
+
+  <div class="col-6 col-md-6 col-xl-6">
+
+    <div class="panel rounded bg-white">
+
+      <div class="panel-heading border-bottom pt-2 mt-2">
+        <h4 tabindex="0" class="mb-2 pb-0 text-center">Primeiro Cadastro</h4>
+      </div>
+
+      <br><br>
+
+      <div class="panel-body px-2">
+        <div class="px-2 d-flex pt-2 mt-2">
+          <div class="input-group mb-1">
+            <label class="pr-3 pt-1">Preencha seu CPF: </label>
+            <input type="text" tabindex="0" [ngStyle]="{'border-color': inputBorderStyle}" class="form-control" required placeholder="000.000.000-00"
+            [(ngModel)]="cpf" name="cpf" mask="000.000.000-00" (keyup)="handleKeyUp($event)"/>
+          </div>
+        </div>
+
+        <div class="px-2 float-right" *ngIf="!validouCPF">
+
+          <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+
+          <span class="text-danger">
+            {{mensagemCPF}}
+          </span>
+        </div>
+
+        <br><br><br>
+
+        <div class="px-2 pb-2">
+
+          <div class="input-group-append float-right">
+            <button class="btn btn-primary" type="button" tabindex="0" (click)="continuar()" >
+              Continuar
+            </button>
+          </div>
+
+        </div>
+
+        <br><br>
+
+      </div>
+
     </div>
-  </div>
-
-  <div class="col-6 col-md-6 col-lg-6 col-xl-6" *ngIf="!validouCPF">
-    <span class="text-danger float-right">
-      {{mensagemCPF}}
-    </span>
 
   </div>
 
-  <br><br>
-
-  <div class="col-6 col-md-6 col-lg-6 col-xl-6">
-    <div class="input-group-append float-right">
-      <button class="btn btn-outline-secondary" type="button" (click)="continuar()" >
-        Continuar
-      </button>
-    </div>
-  </div>
-
-  <br><br><br>
-  {{permissaoAcesso}}
 </div>
 
-<br><br><br>
+
 

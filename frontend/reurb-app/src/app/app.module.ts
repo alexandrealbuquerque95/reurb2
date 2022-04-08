@@ -10,7 +10,10 @@ import { TutorialDetailsComponent } from './components/tutorial-details/tutorial
 
 import { LoginComponent } from './components/login/login.component';
 import { PrimeiroAcessoComponent } from './components/primeiro-acesso/primeiro-acesso.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {far} from '@fortawesome/free-regular-svg-icons';
+import {fas} from '@fortawesome/free-solid-svg-icons';
 
 
 @NgModule({
@@ -28,8 +31,17 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
     FormsModule,
     HttpClientModule,
     NgxMaskModule.forRoot(),
+    FontAwesomeModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
+  exports: [
+    FontAwesomeModule,
+  ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas, far);
+  }
+ }

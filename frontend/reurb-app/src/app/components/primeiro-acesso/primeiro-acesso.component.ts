@@ -15,6 +15,8 @@ export class PrimeiroAcessoComponent implements OnInit {
   validouCPF: boolean = true;
   mensagemCPF: string = '';
 
+  inputBorderStyle: string = 'none';
+
   constructor(private loginService: LoginService) {
 
   }
@@ -38,10 +40,12 @@ export class PrimeiroAcessoComponent implements OnInit {
       {
         this.validouCPF = false;
         this.mensagemCPF = 'Preencha um CPF válido'
+        this.inputBorderStyle = 'red';
         return;
       }
 
       this.validouCPF = true;
+      this.inputBorderStyle = '';
 
       this.loginService.findByCPF(this.cpf)
         .subscribe(
@@ -62,7 +66,8 @@ export class PrimeiroAcessoComponent implements OnInit {
     else
     {
       this.validouCPF = false;
-      this.mensagemCPF = 'Preencha o CPF'
+      this.mensagemCPF = 'Preencha o CPF';
+      this.inputBorderStyle = 'red';
     }
   }
 
