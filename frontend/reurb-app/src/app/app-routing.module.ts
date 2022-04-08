@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PrimeiroAcessoComponent } from './components/primeiro-acesso/primeiro-acesso.component';
 import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
 import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
+import { FormularioCadastroComponent } from './components/formulario-cadastro/formulario-cadastro.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'tutorials', pathMatch: 'full' },
@@ -11,7 +12,9 @@ const routes: Routes = [
   { path: 'tutorials/:id', component: TutorialDetailsComponent },
   { path: 'add', component: AddTutorialComponent },
 
-  { path: 'primeiro-acesso', component: PrimeiroAcessoComponent }
+  { path: 'primeiro-acesso', component: PrimeiroAcessoComponent },
+  { path: 'formulario-cadastro', component: FormularioCadastroComponent },
+
 ];
 
 @NgModule({

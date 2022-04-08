@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Login } from 'src/app/models/login.model';
 import { LoginService } from 'src/app/services/login.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-primeiro-acesso',
@@ -17,7 +19,7 @@ export class PrimeiroAcessoComponent implements OnInit {
 
   inputBorderStyle: string = 'none';
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private router: Router) {
 
   }
 
@@ -57,6 +59,10 @@ export class PrimeiroAcessoComponent implements OnInit {
             {
               this.validouCPF = false;
               this.mensagemCPF = 'Você não tem permissão para realizar cadastro. Em caso de dúvidas entre em contato conosco.';
+            }
+            else
+            {
+              this.router.navigate(['/formulario-cadastro']);
             }
           },
           error => {

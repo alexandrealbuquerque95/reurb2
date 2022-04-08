@@ -14,6 +14,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {fas} from '@fortawesome/free-solid-svg-icons';
+import { FormularioCadastroComponent } from './components/formulario-cadastro/formulario-cadastro.component';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import {fas} from '@fortawesome/free-solid-svg-icons';
     TutorialDetailsComponent,
 
     LoginComponent,
-    PrimeiroAcessoComponent
+    PrimeiroAcessoComponent,
+    FormularioCadastroComponent,
   ],
   imports: [
     BrowserModule,
