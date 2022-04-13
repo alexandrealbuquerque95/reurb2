@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'add', component: AddTutorialComponent },
 
   { path: 'primeiro-acesso', component: PrimeiroAcessoComponent },
-  { path: 'formulario-cadastro', component: FormularioCadastroComponent },
+  { path: 'formulario-cadastro/:cpf', component: FormularioCadastroComponent },
 
 ];
 

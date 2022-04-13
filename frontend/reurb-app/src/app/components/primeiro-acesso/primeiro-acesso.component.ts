@@ -62,7 +62,7 @@ export class PrimeiroAcessoComponent implements OnInit {
             }
             else
             {
-              this.router.navigate(['/formulario-cadastro']);
+              this.router.navigate(['/formulario-cadastro', this.cpf]);
             }
           },
           error => {
