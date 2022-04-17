@@ -22,6 +22,7 @@ import br.com.cronos.appreurb.model.Login;
 import br.com.cronos.appreurb.repository.LoginRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://reurb.s3-website-sa-east-1.amazonaws.com")
 @RestController
 @RequestMapping("/api")
 public class LoginController {
@@ -34,15 +35,21 @@ public class LoginController {
 	{
 		System.out.println("\n\ngetPermissaoCadastroPeloCPF OK\n\n");
 		
-		if(cpf != null && (cpf.equals("052.337.431-32") || cpf.equals("05233743132")))
+		if(cpf != null && (cpf.length() == 11))
 		{
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		}
+
 		
-		if(cpf != null && (cpf.equals("539.748.751-15") || cpf.equals("53974875115")))
-		{
-			return new ResponseEntity<>(false, HttpStatus.OK);
-		}
+//		if(cpf != null && (cpf.equals("052.337.431-32") || cpf.equals("05233743132")))
+//		{
+//			return new ResponseEntity<>(true, HttpStatus.OK);
+//		}
+//		
+//		if(cpf != null && (cpf.equals("539.748.751-15") || cpf.equals("53974875115")))
+//		{
+//			return new ResponseEntity<>(false, HttpStatus.OK);
+//		}
 		
 		return new ResponseEntity<>(false, HttpStatus.OK);
 	}
