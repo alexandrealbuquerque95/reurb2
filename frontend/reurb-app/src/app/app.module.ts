@@ -15,6 +15,8 @@ import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import { FormularioCadastroComponent } from './components/formulario-cadastro/formulario-cadastro.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -35,6 +37,8 @@ import { FormularioCadastroComponent } from './components/formulario-cadastro/fo
     HttpClientModule,
     NgxMaskModule.forRoot(),
     FontAwesomeModule,
+    MatTabsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
