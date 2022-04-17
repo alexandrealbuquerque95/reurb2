@@ -1,224 +1,240 @@
 <!-- Versão Desktop -->
 <div class="panel rounded bg-white">
 
-  <div class="col-12 col-md-12 col-xl-12 pt-2">
+  <div class="col-12 col-md-12 col-xl-12 form-div">
 
-    <div *ngIf="mostrarFormularioCadastro1">
-      <b><label style="font-size:20px">Dados Pessoais</label></b>
-      <hr>
+    <mat-tab-group [(selectedIndex)]="tabIndex" (selectedTabChange)="onTabChanged($event);">
+      <mat-tab label = "Dados Pessoais" >
 
-      <div class="form-row">
-        <div class="form-group col-md-3 col-lg-3">
-          <label for="inputCPF">CPF: </label>
-          <input type="text" value={{dadosPessoais.cpf}}
-            class="form-control" id="inputCPF" disabled>
-        </div>
+        <div >
+          <hr>
 
-        <div class="form-group col-md-9 col-lg-9">
-          <label for="inputNome">Nome Completo: </label>
-          <input type="text" [(ngModel)]="dadosPessoais.nome" [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'}"
-            class="form-control" id="inputNome" >
-
-          <div class="px-2" *ngIf="!validadorDadosPessoais.nome">
-            <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-            <span class="text-danger">
-              {{validadorDadosPessoais.nomeMensagem}}
-            </span>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-3 col-lg-3">
-          <label for="rg">RG: </label>
-          <input type="text" mask="000.000.000" class="form-control" id="rg" >
-        </div>
-
-        <div class="form-group col-md-3 col-lg-3">
-          <label for="orgaoEmissorRG">Orgão Emissor: </label>
-          <input type="text" class="form-control" id="orgaoEmissorRG" >
-        </div>
-
-        <div class="form-group col-md-3 col-lg-3">
-          <label for="estadoEmissorRG">UF Emissor: </label>
-          <select id="estadoEmissorRG" class="form-control" name="estadoEmissor">
-              <option value="--">Selecione</option>
-              <option value="AC">Acre</option>
-              <option value="AL">Alagoas</option>
-              <option value="AP">Amapá</option>
-              <option value="AM">Amazonas</option>
-              <option value="BA">Bahia</option>
-              <option value="CE">Ceará</option>
-              <option value="DF">Distrito Federal</option>
-              <option value="ES">Espírito Santo</option>
-              <option value="GO">Goiás</option>
-              <option value="MA">Maranhão</option>
-              <option value="MT">Mato Grosso</option>
-              <option value="MS">Mato Grosso do Sul</option>
-              <option value="MG">Minas Gerais</option>
-              <option value="PA">Pará</option>
-              <option value="PB">Paraíba</option>
-              <option value="PR">Paraná</option>
-              <option value="PE">Pernambuco</option>
-              <option value="PI">Piauí</option>
-              <option value="RJ">Rio de Janeiro</option>
-              <option value="RN">Rio Grande do Norte</option>
-              <option value="RS">Rio Grande do Sul</option>
-              <option value="RO">Rondônia</option>
-              <option value="RR">Roraima</option>
-              <option value="SC">Santa Catarina</option>
-              <option value="SP">São Paulo</option>
-              <option value="SE">Sergipe</option>
-              <option value="TO">Tocantins</option>
-          </select>
-        </div>
-
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-3 col-lg-3 ">
-          <label for="dataNascimento">Data de Nascimento: </label>
-          <input type="text" mask="00/00/0000" class="form-control" id="dataNascimento" >
-        </div>
-
-        <div class="form-group col-md-3 col-lg-3 ">
-          <label for="celular">Telefone Celular: </label>
-          <input type="text" mask="(00)00000-0000" class="form-control" id="celular" >
-        </div>
-
-        <div class="form-group col-md-3 col-lg-3 pl-3 ">
-          <label for="sexo">Sexo: </label>
-
-          <div class="d-flex">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="sexoMasculino"
-                value="sexoMasculino" checked>
-              <label class="form-check-label" for="sexoMasculino">
-                Masculino
-              </label>
+          <div class="form-row">
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="inputCPF">CPF: </label>
+              <input type="text" value={{dadosPessoais.cpf}}
+                class="form-control" id="inputCPF" disabled>
             </div>
-            <div class="form-check pl-5">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="sexoFeminino"
-                value="Feminino">
-              <label class="form-check-label" for="sexoFeminino">
-                Feminino
-              </label>
+
+            <div class="form-group col-md-9 col-lg-9">
+              <label for="inputNome">Nome Completo: </label>
+              <input type="text" [(ngModel)]="dadosPessoais.nome" [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'}"
+                class="form-control" id="inputNome" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.nome">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.nomeMensagem}}
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="rg">RG: </label>
+              <input type="text" mask="000.000.000" class="form-control" id="rg" >
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="orgaoEmissorRG">Orgão Emissor: </label>
+              <input type="text" class="form-control" id="orgaoEmissorRG" >
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="estadoEmissorRG">UF Emissor: </label>
+              <select id="estadoEmissorRG" class="form-control" name="estadoEmissor">
+                  <option value="--">Selecione</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-3 col-lg-3 ">
+              <label for="dataNascimento">Data de Nascimento: </label>
+              <input type="text" mask="00/00/0000" class="form-control" id="dataNascimento" >
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 ">
+              <label for="celular">Telefone Celular: </label>
+              <input type="text" mask="(00)00000-0000" class="form-control" id="celular" >
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 pl-3 ">
+              <label for="sexo">Sexo: </label>
+
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="sexoMasculino"
+                    value="sexoMasculino" checked>
+                  <label class="form-check-label" for="sexoMasculino">
+                    Masculino
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="sexoFeminino"
+                    value="Feminino">
+                  <label class="form-check-label" for="sexoFeminino">
+                    Feminino
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="estadoCivil">Estado Cívil: </label>
+              <select [(ngModel)]="estadoCivil" id="estadoCivil" class="form-control" name="estadoCivil">
+                  <option value="1">Solteiro(a)</option>
+                  <option value="2">Casado(a)</option>
+                  <option value="3">Divorciado(a)</option>
+                  <option value="4">Viúvo(a)</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-9 col-lg-9" *ngIf="estadoCivil == 2">
+              <label for="nomeConjuge">Nome do(a) Cônjuge: </label>
+              <input type="text" class="form-control" id="nomeConjuge" >
             </div>
           </div>
 
-        </div>
+          <br>
 
-      </div>
+          <div class="form-row">
+            <div class="form-group col-md-9 col-lg-9">
+              <label for="anexoDocumento">Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento): </label>
 
-      <br>
-
-      <div class="form-row">
-
-        <div class="form-group col-md-3 col-lg-3">
-          <label for="estadoCivil">Estado Cívil: </label>
-          <select [(ngModel)]="estadoCivil" id="estadoCivil" class="form-control" name="estadoCivil">
-              <option value="1">Solteiro(a)</option>
-              <option value="2">Casado(a)</option>
-              <option value="3">Divorciado(a)</option>
-              <option value="4">Viúvo(a)</option>
-          </select>
-        </div>
-
-        <div class="form-group col-md-9 col-lg-9" *ngIf="estadoCivil == 2">
-          <label for="nomeConjuge">Nome do(a) Cônjuge: </label>
-          <input type="text" class="form-control" id="nomeConjuge" >
-        </div>
-      </div>
-
-      <br>
-
-      <div class="form-row">
-        <div class="form-group col-md-9 col-lg-9">
-          <label for="anexoDocumento">Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento): </label>
-
-          <div class="form-group col-md-6 col-lg-6 px-0">
-            <input type="file" class="form-control-file" id="anexoDocumento">
-          </div>
-        </div>
-      </div>
-
-      <button (click)="continuar1()" class="btn btn-primary float-right">Continuar 1</button>
-
-      <br><br>
-
-    <div>
-
-    <div *ngIf="mostrarFormularioCadastro2">
-      <b><label style="font-size:20px">Dados do Imóvel</label></b>
-      <hr>
-
-      <div class="form-row">
-
-        <div class="form-group col-md-10 col-lg-10">
-          <label for="endereco">Endereço: </label>
-          <input type="text" class="form-control" id="endereco" placeholder="Rua dos Bandeirantes, nº 0">
-        </div>
-
-        <div class="form-group col-md-2 col-lg-2">
-          <label for="inputCEP">CEP: </label>
-          <input type="number" class="form-control" id="inputCEP">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-4 col-lg-4">
-            <label for="inputEstado">Estado:</label>
-            <select id="inputEstado" class="form-control">
-              <option selected>Escolher...</option>
-              <option>...</option>
-            </select>
+              <div class="form-group col-md-6 col-lg-6 px-0">
+                <input type="file" class="form-control-file" id="anexoDocumento">
+              </div>
+            </div>
           </div>
 
-        <div class="form-group col-md-4 col-lg-4">
-          <label for="cidade">Cidade:</label>
-          <input type="text" class="form-control" id="cidade" >
+          <button (click)="continuar1()" class="btn btn-primary float-right">Continuar</button>
+
+          <br><br>
         </div>
 
-        <div class="form-group col-md-4 col-lg-4">
-          <label for="bairro">Bairro:</label>
-          <input type="text" class="form-control" id="bairro" >
+      </mat-tab >
+
+      <mat-tab label = "Dados do Imóvel" >
+
+        <div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-10 col-lg-10">
+              <label for="endereco">Endereço: </label>
+              <input type="text" class="form-control" id="endereco" placeholder="Rua dos Bandeirantes, nº 0">
+            </div>
+
+            <div class="form-group col-md-2 col-lg-2">
+              <label for="inputCEP">CEP: </label>
+              <input type="number" class="form-control" id="inputCEP">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-4 col-lg-4">
+                <label for="inputEstado">Estado:</label>
+                <select id="inputEstado" class="form-control">
+                  <option selected>Escolher...</option>
+                  <option>...</option>
+                </select>
+              </div>
+
+            <div class="form-group col-md-4 col-lg-4">
+              <label for="cidade">Cidade:</label>
+              <input type="text" class="form-control" id="cidade" >
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4">
+              <label for="bairro">Bairro:</label>
+              <input type="text" class="form-control" id="bairro" >
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="form-row">
+              <div class="form-group col-md-6 col-lg-6">
+                <label for="email">Email: </label>
+                <input type="email" class="form-control" id="inputEmail">
+              </div>
+              <div class="form-group col-md-6 col-lg-6">
+                <label for="confirmarEmail">Confirmar Email: </label>
+                <input type="email" class="form-control" id="confirmarEmail">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-3 col-lg-3">
+                <label for="senha">Senha: </label>
+                <input type="password" class="form-control" id="senha" placeholder="Senha">
+              </div>
+              <div class="form-group col-md-3 col-lg-3">
+                <label for="confirmacaoSenha">Confirmação de Senha: </label>
+                <input type="password" class="form-control" id="confirmacaoSenha" placeholder="Confirmar Senha">
+              </div>
+
+            </div>
+
+          <br>
+
+          <button (click)="continuar2()" class="btn btn-primary float-right">Continuar 2</button>
+          <br><br>
+
         </div>
 
-      </div>
+      </mat-tab >
 
-      <br>
+      <mat-tab label = "Terceira Aba">
 
-      <div class="form-row">
-          <div class="form-group col-md-6 col-lg-6">
-            <label for="email">Email: </label>
-            <input type="email" class="form-control" id="inputEmail">
-          </div>
-          <div class="form-group col-md-6 col-lg-6">
-            <label for="confirmarEmail">Confirmar Email: </label>
-            <input type="email" class="form-control" id="confirmarEmail">
-          </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col-md-3 col-lg-3">
-            <label for="senha">Senha: </label>
-            <input type="password" class="form-control" id="senha" placeholder="Senha">
-          </div>
-          <div class="form-group col-md-3 col-lg-3">
-            <label for="confirmacaoSenha">Confirmação de Senha: </label>
-            <input type="password" class="form-control" id="confirmacaoSenha" placeholder="Confirmar Senha">
-          </div>
 
-        </div>
+      </mat-tab >
+    </mat-tab-group>
 
-      <br>
 
-      <button (click)="continuar2()" class="btn btn-primary float-right">Continuar 2</button>
-      <br><br>
 
-    </div>
+
 
   </div>
 

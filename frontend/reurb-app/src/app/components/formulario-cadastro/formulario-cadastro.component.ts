@@ -25,6 +25,8 @@ export class FormularioCadastroComponent implements OnInit {
   dadosPessoais: DadosPessoais = new DadosPessoais();
   validadorDadosPessoais: ValidadorDadosPessoais;
 
+  tabIndex = 0;
+
   constructor(private loginService: LoginService, private route: ActivatedRoute) {
 
   }
@@ -53,8 +55,13 @@ export class FormularioCadastroComponent implements OnInit {
     if(this.validadorDadosPessoais.validouDados)
     {
       this.validouFormularioCadastro1 = true;
-      this.mostrarFormularioCadastro2 = true;
+      this.tabIndex = 1;
       //this.mostrarFormularioCadastro1 = false;
+      //this.mostrarFormularioCadastro2 = true;
+    }
+    else
+    {
+      this.tabIndex = 0;
     }
   }
 
@@ -63,6 +70,15 @@ export class FormularioCadastroComponent implements OnInit {
     this.mostrarFormularioCadastro1 = false;
     this.mostrarFormularioCadastro2 = false;
     this.validouFormularioCadastro2 = true;
+  }
+
+  onTabChanged($event) {
+    let clickedIndex = $event.index;
+
+    if(clickedIndex == 1)
+    {
+      this.continuar1();
+    }
   }
 
 }

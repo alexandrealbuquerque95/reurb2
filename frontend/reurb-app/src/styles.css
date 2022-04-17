@@ -2,3 +2,10 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Material Tab */
+.mat-tab-label .mat-tab-label-content {
+  color: black;
+  font-size: 18px;
+}
