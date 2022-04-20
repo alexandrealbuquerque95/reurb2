@@ -4,24 +4,19 @@
   <div class="col-12 col-md-12 col-xl-12 form-div">
 
     <mat-tab-group [(selectedIndex)]="tabIndex" (selectedTabChange)="onTabChanged($event);">
-      <mat-tab label = "Dados Pessoais" >
+      <mat-tab label = "Identificação do(a) titular do imóvel" >
 
         <div >
           <hr>
 
           <div class="form-row">
-            <div class="form-group col-md-3 col-lg-3">
-              <label for="inputCPF">CPF: </label>
-              <input type="text" value={{dadosPessoais.cpf}}
-                class="form-control" id="inputCPF" disabled>
-            </div>
 
-            <div class="form-group col-md-9 col-lg-9">
-              <label for="inputNome">Nome Completo: </label>
+            <div class="form-group col-md-9 col-lg-9 pr-3">
+              <label for="inputNome"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
               <input type="text" [(ngModel)]="dadosPessoais.nome" [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'}"
                 class="form-control" id="inputNome" >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.nome">
+              <div class="px-3" *ngIf="!validadorDadosPessoais.nome">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
                   {{validadorDadosPessoais.nomeMensagem}}
@@ -30,22 +25,101 @@
 
             </div>
 
+            <div class="form-group col-md-3 col-lg-3 pl-3 px-3 ">
+              <label for="sexoMasculino"> <b> Sexo: <span style="color:red" >*</span> </b> </label>
+
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino"
+                    value="sexoMasculino" checked>
+                  <label class="form-check-label" for="sexoMasculino">
+                    Masculino
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino"
+                    value="sexoFeminino">
+                  <label class="form-check-label" for="sexoFeminino">
+                    Feminino
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
           <div class="form-row">
-            <div class="form-group col-md-3 col-lg-3">
-              <label for="rg">RG: </label>
-              <input type="text" mask="000.000.000" class="form-control" id="rg" >
+
+            <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="celular"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
+              <input type="text" mask="(00)00000-0000" class="form-control" id="celular" >
             </div>
 
-            <div class="form-group col-md-3 col-lg-3">
-              <label for="orgaoEmissorRG">Orgão Emissor: </label>
-              <input type="text" class="form-control" id="orgaoEmissorRG" >
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="pessoaComDeficienciaNao"> <b> Pessoa com deficiência: <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="pessoaComDeficiencia" id="pessoaComDeficienciaNao"
+                    value="pessoaComDeficienciaNao" checked>
+                  <label class="form-check-label" for="pessoaComDeficienciaNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="pessoaComDeficiencia" id="pessoaComDeficienciaSim"
+                    value="pessoaComDeficienciaSim">
+                  <label class="form-check-label" for="pessoaComDeficienciaSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
             </div>
 
-            <div class="form-group col-md-3 col-lg-3">
-              <label for="estadoEmissorRG">UF Emissor: </label>
-              <select id="estadoEmissorRG" class="form-control" name="estadoEmissor">
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-9 col-lg-9 pr-3">
+              <label for="inputNomeMae"> <b> Nome da mãe: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.nome" [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'}"
+                class="form-control" id="inputNomeMae" >
+
+              <div class="px-3" *ngIf="!validadorDadosPessoais.nome">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.nomeMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-9 col-lg-9 pr-3">
+              <label for="inputNomePai"> <b> Nome do pai: </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.nome" class="form-control" id="inputNomePai" >
+
+              <div class="px-3" *ngIf="!validadorDadosPessoais.nome">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.nomeMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-4 col-lg-4 pr-3">
+              <label for="municipioNascimento"> <b> Município de nascimento: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="municipioNascimento" >
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="estadoNascimento"> <b> UF: <span style="color:red" >*</span> </b> </label>
+              <select id="estadoNascimento" class="form-control" name="estadoNascimento">
                   <option value="--">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -80,65 +154,309 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group col-md-3 col-lg-3 ">
-              <label for="dataNascimento">Data de Nascimento: </label>
+
+            <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="dataNascimento"> <b> Data de Nascimento: <span style="color:red" >*</span> </b> </label>
               <input type="text" mask="00/00/0000" class="form-control" id="dataNascimento" >
             </div>
 
-            <div class="form-group col-md-3 col-lg-3 ">
-              <label for="celular">Telefone Celular: </label>
-              <input type="text" mask="(00)00000-0000" class="form-control" id="celular" >
-            </div>
-
-            <div class="form-group col-md-3 col-lg-3 pl-3 ">
-              <label for="sexo">Sexo: </label>
-
+            <div class="form-group col-md-4 col-lg-4 px-3">
+              <label for="emancipadoNao"> <b> Emancipado: <span style="color:red" >*</span> </b> </label>
               <div class="d-flex">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="sexoMasculino"
-                    value="sexoMasculino" checked>
-                  <label class="form-check-label" for="sexoMasculino">
-                    Masculino
+                  <input class="form-check-input" type="radio" name="emancipado" id="emancipadoNao"
+                    value="emancipadoNao" checked>
+                  <label class="form-check-label" for="emancipadoNao">
+                    Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="sexoFeminino"
-                    value="Feminino">
-                  <label class="form-check-label" for="sexoFeminino">
-                    Feminino
+                  <input class="form-check-input" type="radio" name="emancipado" id="emancipadoSim"
+                    value="emancipadoSim">
+                  <label class="form-check-label" for="emancipadoSim">
+                    Sim
                   </label>
                 </div>
               </div>
+            </div>
 
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
+              <input type="text" mask="000.000.000" class="form-control" id="rg" >
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="orgaoEmissorRG"> <b> Orgão Emissor: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="orgaoEmissorRG" >
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="estadoEmissorRG"> <b> UF Emissor: <span style="color:red" >*</span> </b> </label>
+              <select id="estadoEmissorRG" class="form-control" name="estadoEmissor">
+                  <option value="--">Selecione</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
+              <input type="text" value={{dadosPessoais.cpf}}
+                class="form-control" id="inputCPF" disabled>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-4 col-lg-4 pr-3">
+              <label for="nis"> <b> Numero de Identificação Social (NIS): <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="nis" >
+            </div>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="escolaridade"> <b> Escolaridade: <span style="color:red" >*</span> </b> </label>
+              <select [(ngModel)]="estadoCivil" id="escolaridade" class="form-control" name="escolaridade">
+                <option value="1">Fundamental – incompleto</option>
+                <option value="2">Fundamental – completo</option>
+                <option value="3">Médio – incompleto</option>
+                <option value="4">Médio – completo</option>
+                <option value="5">Superior – incompleto</option>
+                <option value="6">Superior – completo</option>
+                <option value="7">Outros</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3">
+              <label for="EscolaridadeOutros"> <b> Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="EscolaridadeOutros" >
             </div>
 
           </div>
 
           <br>
-
           <div class="form-row">
 
-            <div class="form-group col-md-3 col-lg-3">
-              <label for="estadoCivil">Estado Cívil: </label>
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="ocupacao" class="mr-3"><b>Ocupação: (selecionar 1 ou mais)  <span style="color:red" >*</span> </b> </label>
+              <br>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="1" id="desempregado">
+                <label class="form-check-label" for="desempregado">
+                    Desempregado
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="2" id="empregadoCLT" >
+                <label class="form-check-label" for="empregadoCLT">
+                    Empregado (CLT)
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="3" id="servidorPublico">
+                <label class="form-check-label" for="servidorPublico">
+                    Servidor público
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="4" id="autonomo" >
+                <label class="form-check-label" for="autonomo">
+                    Autônomo
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="5" id="estagiario">
+                <label class="form-check-label" for="estagiario">
+                    Estagiário
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="6" id="menorAprendiz" >
+                <label class="form-check-label" for="menorAprendiz">
+                    Menor aprendiz
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="7" id="aposentado">
+                <label class="form-check-label" for="aposentado">
+                    Aposentado
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="8" id="pensionista" >
+                <label class="form-check-label" for="pensionista">
+                    Pensionista
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="9" id="ajudaDoacaoTerceiros">
+                <label class="form-check-label" for="ajudaDoacaoTerceiros">
+                    Ajuda/doação de terceiros
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="10" id="ocupacaoOutros" >
+                <label class="form-check-label" for="ocupacaoOutros">
+                    Outros
+                </label>
+              </div>
+
+
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3">
+              <label for="EscolaridadeOutros"> <b> Outros: <span style="color:red" >* </span> </b> </label>
+              <input type="text" class="form-control" id="EscolaridadeOutros" >
+            </div>
+
+          </div>
+
+          <br>
+          <div class="form-row">
+
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="ocupacao" class="mr-3"><b>Benefícios sociais: (selecionar 1 ou mais) <span style="color:red" >*</span> </b> </label>
+              <br>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="1" id="seguroDesemprego">
+                <label class="form-check-label" for="seguroDesemprego">
+                    Seguro-desemprego
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="2" id="auxilioDoenca" >
+                <label class="form-check-label" for="auxilioDoenca">
+                    Auxílio-doença
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="3" id="bolsaFamilia" >
+                <label class="form-check-label" for="bolsaFamilia">
+                    Bolsa Família
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="3" id="tarifaSocialEnergiaEletrica">
+                <label class="form-check-label" for="tarifaSocialEnergiaEletrica">
+                    Tarifa social de energia elétrica
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="4" id="carteiraIdoso" >
+                <label class="form-check-label" for="carteiraIdoso">
+                    Carteira do idoso
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="5" id="identidadeJovem">
+                <label class="form-check-label" for="identidadeJovem">
+                  Identidade Jovem
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="6" id="BpcLoas" >
+                <label class="form-check-label" for="BpcLoas">
+                    BPC/LOAS
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="7" id="outros">
+                <label class="form-check-label" for="outros">
+                    Outros
+                </label>
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3">
+              <label for="EscolaridadeOutros"><b>Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="EscolaridadeOutros" >
+            </div>
+
+          </div>
+
+          <br>
+          <div class="form-row">
+
+            <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="estadoCivil"><b>Estado Cívil: <span style="color:red" >*</span> </b> </label>
               <select [(ngModel)]="estadoCivil" id="estadoCivil" class="form-control" name="estadoCivil">
-                  <option value="1">Solteiro(a)</option>
-                  <option value="2">Casado(a)</option>
-                  <option value="3">Divorciado(a)</option>
-                  <option value="4">Viúvo(a)</option>
+                <option value="1">Solteiro(a)</option>
+                <option value="2">União estável</option>
+                <option value="3">Separado</option>
+                <option value="4">Divorciado</option>
+                <option value="5">Viúvo(a)</option>
+                <option value="6">Casado(a)</option>
               </select>
             </div>
 
-            <div class="form-group col-md-9 col-lg-9" *ngIf="estadoCivil == 2">
-              <label for="nomeConjuge">Nome do(a) Cônjuge: </label>
+            <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="estadoCivil == 6">
+              <label for="nomeConjuge"><b>Nome do(a) Cônjuge: <span style="color:red" >* </span> </b></label>
               <input type="text" class="form-control" id="nomeConjuge" >
             </div>
+          </div>
+
+          <div class="form-row" *ngIf="estadoCivil == 6">
+            <div class="form-group col-md-3 col-lg-3 pr-3 pr-3">
+              <label for="dataCasamento"> <b> Data do casamento: <span style="color:red" >* </span> </b> </label>
+              <input type="text" mask="00/00/0000" class="form-control" id="dataCasamento" >
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="regimeBens"><b> Regime de bens: <span style="color:red" >* </span> </b> </label>
+              <select [(ngModel)]="estadoCivil" id="regimeBens" class="form-control" name="regimeBens">
+                <option value="1">Comunhão parcial</option>
+                <option value="2">Comunhão universal</option>
+                <option value="3">Separação total</option>
+                <option value="4">Participação final nos aquestos</option>
+              </select>
+            </div>
+
           </div>
 
           <br>
 
           <div class="form-row">
             <div class="form-group col-md-9 col-lg-9">
-              <label for="anexoDocumento">Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento): </label>
+              <label for="anexoDocumento"> <b> Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento): </b></label>
 
               <div class="form-group col-md-6 col-lg-6 px-0">
                 <input type="file" class="form-control-file" id="anexoDocumento">
@@ -153,7 +471,7 @@
 
       </mat-tab >
 
-      <mat-tab label = "Dados do Imóvel" >
+      <mat-tab label = "Identificação do imóvel" >
 
         <div>
 
@@ -225,11 +543,10 @@
 
       </mat-tab >
 
-      <mat-tab label = "Terceira Aba">
-
-
+      <mat-tab label = "Identificação do Cônjuge ou companheiro(a)">
 
       </mat-tab >
+
     </mat-tab-group>
 
 
