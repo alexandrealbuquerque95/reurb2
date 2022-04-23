@@ -20,12 +20,13 @@ export class FormularioCadastroComponent implements OnInit {
   validouFormularioCadastro1: boolean = false;
   validouFormularioCadastro2: boolean = false;
 
-  estadoCivil: number = 1;
-
   dadosPessoais: DadosPessoais = new DadosPessoais();
   validadorDadosPessoais: ValidadorDadosPessoais;
 
   tabIndex = 0;
+
+  mostrarOutrosOcupacao: boolean = false;
+  mostrarOutrosBeneficiosSociais: boolean = false;
 
   constructor(private loginService: LoginService, private route: ActivatedRoute) {
 
@@ -36,7 +37,6 @@ export class FormularioCadastroComponent implements OnInit {
     this.mostrarFormularioCadastro2 = false;
     this.validouFormularioCadastro1 = false;
     this.validouFormularioCadastro2 = false;
-    this.estadoCivil = 1;
 
     this.dadosPessoais.cpf = this.route.snapshot.paramMap.get('cpf');
 
@@ -78,6 +78,85 @@ export class FormularioCadastroComponent implements OnInit {
     if(clickedIndex == 1)
     {
       this.continuar1();
+    }
+  }
+
+  getIdade(data)
+  {
+    var hoje = new Date();
+
+    var dataStrings: string[] = [];
+    dataStrings.push(data.substring(0,2));
+    dataStrings.push(data.substring(2,4));
+    dataStrings.push(data.substring(4,8))
+
+    var nascimento = new Date(this.convertDateMMDDYYY(dataStrings));
+
+    //Retorna a diferença entre hoje e a data de nascimento em anos.
+    var ano = hoje.getFullYear() - nascimento.getFullYear();
+
+    //Retorna a diferença de mês do mês de nascimento para o atual.
+    var m = hoje.getMonth() - nascimento.getMonth();
+
+    //Caso ainda não tenha ultrapassado o dia e o mês
+    if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+        ano--;
+    }
+    return ano;
+ }
+
+  convertDateMMDDYYY(datearray)
+  {
+    return datearray[1] + '-' + datearray[0] + '-' + datearray[2];
+  }
+
+  maior18() : boolean
+  {
+    if(this.dadosPessoais.dataNascimento == undefined || this.dadosPessoais.dataNascimento.length < 8)
+    {
+      return true;
+    }
+    if(this.getIdade(this.dadosPessoais.dataNascimento) >= 18)
+        return true;
+    else
+      return false;
+  }
+
+  onCheckboxOcupacaoChange(event: any) {
+    if (event.target.checked) {
+      this.dadosPessoais.ocupacao.push(event.target.value);
+
+      if(event.target.value == "10")
+      {
+        this.mostrarOutrosOcupacao = true;
+      }
+    } else {
+      const index = this.dadosPessoais.ocupacao.findIndex(x => x === event.target.value);
+      this.dadosPessoais.ocupacao.splice(index);
+
+      if(event.target.value == "10")
+      {
+        this.mostrarOutrosOcupacao = false;
+      }
+    }
+  }
+
+  onCheckboxBeneficiosSociaisChange(event: any) {
+    if (event.target.checked) {
+      this.dadosPessoais.beneficiosSociais.push(event.target.value);
+
+      if(event.target.value == "8")
+      {
+        this.mostrarOutrosBeneficiosSociais = true;
+      }
+    } else {
+      const index = this.dadosPessoais.beneficiosSociais.findIndex(x => x === event.target.value);
+      this.dadosPessoais.beneficiosSociais.splice(index);
+
+      if(event.target.value == "8")
+      {
+        this.mostrarOutrosBeneficiosSociais = false;
+      }
     }
   }
 

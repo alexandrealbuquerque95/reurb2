@@ -157,10 +157,10 @@
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="dataNascimento"> <b> Data de Nascimento: <span style="color:red" >*</span> </b> </label>
-              <input type="text" mask="00/00/0000" class="form-control" id="dataNascimento" >
+              <input [(ngModel)]="dadosPessoais.dataNascimento" type="text" mask="00/00/0000" class="form-control" id="dataNascimento" >
             </div>
 
-            <div class="form-group col-md-4 col-lg-4 px-3">
+            <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="!maior18()">
               <label for="emancipadoNao"> <b> Emancipado: <span style="color:red" >*</span> </b> </label>
               <div class="d-flex">
                 <div class="form-check">
@@ -249,7 +249,7 @@
 
             <div class="form-group col-md-6 col-lg-6 pr-3">
               <label for="escolaridade"> <b> Escolaridade: <span style="color:red" >*</span> </b> </label>
-              <select [(ngModel)]="estadoCivil" id="escolaridade" class="form-control" name="escolaridade">
+              <select [(ngModel)]="dadosPessoais.escolaridade" id="escolaridade" class="form-control" name="escolaridade">
                 <option value="1">Fundamental – incompleto</option>
                 <option value="2">Fundamental – completo</option>
                 <option value="3">Médio – incompleto</option>
@@ -260,7 +260,7 @@
               </select>
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 px-3">
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosPessoais.escolaridade == 7">
               <label for="EscolaridadeOutros"> <b> Outros: <span style="color:red" >*</span> </b> </label>
               <input type="text" class="form-control" id="EscolaridadeOutros" >
             </div>
@@ -275,63 +275,63 @@
               <br>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="1" id="desempregado">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="1" id="desempregado">
                 <label class="form-check-label" for="desempregado">
                     Desempregado
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="2" id="empregadoCLT" >
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="2" id="empregadoCLT" >
                 <label class="form-check-label" for="empregadoCLT">
                     Empregado (CLT)
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="3" id="servidorPublico">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="3" id="servidorPublico">
                 <label class="form-check-label" for="servidorPublico">
                     Servidor público
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="4" id="autonomo" >
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="4" id="autonomo" >
                 <label class="form-check-label" for="autonomo">
                     Autônomo
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="5" id="estagiario">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="5" id="estagiario">
                 <label class="form-check-label" for="estagiario">
                     Estagiário
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="6" id="menorAprendiz" >
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="6" id="menorAprendiz" >
                 <label class="form-check-label" for="menorAprendiz">
                     Menor aprendiz
                 </label>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="7" id="aposentado">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="7" id="aposentado">
                 <label class="form-check-label" for="aposentado">
                     Aposentado
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="8" id="pensionista" >
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="8" id="pensionista" >
                 <label class="form-check-label" for="pensionista">
                     Pensionista
                 </label>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="9" id="ajudaDoacaoTerceiros">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="9" id="ajudaDoacaoTerceiros">
                 <label class="form-check-label" for="ajudaDoacaoTerceiros">
                     Ajuda/doação de terceiros
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="10" id="ocupacaoOutros" >
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="10" id="ocupacaoOutros" >
                 <label class="form-check-label" for="ocupacaoOutros">
                     Outros
                 </label>
@@ -340,7 +340,7 @@
 
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 px-3">
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="mostrarOutrosOcupacao">
               <label for="EscolaridadeOutros"> <b> Outros: <span style="color:red" >* </span> </b> </label>
               <input type="text" class="form-control" id="EscolaridadeOutros" >
             </div>
@@ -355,50 +355,50 @@
               <br>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="1" id="seguroDesemprego">
+                <input class="form-check-input" type="checkbox" value="1" (change)="onCheckboxBeneficiosSociaisChange($event)" id="seguroDesemprego">
                 <label class="form-check-label" for="seguroDesemprego">
                     Seguro-desemprego
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="2" id="auxilioDoenca" >
+                <input class="form-check-input" type="checkbox" value="2" (change)="onCheckboxBeneficiosSociaisChange($event)" id="auxilioDoenca" >
                 <label class="form-check-label" for="auxilioDoenca">
                     Auxílio-doença
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="3" id="bolsaFamilia" >
+                <input class="form-check-input" type="checkbox" value="3" (change)="onCheckboxBeneficiosSociaisChange($event)" id="bolsaFamilia" >
                 <label class="form-check-label" for="bolsaFamilia">
                     Bolsa Família
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="3" id="tarifaSocialEnergiaEletrica">
+                <input class="form-check-input" type="checkbox" value="4" (change)="onCheckboxBeneficiosSociaisChange($event)" id="tarifaSocialEnergiaEletrica">
                 <label class="form-check-label" for="tarifaSocialEnergiaEletrica">
                     Tarifa social de energia elétrica
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="4" id="carteiraIdoso" >
+                <input class="form-check-input" type="checkbox" value="5" (change)="onCheckboxBeneficiosSociaisChange($event)" id="carteiraIdoso" >
                 <label class="form-check-label" for="carteiraIdoso">
                     Carteira do idoso
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="5" id="identidadeJovem">
+                <input class="form-check-input" type="checkbox" value="6" (change)="onCheckboxBeneficiosSociaisChange($event)" id="identidadeJovem">
                 <label class="form-check-label" for="identidadeJovem">
                   Identidade Jovem
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="6" id="BpcLoas" >
+                <input class="form-check-input" type="checkbox" value="7" (change)="onCheckboxBeneficiosSociaisChange($event)" id="BpcLoas" >
                 <label class="form-check-label" for="BpcLoas">
                     BPC/LOAS
                 </label>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="7" id="outros">
+                <input class="form-check-input" type="checkbox" value="8" (change)="onCheckboxBeneficiosSociaisChange($event)" id="outros">
                 <label class="form-check-label" for="outros">
                     Outros
                 </label>
@@ -406,7 +406,7 @@
 
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 px-3">
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="mostrarOutrosBeneficiosSociais">
               <label for="EscolaridadeOutros"><b>Outros: <span style="color:red" >*</span> </b> </label>
               <input type="text" class="form-control" id="EscolaridadeOutros" >
             </div>
@@ -418,7 +418,7 @@
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="estadoCivil"><b>Estado Cívil: <span style="color:red" >*</span> </b> </label>
-              <select [(ngModel)]="estadoCivil" id="estadoCivil" class="form-control" name="estadoCivil">
+              <select [(ngModel)]="dadosPessoais.estadoCivil" id="estadoCivil" class="form-control" name="estadoCivil">
                 <option value="1">Solteiro(a)</option>
                 <option value="2">União estável</option>
                 <option value="3">Separado</option>
@@ -428,21 +428,21 @@
               </select>
             </div>
 
-            <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="estadoCivil == 6">
+            <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="dadosPessoais.estadoCivil == 6">
               <label for="nomeConjuge"><b>Nome do(a) Cônjuge: <span style="color:red" >* </span> </b></label>
               <input type="text" class="form-control" id="nomeConjuge" >
             </div>
           </div>
 
-          <div class="form-row" *ngIf="estadoCivil == 6">
+          <div class="form-row" *ngIf="dadosPessoais.estadoCivil == 6">
             <div class="form-group col-md-3 col-lg-3 pr-3 pr-3">
               <label for="dataCasamento"> <b> Data do casamento: <span style="color:red" >* </span> </b> </label>
-              <input type="text" mask="00/00/0000" class="form-control" id="dataCasamento" >
+              <input type="text" [(ngModel)]="dadosPessoais.dataCasamento" mask="00/00/0000" class="form-control" id="dataCasamento" >
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="regimeBens"><b> Regime de bens: <span style="color:red" >* </span> </b> </label>
-              <select [(ngModel)]="estadoCivil" id="regimeBens" class="form-control" name="regimeBens">
+              <select [(ngModel)]="dadosPessoais.regimeBens" id="regimeBens" class="form-control" name="regimeBens">
                 <option value="1">Comunhão parcial</option>
                 <option value="2">Comunhão universal</option>
                 <option value="3">Separação total</option>

@@ -7,12 +7,18 @@ export class DadosPessoais {
   orgaoEmissorRG: string;
   ufEmissorRG: string;
 
-  dataNascimento: Date;
+  dataNascimento: string;
   telefone: number;
   sexo: number;
 
   estadoCivil: number;
   nomeConjuge: string;
+  dataCasamento: string;
+  regimeBens: string;
+
+  escolaridade: number;
+  ocupacao: number[] = [];
+  beneficiosSociais: number[] = [];
 
   documentoAnexo: File;
 }
