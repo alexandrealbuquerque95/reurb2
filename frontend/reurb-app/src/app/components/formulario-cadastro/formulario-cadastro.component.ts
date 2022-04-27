@@ -25,9 +25,6 @@ export class FormularioCadastroComponent implements OnInit {
 
   tabIndex = 0;
 
-  mostrarOutrosOcupacao: boolean = false;
-  mostrarOutrosBeneficiosSociais: boolean = false;
-
   constructor(private loginService: LoginService, private route: ActivatedRoute) {
 
   }
@@ -128,7 +125,7 @@ export class FormularioCadastroComponent implements OnInit {
 
       if(event.target.value == "10")
       {
-        this.mostrarOutrosOcupacao = true;
+        this.dadosPessoais.mostrarOutrosOcupacao = true;
       }
     } else {
       const index = this.dadosPessoais.ocupacao.findIndex(x => x === event.target.value);
@@ -136,7 +133,7 @@ export class FormularioCadastroComponent implements OnInit {
 
       if(event.target.value == "10")
       {
-        this.mostrarOutrosOcupacao = false;
+        this.dadosPessoais.mostrarOutrosOcupacao = false;
       }
     }
   }
@@ -147,7 +144,7 @@ export class FormularioCadastroComponent implements OnInit {
 
       if(event.target.value == "8")
       {
-        this.mostrarOutrosBeneficiosSociais = true;
+        this.dadosPessoais.mostrarOutrosBeneficiosSociais = true;
       }
     } else {
       const index = this.dadosPessoais.beneficiosSociais.findIndex(x => x === event.target.value);
@@ -155,7 +152,7 @@ export class FormularioCadastroComponent implements OnInit {
 
       if(event.target.value == "8")
       {
-        this.mostrarOutrosBeneficiosSociais = false;
+        this.dadosPessoais.mostrarOutrosBeneficiosSociais = false;
       }
     }
   }

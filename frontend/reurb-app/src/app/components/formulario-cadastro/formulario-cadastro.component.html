@@ -9,14 +9,14 @@
         <div >
           <hr>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
               <label for="inputNome"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
               <input type="text" [(ngModel)]="dadosPessoais.nome" [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'}"
                 class="form-control" id="inputNome" >
 
-              <div class="px-3" *ngIf="!validadorDadosPessoais.nome">
+              <div class="px-2" *ngIf="!validadorDadosPessoais.nome">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
                   {{validadorDadosPessoais.nomeMensagem}}
@@ -29,31 +29,39 @@
               <label for="sexoMasculino"> <b> Sexo: <span style="color:red" >*</span> </b> </label>
 
               <div class="d-flex">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino"
-                    value="sexoMasculino" checked>
-                  <label class="form-check-label" for="sexoMasculino">
-                    Masculino
-                  </label>
-                </div>
-                <div class="form-check pl-5">
+                <div class="form-check ">
                   <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino"
-                    value="sexoFeminino">
+                    value="F" checked [(ngModel)]="dadosPessoais.sexo">
                   <label class="form-check-label" for="sexoFeminino">
                     Feminino
                   </label>
                 </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino"
+                    value="M" [(ngModel)]="dadosPessoais.sexo">
+                  <label class="form-check-label" for="sexoMasculino">
+                    Masculino
+                  </label>
+                </div>
+
               </div>
 
             </div>
 
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="celular"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
-              <input type="text" mask="(00)00000-0000" class="form-control" id="celular" >
+              <label for="telefone"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.telefone" mask="(00)00000-0000" class="form-control" id="telefone" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.telefone">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.telefoneMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
@@ -61,14 +69,14 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="pessoaComDeficiencia" id="pessoaComDeficienciaNao"
-                    value="pessoaComDeficienciaNao" checked>
+                    value="0" [(ngModel)]="dadosPessoais.pessoaComDeficiencia" checked>
                   <label class="form-check-label" for="pessoaComDeficienciaNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
-                  <input class="form-check-input" type="radio" name="pessoaComDeficiencia" id="pessoaComDeficienciaSim"
-                    value="pessoaComDeficienciaSim">
+                  <input class="form-check-input" [(ngModel)]="dadosPessoais.pessoaComDeficiencia" type="radio"
+                    name="pessoaComDeficiencia" id="pessoaComDeficienciaSim" value="1">
                   <label class="form-check-label" for="pessoaComDeficienciaSim">
                     Sim
                   </label>
@@ -78,48 +86,48 @@
 
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
               <label for="inputNomeMae"> <b> Nome da mãe: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.nome" [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'}"
+              <input type="text" [(ngModel)]="dadosPessoais.nomeMae" [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'}"
                 class="form-control" id="inputNomeMae" >
 
-              <div class="px-3" *ngIf="!validadorDadosPessoais.nome">
+              <div class="px-2" *ngIf="!validadorDadosPessoais.nomeMae">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.nomeMensagem}}
+                  {{validadorDadosPessoais.nomeMaeMensagem}}
                 </span>
               </div>
             </div>
 
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
               <label for="inputNomePai"> <b> Nome do pai: </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.nome" class="form-control" id="inputNomePai" >
-
-              <div class="px-3" *ngIf="!validadorDadosPessoais.nome">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                <span class="text-danger">
-                  {{validadorDadosPessoais.nomeMensagem}}
-                </span>
-              </div>
+              <input type="text" [(ngModel)]="dadosPessoais.nomePai" class="form-control" id="inputNomePai" >
             </div>
 
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4 pr-3">
               <label for="municipioNascimento"> <b> Município de nascimento: <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" id="municipioNascimento" >
+              <input type="text" class="form-control" [(ngModel)]="dadosPessoais.municipioNascimento" id="municipioNascimento" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.municipioNascimento">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.municipioNascimentoMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="estadoNascimento"> <b> UF: <span style="color:red" >*</span> </b> </label>
-              <select id="estadoNascimento" class="form-control" name="estadoNascimento">
+              <label for="ufNascimento"> <b> UF: <span style="color:red" >*</span> </b> </label>
+              <select id="ufNascimento" [(ngModel)]="dadosPessoais.ufNascimento" class="form-control" name="ufNascimento">
                   <option value="--">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -149,15 +157,29 @@
                   <option value="SE">Sergipe</option>
                   <option value="TO">Tocantins</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ufNascimento">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ufNascimentoMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="dataNascimento"> <b> Data de Nascimento: <span style="color:red" >*</span> </b> </label>
+              <label for="dataNascimento"> <b> Data de nascimento: <span style="color:red" >*</span> </b> </label>
               <input [(ngModel)]="dadosPessoais.dataNascimento" type="text" mask="00/00/0000" class="form-control" id="dataNascimento" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.dataNascimento">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.dataNascimentoMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="!maior18()">
@@ -165,14 +187,14 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="emancipado" id="emancipadoNao"
-                    value="emancipadoNao" checked>
+                    value="0" checked [(ngModel)]="dadosPessoais.emancipado">
                   <label class="form-check-label" for="emancipadoNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="emancipado" id="emancipadoSim"
-                    value="emancipadoSim">
+                    value="1" [(ngModel)]="dadosPessoais.emancipado">
                   <label class="form-check-label" for="emancipadoSim">
                     Sim
                   </label>
@@ -182,21 +204,35 @@
 
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
-              <input type="text" mask="000.000.000" class="form-control" id="rg" >
+              <input type="text" [(ngModel)]="dadosPessoais.rg" mask="000.000.000" class="form-control" id="rg" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.rg">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.rgMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="orgaoEmissorRG"> <b> Orgão Emissor: <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" id="orgaoEmissorRG" >
+              <label for="orgaoEmissorRG"> <b> Órgão emissor: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.orgaoEmissorRG" class="form-control" id="orgaoEmissorRG" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.orgaoEmissorRG">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.orgaoEmissorRGMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="estadoEmissorRG"> <b> UF Emissor: <span style="color:red" >*</span> </b> </label>
-              <select id="estadoEmissorRG" class="form-control" name="estadoEmissor">
+              <label for="ufEmissorRG"> <b> UF emissor: <span style="color:red" >*</span> </b> </label>
+              <select id="ufEmissorRG" [(ngModel)]="dadosPessoais.ufEmissorRG" class="form-control" name="ufEmissorRG">
                   <option value="--">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -226,26 +262,47 @@
                   <option value="SE">Sergipe</option>
                   <option value="TO">Tocantins</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ufEmissorRG">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ufEmissorRGMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
-              <input type="text" value={{dadosPessoais.cpf}}
+              <input type="text" value={{dadosPessoais.cpf}} [(ngModel)]="dadosPessoais.cpf"
                 class="form-control" id="inputCPF" disabled>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.cpfMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-4 col-lg-4 pr-3">
-              <label for="nis"> <b> Numero de Identificação Social (NIS): <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" id="nis" >
+              <label for="nis"> <b> Numero de identificação social (NIS): <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.nis" class="form-control" id="nis" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.nis">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.nisMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-6 col-lg-6 pr-3">
               <label for="escolaridade"> <b> Escolaridade: <span style="color:red" >*</span> </b> </label>
@@ -258,20 +315,35 @@
                 <option value="6">Superior – completo</option>
                 <option value="7">Outros</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.escolaridade">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.escolaridadeMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosPessoais.escolaridade == 7">
-              <label for="EscolaridadeOutros"> <b> Outros: <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" id="EscolaridadeOutros" >
+              <label for="escolaridadeTexto"> <b> Escolaridade | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.escolaridadeTexto" class="form-control" id="escolaridadeTexto" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.escolaridadeTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.escolaridadeTextoMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
 
           <br>
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-6 col-lg-6 pr-3">
               <label for="ocupacao" class="mr-3"><b>Ocupação: (selecionar 1 ou mais)  <span style="color:red" >*</span> </b> </label>
+
               <br>
 
               <div class="form-check form-check-inline">
@@ -337,21 +409,33 @@
                 </label>
               </div>
 
-
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ocupacao">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ocupacaoMensagem}}
+                </span>
+              </div>
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="mostrarOutrosOcupacao">
-              <label for="EscolaridadeOutros"> <b> Outros: <span style="color:red" >* </span> </b> </label>
-              <input type="text" class="form-control" id="EscolaridadeOutros" >
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosPessoais.mostrarOutrosOcupacao">
+              <label for="ocupacaoTexto"> <b> Ocupação | Outros: <span style="color:red" >* </span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.ocupacaoTexto" class="form-control" id="ocupacaoTexto" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ocupacaoTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ocupacaoTextoMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
 
           <br>
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-6 col-lg-6 pr-3">
-              <label for="ocupacao" class="mr-3"><b>Benefícios sociais: (selecionar 1 ou mais) <span style="color:red" >*</span> </b> </label>
+              <label for="beneficiosSociais" class="mr-3"><b>Benefícios sociais: (selecionar 1 ou mais) <span style="color:red" >*</span> </b> </label>
               <br>
 
               <div class="form-check form-check-inline">
@@ -404,20 +488,34 @@
                 </label>
               </div>
 
+              <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociais">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.beneficiosSociaisMensagem}}
+                </span>
+              </div>
+
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="mostrarOutrosBeneficiosSociais">
-              <label for="EscolaridadeOutros"><b>Outros: <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" id="EscolaridadeOutros" >
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosPessoais.mostrarOutrosBeneficiosSociais">
+              <label for="beneficiosSociaisTexto"><b>Benefícios sociais | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.beneficiosSociaisTexto" class="form-control" id="beneficiosSociaisTexto" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociaisTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.beneficiosSociaisTextoMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
 
           <br>
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="estadoCivil"><b>Estado Cívil: <span style="color:red" >*</span> </b> </label>
+              <label for="estadoCivil"><b>Estado Civil: <span style="color:red" >*</span> </b> </label>
               <select [(ngModel)]="dadosPessoais.estadoCivil" id="estadoCivil" class="form-control" name="estadoCivil">
                 <option value="1">Solteiro(a)</option>
                 <option value="2">União estável</option>
@@ -426,18 +524,39 @@
                 <option value="5">Viúvo(a)</option>
                 <option value="6">Casado(a)</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.estadoCivil">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.estadoCivilMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="dadosPessoais.estadoCivil == 6">
-              <label for="nomeConjuge"><b>Nome do(a) Cônjuge: <span style="color:red" >* </span> </b></label>
-              <input type="text" class="form-control" id="nomeConjuge" >
+              <label for="nomeConjuge"><b>Nome do(a) cônjuge: <span style="color:red" >* </span> </b></label>
+              <input type="text" [(ngModel)]="dadosPessoais.nomeConjuge" class="form-control" id="nomeConjuge" >
+            </div>
+
+            <div class="px-2" *ngIf="!validadorDadosPessoais.nomeConjuge">
+              <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+              <span class="text-danger">
+                {{validadorDadosPessoais.nomeConjugeMensagem}}
+              </span>
             </div>
           </div>
 
-          <div class="form-row" *ngIf="dadosPessoais.estadoCivil == 6">
+          <div class="form-row m-0" *ngIf="dadosPessoais.estadoCivil == 6">
             <div class="form-group col-md-3 col-lg-3 pr-3 pr-3">
               <label for="dataCasamento"> <b> Data do casamento: <span style="color:red" >* </span> </b> </label>
               <input type="text" [(ngModel)]="dadosPessoais.dataCasamento" mask="00/00/0000" class="form-control" id="dataCasamento" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.dataCasamento">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.dataCasamentoMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
@@ -448,23 +567,40 @@
                 <option value="3">Separação total</option>
                 <option value="4">Participação final nos aquestos</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.regimeBens">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.regimeBensMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
 
           <br>
 
-          <div class="form-row">
+          <div class="form-row m-0">
             <div class="form-group col-md-9 col-lg-9">
-              <label for="anexoDocumento"> <b> Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento): </b></label>
+              <label for="anexoDocumentoIdentidade"> <b> Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento): <span style="color:red" >* </span> </b></label>
 
-              <div class="form-group col-md-6 col-lg-6 px-0">
-                <input type="file" class="form-control-file" id="anexoDocumento">
+              <div class="form-group col-md-9 col-lg-9 px-0">
+                <input type="file" [(ngModel)]="dadosPessoais.anexoDocumentoIdentidade"  class="form-control-file" id="anexoDocumentoIdentidade">
+
+                <div class="px-2" *ngIf="!validadorDadosPessoais.anexoDocumentoIdentidade">
+                  <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                  <span class="text-danger">
+                    {{validadorDadosPessoais.anexoDocumentoIdentidadeMensagem}}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          <button (click)="continuar1()" class="btn btn-primary float-right">Continuar</button>
+          <b> <span style="color:red" >* Campo obrigatório</span>  </b>
+          <br>
+
+          <button (click)="continuar1()" class="btn btn-primary float-right my-2">Continuar</button>
 
           <br><br>
         </div>
@@ -475,7 +611,7 @@
 
         <div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
 
             <div class="form-group col-md-10 col-lg-10">
               <label for="endereco">Endereço: </label>
@@ -488,7 +624,7 @@
             </div>
           </div>
 
-          <div class="form-row">
+          <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4">
                 <label for="inputEstado">Estado:</label>
                 <select id="inputEstado" class="form-control">
@@ -511,7 +647,7 @@
 
           <br>
 
-          <div class="form-row">
+          <div class="form-row m-0">
               <div class="form-group col-md-6 col-lg-6">
                 <label for="email">Email: </label>
                 <input type="email" class="form-control" id="inputEmail">
@@ -522,7 +658,7 @@
               </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row m-0">
               <div class="form-group col-md-3 col-lg-3">
                 <label for="senha">Senha: </label>
                 <input type="password" class="form-control" id="senha" placeholder="Senha">

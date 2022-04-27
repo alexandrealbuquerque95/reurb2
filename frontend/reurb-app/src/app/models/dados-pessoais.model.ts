@@ -1,24 +1,45 @@
 export class DadosPessoais {
   id: number;
-  cpf: string;
+
   nome: string;
+  sexo: string = 'F';
+
+  telefone: number;
+  pessoaComDeficiencia: string = '0';
+
+  nomeMae: string;
+
+  nomePai: string;
+
+  municipioNascimento: string;
+  ufNascimento: string;
+
+  dataNascimento: string;
+  emancipado: string = '0';
 
   rg: string;
   orgaoEmissorRG: string;
   ufEmissorRG: string;
+  cpf: string;
 
-  dataNascimento: string;
-  telefone: number;
-  sexo: number;
+  nis: string;
+
+  escolaridade: number;
+  escolaridadeTexto: string;
+
+  ocupacao: number[] = [];
+  ocupacaoTexto: string;
+  mostrarOutrosOcupacao: boolean = false;
+
+  beneficiosSociais: number[] = [];
+  beneficiosSociaisTexto: string;
+  mostrarOutrosBeneficiosSociais: boolean = false;
 
   estadoCivil: number;
   nomeConjuge: string;
+
   dataCasamento: string;
-  regimeBens: string;
+  regimeBens: number;
 
-  escolaridade: number;
-  ocupacao: number[] = [];
-  beneficiosSociais: number[] = [];
-
-  documentoAnexo: File;
+  anexoDocumentoIdentidade: File;
 }
