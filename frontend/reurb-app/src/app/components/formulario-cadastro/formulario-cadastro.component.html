@@ -13,8 +13,9 @@
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
               <label for="inputNome"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.nome" [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'} "
-                class="form-control" id="inputNome" >
+              <input type="text" [(ngModel)]="dadosPessoais.nome"
+                (change)="validadorDadosPessoais.validarNome(dadosPessoais)"
+                [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'} " class="form-control" id="inputNome" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.nome">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
@@ -54,8 +55,9 @@
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="telefone"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.telefone" [ngStyle]="!validadorDadosPessoais.telefone && {'border-color': 'red'}" 
-                mask="(00)00000-0000" class="form-control" id="telefone" >
+              <input type="text" [(ngModel)]="dadosPessoais.telefone" class="form-control" id="telefone"
+                (change)="validadorDadosPessoais.validarTelefone(dadosPessoais)"
+                [ngStyle]="!validadorDadosPessoais.telefone && {'border-color': 'red'}" mask="(00)00000-0000"  >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.telefone">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
@@ -91,8 +93,9 @@
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
               <label for="inputNomeMae"> <b> Nome da mãe: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.nomeMae" [ngStyle]="!validadorDadosPessoais.nomeMae && {'border-color': 'red'}"
-                class="form-control" id="inputNomeMae" >
+              <input type="text" [(ngModel)]="dadosPessoais.nomeMae" class="form-control" id="inputNomeMae"
+                (change)="validadorDadosPessoais.validarNomeMae(dadosPessoais)"
+                [ngStyle]="!validadorDadosPessoais.nomeMae && {'border-color': 'red'}" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.nomeMae">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
@@ -116,8 +119,9 @@
           <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4 pr-3">
               <label for="municipioNascimento"> <b> Município de nascimento: <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" [(ngModel)]="dadosPessoais.municipioNascimento" 
-                [ngStyle]="!validadorDadosPessoais.municipioNascimento && {'border-color': 'red'}" id="municipioNascimento" >
+              <input type="text" class="form-control" [(ngModel)]="dadosPessoais.municipioNascimento" id="municipioNascimento"
+                (change)="validadorDadosPessoais.validarMunicipioNascimento(dadosPessoais)"
+                [ngStyle]="!validadorDadosPessoais.municipioNascimento && {'border-color': 'red'}" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.municipioNascimento">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
@@ -129,8 +133,9 @@
 
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="ufNascimento"> <b> UF: <span style="color:red" >*</span> </b> </label>
-              <select id="ufNascimento" [(ngModel)]="dadosPessoais.ufNascimento" class="form-control" 
-                [ngStyle]="!validadorDadosPessoais.ufNascimento && {'border-color': 'red'}" name="ufNascimento">
+              <select id="ufNascimento" [(ngModel)]="dadosPessoais.ufNascimento" name="ufNascimento"
+                (change)="validadorDadosPessoais.validarUfNascimento(dadosPessoais)" class="form-control"
+                [ngStyle]="!validadorDadosPessoais.ufNascimento && {'border-color': 'red'}" >
                   <option value="--">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -175,7 +180,8 @@
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="dataNascimento"> <b> Data de nascimento: <span style="color:red" >*</span> </b> </label>
-              <input [(ngModel)]="dadosPessoais.dataNascimento" type="text" mask="00/00/0000" class="form-control" 
+              <input [(ngModel)]="dadosPessoais.dataNascimento" type="text" mask="00/00/0000" class="form-control"
+                (change)="validadorDadosPessoais.validarDataNascimento(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.dataNascimento && {'border-color': 'red'}" id="dataNascimento" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.dataNascimento">
@@ -212,7 +218,8 @@
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.rg" mask="000.000.000" class="form-control" id="rg" 
+              <input type="text" [(ngModel)]="dadosPessoais.rg" mask="000.000.000" class="form-control" id="rg"
+                (change)="validadorDadosPessoais.validarRg(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.rg && {'border-color': 'red'}">
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.rg">
@@ -225,7 +232,8 @@
 
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="orgaoEmissorRG"> <b> Órgão emissor: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.orgaoEmissorRG" class="form-control" id="orgaoEmissorRG" 
+              <input type="text" [(ngModel)]="dadosPessoais.orgaoEmissorRG" class="form-control" id="orgaoEmissorRG"
+                (change)="validadorDadosPessoais.validarOrgaoEmissorRG(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.orgaoEmissorRG && {'border-color': 'red'}" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.orgaoEmissorRG">
@@ -239,6 +247,7 @@
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="ufEmissorRG"> <b> UF emissor: <span style="color:red" >*</span> </b> </label>
               <select id="ufEmissorRG" [(ngModel)]="dadosPessoais.ufEmissorRG" class="form-control" name="ufEmissorRG"
+                (change)="validadorDadosPessoais.validarUfEmissorRG(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.ufEmissorRG && {'border-color': 'red'}" >
                   <option value="--">Selecione</option>
                   <option value="AC">Acre</option>
@@ -297,7 +306,8 @@
 
             <div class="form-group col-md-4 col-lg-4 pr-3">
               <label for="nis"> <b> Numero de identificação social (NIS): <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.nis" class="form-control" id="nis" 
+              <input type="text" [(ngModel)]="dadosPessoais.nis" class="form-control" id="nis"
+                (change)="validadorDadosPessoais.validarNis(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.nis && {'border-color': 'red'}" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.nis">
@@ -315,6 +325,7 @@
             <div class="form-group col-md-6 col-lg-6 pr-3">
               <label for="escolaridade"> <b> Escolaridade: <span style="color:red" >*</span> </b> </label>
               <select [(ngModel)]="dadosPessoais.escolaridade" id="escolaridade" class="form-control" name="escolaridade"
+                (change)="validadorDadosPessoais.validarEscolaridade(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.escolaridade && {'border-color': 'red'}" >
                 <option value="1">Fundamental – incompleto</option>
                 <option value="2">Fundamental – completo</option>
@@ -335,7 +346,8 @@
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosPessoais.escolaridade == 7">
               <label for="escolaridadeTexto"> <b> Escolaridade | Outros: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.escolaridadeTexto" class="form-control" id="escolaridadeTexto" 
+              <input type="text" [(ngModel)]="dadosPessoais.escolaridadeTexto" class="form-control" id="escolaridadeTexto"
+                (change)="validadorDadosPessoais.validarEscolaridadeTexto(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.escolaridadeTexto && {'border-color': 'red'}"  >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.escolaridadeTexto">
@@ -429,7 +441,8 @@
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosPessoais.mostrarOutrosOcupacao">
               <label for="ocupacaoTexto"> <b> Ocupação | Outros: <span style="color:red" >* </span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.ocupacaoTexto" class="form-control" id="ocupacaoTexto" 
+              <input type="text" [(ngModel)]="dadosPessoais.ocupacaoTexto" class="form-control" id="ocupacaoTexto"
+                (change)="validadorDadosPessoais.validarMostrarOutrosOcupacao(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.ocupacaoTexto && {'border-color': 'red'}" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.ocupacaoTexto">
@@ -510,7 +523,8 @@
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosPessoais.mostrarOutrosBeneficiosSociais">
               <label for="beneficiosSociaisTexto"><b>Benefícios sociais | Outros: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.beneficiosSociaisTexto" class="form-control" 
+              <input type="text" [(ngModel)]="dadosPessoais.beneficiosSociaisTexto" class="form-control"
+                (change)="validadorDadosPessoais.validarMostrarOutrosBeneficiosSociais(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.beneficiosSociaisTexto && {'border-color': 'red'}" id="beneficiosSociaisTexto" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociaisTexto">
@@ -529,6 +543,7 @@
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="estadoCivil"><b>Estado Civil: <span style="color:red" >*</span> </b> </label>
               <select [(ngModel)]="dadosPessoais.estadoCivil" id="estadoCivil" class="form-control" name="estadoCivil"
+                (change)="validadorDadosPessoais.validarEstadoCivil(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.estadoCivil && {'border-color': 'red'}" >
                 <option value="1">Solteiro(a)</option>
                 <option value="2">União estável</option>
@@ -548,7 +563,8 @@
 
             <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="dadosPessoais.estadoCivil == 6">
               <label for="nomeConjuge"><b>Nome do(a) cônjuge: <span style="color:red" >* </span> </b></label>
-              <input type="text" [(ngModel)]="dadosPessoais.nomeConjuge" class="form-control" id="nomeConjuge" 
+              <input type="text" [(ngModel)]="dadosPessoais.nomeConjuge" class="form-control" id="nomeConjuge"
+                (change)="validadorDadosPessoais.validarNomeConjuge(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.nomeConjuge && {'border-color': 'red'}" >
             </div>
 
@@ -563,7 +579,8 @@
           <div class="form-row m-0" *ngIf="dadosPessoais.estadoCivil == 6">
             <div class="form-group col-md-3 col-lg-3 pr-3 pr-3">
               <label for="dataCasamento"> <b> Data do casamento: <span style="color:red" >* </span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.dataCasamento" mask="00/00/0000" class="form-control" 
+              <input type="text" [(ngModel)]="dadosPessoais.dataCasamento" mask="00/00/0000" class="form-control"
+                (change)="validadorDadosPessoais.validarDataCasamento(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.dataCasamento && {'border-color': 'red'}" id="dataCasamento" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.dataCasamento">
@@ -577,6 +594,7 @@
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="regimeBens"><b> Regime de bens: <span style="color:red" >* </span> </b> </label>
               <select [(ngModel)]="dadosPessoais.regimeBens" id="regimeBens" class="form-control" name="regimeBens"
+                (change)="validadorDadosPessoais.validarRegimeBens(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.regimeBens && {'border-color': 'red'}" >
                 <option value="1">Comunhão parcial</option>
                 <option value="2">Comunhão universal</option>

@@ -119,7 +119,8 @@ export class FormularioCadastroComponent implements OnInit {
       return false;
   }
 
-  onCheckboxOcupacaoChange(event: any) {
+  onCheckboxOcupacaoChange(event: any)
+  {
     if (event.target.checked) {
       this.dadosPessoais.ocupacao.push(event.target.value);
 
@@ -136,9 +137,12 @@ export class FormularioCadastroComponent implements OnInit {
         this.dadosPessoais.mostrarOutrosOcupacao = false;
       }
     }
+
+    this.validadorDadosPessoais.validarOcupacao(this.dadosPessoais);
   }
 
-  onCheckboxBeneficiosSociaisChange(event: any) {
+  onCheckboxBeneficiosSociaisChange(event: any)
+  {
     if (event.target.checked) {
       this.dadosPessoais.beneficiosSociais.push(event.target.value);
 
@@ -155,6 +159,8 @@ export class FormularioCadastroComponent implements OnInit {
         this.dadosPessoais.mostrarOutrosBeneficiosSociais = false;
       }
     }
+
+    this.validadorDadosPessoais.validarBeneficiosSociais(this.dadosPessoais);
   }
 
 }

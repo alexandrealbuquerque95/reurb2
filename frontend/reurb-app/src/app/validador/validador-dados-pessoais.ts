@@ -78,6 +78,36 @@ export class ValidadorDadosPessoais {
   {
     this.validouDados = true;
 
+    this.validarNome(dadosPessoais);
+    this.validarSexo(dadosPessoais);
+    this.validarTelefone(dadosPessoais);
+    this.validarPessoaComDeficiencia(dadosPessoais);
+    this.validarNomeMae(dadosPessoais);
+    this.validarMunicipioNascimento(dadosPessoais);
+    this.validarUfNascimento(dadosPessoais);
+    this.validarDataNascimento(dadosPessoais);
+    this.validarRg(dadosPessoais);
+    this.validarOrgaoEmissorRG(dadosPessoais);
+    this.validarUfEmissorRG(dadosPessoais);
+    this.validarCpf(dadosPessoais);
+    this.validarNis(dadosPessoais);
+    this.validarEscolaridade(dadosPessoais);
+    this.validarEscolaridadeTexto(dadosPessoais);
+    this.validarOcupacao(dadosPessoais);
+    this.validarMostrarOutrosOcupacao(dadosPessoais);
+    this.validarBeneficiosSociais(dadosPessoais);
+    this.validarMostrarOutrosBeneficiosSociais(dadosPessoais);
+    this.validarEstadoCivil(dadosPessoais);
+    this.validarNomeConjuge(dadosPessoais);
+    this.validarDataCasamento(dadosPessoais);
+    this.validarRegimeBens(dadosPessoais);
+    this.validarAnexoDocumentoIdentidade(dadosPessoais);
+
+    return this;
+  }
+
+  validarNome(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.nome == undefined || dadosPessoais.nome == '')
     {
       this.nome = false;
@@ -87,7 +117,10 @@ export class ValidadorDadosPessoais {
     {
       this.nome = true;
     }
+  }
 
+  validarSexo(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.sexo == undefined || dadosPessoais.sexo == '')
     {
       this.sexo = false;
@@ -97,7 +130,10 @@ export class ValidadorDadosPessoais {
     {
       this.sexo = true;
     }
+  }
 
+  validarTelefone(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.telefone == undefined || dadosPessoais.telefone == 0)
     {
       this.telefone = false;
@@ -107,7 +143,10 @@ export class ValidadorDadosPessoais {
     {
       this.telefone = true;
     }
+  }
 
+  validarPessoaComDeficiencia(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.pessoaComDeficiencia == undefined || dadosPessoais.pessoaComDeficiencia == '')
     {
       this.pessoaComDeficiencia = false;
@@ -117,7 +156,10 @@ export class ValidadorDadosPessoais {
     {
       this.pessoaComDeficiencia = true;
     }
+  }
 
+  validarNomeMae(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.nomeMae == undefined || dadosPessoais.nomeMae == '')
     {
       this.nomeMae = false;
@@ -127,7 +169,10 @@ export class ValidadorDadosPessoais {
     {
       this.nomeMae = true;
     }
+  }
 
+  validarMunicipioNascimento(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.municipioNascimento == undefined || dadosPessoais.municipioNascimento == '')
     {
       this.municipioNascimento = false;
@@ -137,7 +182,10 @@ export class ValidadorDadosPessoais {
     {
       this.municipioNascimento = true;
     }
+  }
 
+  validarUfNascimento(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.ufNascimento == undefined || dadosPessoais.ufNascimento == '')
     {
       this.ufNascimento = false;
@@ -147,7 +195,10 @@ export class ValidadorDadosPessoais {
     {
       this.ufNascimento = true;
     }
+  }
 
+  validarDataNascimento(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.dataNascimento == undefined || dadosPessoais.dataNascimento == '')
     {
       this.dataNascimento = false;
@@ -157,7 +208,10 @@ export class ValidadorDadosPessoais {
     {
       this.dataNascimento = true;
     }
+  }
 
+  validarRg(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.rg == undefined || dadosPessoais.rg == '')
     {
       this.rg = false;
@@ -167,7 +221,10 @@ export class ValidadorDadosPessoais {
     {
       this.rg = true;
     }
+  }
 
+  validarOrgaoEmissorRG(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.orgaoEmissorRG == undefined || dadosPessoais.orgaoEmissorRG == '')
     {
       this.orgaoEmissorRG = false;
@@ -177,7 +234,10 @@ export class ValidadorDadosPessoais {
     {
       this.orgaoEmissorRG = true;
     }
+  }
 
+  validarUfEmissorRG(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.ufEmissorRG == undefined || dadosPessoais.ufEmissorRG == '')
     {
       this.ufEmissorRG = false;
@@ -187,7 +247,10 @@ export class ValidadorDadosPessoais {
     {
       this.ufEmissorRG = true;
     }
+  }
 
+  validarCpf(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.cpf == undefined || dadosPessoais.cpf == '')
     {
       this.cpf = false;
@@ -197,7 +260,10 @@ export class ValidadorDadosPessoais {
     {
       this.cpf = true;
     }
+  }
 
+  validarNis(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.nis == undefined || dadosPessoais.nis == '')
     {
       this.nis = false;
@@ -207,7 +273,10 @@ export class ValidadorDadosPessoais {
     {
       this.nis = true;
     }
+  }
 
+  validarEscolaridade(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.escolaridade == undefined || dadosPessoais.escolaridade == 0)
     {
       this.escolaridade = false;
@@ -217,8 +286,11 @@ export class ValidadorDadosPessoais {
     {
       this.escolaridade = true;
     }
+  }
 
-    if(dadosPessoais.escolaridade == 7 && dadosPessoais.escolaridadeTexto == undefined || dadosPessoais.escolaridadeTexto == '')
+  validarEscolaridadeTexto(dadosPessoais: DadosPessoais)
+  {
+    if(dadosPessoais.escolaridade == 7 && (dadosPessoais.escolaridadeTexto == undefined || dadosPessoais.escolaridadeTexto == ''))
     {
       this.escolaridadeTexto = false;
       this.validouDados = false;
@@ -227,7 +299,10 @@ export class ValidadorDadosPessoais {
     {
       this.escolaridadeTexto = true;
     }
+  }
 
+  validarOcupacao(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.ocupacao == undefined || dadosPessoais.ocupacao.length == 0)
     {
       this.ocupacao = false;
@@ -237,8 +312,11 @@ export class ValidadorDadosPessoais {
     {
       this.ocupacao = true;
     }
+  }
 
-    if(dadosPessoais.mostrarOutrosOcupacao && dadosPessoais.ocupacaoTexto == undefined || dadosPessoais.ocupacaoTexto == '')
+  validarMostrarOutrosOcupacao(dadosPessoais: DadosPessoais)
+  {
+    if(dadosPessoais.mostrarOutrosOcupacao && (dadosPessoais.ocupacaoTexto == undefined || dadosPessoais.ocupacaoTexto == ''))
     {
       this.ocupacaoTexto = false;
       this.validouDados = false;
@@ -247,7 +325,10 @@ export class ValidadorDadosPessoais {
     {
       this.ocupacaoTexto = true;
     }
+  }
 
+  validarBeneficiosSociais(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.beneficiosSociais == undefined || dadosPessoais.beneficiosSociais.length == 0)
     {
       this.beneficiosSociais = false;
@@ -257,8 +338,11 @@ export class ValidadorDadosPessoais {
     {
       this.beneficiosSociais = true;
     }
+  }
 
-    if(dadosPessoais.mostrarOutrosBeneficiosSociais && dadosPessoais.beneficiosSociaisTexto == undefined || dadosPessoais.beneficiosSociaisTexto == '')
+  validarMostrarOutrosBeneficiosSociais(dadosPessoais: DadosPessoais)
+  {
+    if(dadosPessoais.mostrarOutrosBeneficiosSociais && (dadosPessoais.beneficiosSociaisTexto == undefined || dadosPessoais.beneficiosSociaisTexto == ''))
     {
       this.beneficiosSociaisTexto = false;
       this.validouDados = false;
@@ -267,7 +351,10 @@ export class ValidadorDadosPessoais {
     {
       this.beneficiosSociaisTexto = true;
     }
+  }
 
+  validarEstadoCivil(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.estadoCivil == undefined || dadosPessoais.estadoCivil == 0)
     {
       this.estadoCivil = false;
@@ -277,7 +364,10 @@ export class ValidadorDadosPessoais {
     {
       this.estadoCivil = true;
     }
+  }
 
+  validarNomeConjuge(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.estadoCivil == 6 && dadosPessoais.nomeConjuge == undefined || dadosPessoais.nomeConjuge == '')
     {
       this.nomeConjuge = false;
@@ -287,7 +377,10 @@ export class ValidadorDadosPessoais {
     {
       this.nomeConjuge = true;
     }
+  }
 
+  validarDataCasamento(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.estadoCivil == 6 && dadosPessoais.dataCasamento == undefined || dadosPessoais.dataCasamento == '')
     {
       this.dataCasamento = false;
@@ -297,7 +390,10 @@ export class ValidadorDadosPessoais {
     {
       this.dataCasamento = true;
     }
+  }
 
+  validarRegimeBens(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.estadoCivil == 6 && dadosPessoais.regimeBens == undefined || dadosPessoais.regimeBens == 0)
     {
       this.regimeBens = false;
@@ -307,7 +403,10 @@ export class ValidadorDadosPessoais {
     {
       this.regimeBens = true;
     }
+  }
 
+  validarAnexoDocumentoIdentidade(dadosPessoais: DadosPessoais)
+  {
     if(dadosPessoais.anexoDocumentoIdentidade == undefined)
     {
       this.anexoDocumentoIdentidade = false;
@@ -317,11 +416,6 @@ export class ValidadorDadosPessoais {
     {
       this.anexoDocumentoIdentidade = true;
     }
-
-
-
-
-
-    return this;
   }
+
 }
