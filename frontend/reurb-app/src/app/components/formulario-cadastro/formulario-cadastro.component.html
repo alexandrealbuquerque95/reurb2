@@ -54,6 +54,94 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.rg" mask="000.000.000" class="form-control" id="rg"
+                (change)="validadorDadosPessoais.validarRg(dadosPessoais)"
+                [ngStyle]="!validadorDadosPessoais.rg && {'border-color': 'red'}">
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.rg">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.rgMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="orgaoEmissorRG"> <b> Órgão emissor: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.orgaoEmissorRG" class="form-control" id="orgaoEmissorRG"
+                (change)="validadorDadosPessoais.validarOrgaoEmissorRG(dadosPessoais)"
+                [ngStyle]="!validadorDadosPessoais.orgaoEmissorRG && {'border-color': 'red'}" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.orgaoEmissorRG">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.orgaoEmissorRGMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="ufEmissorRG"> <b> UF emissor: <span style="color:red" >*</span> </b> </label>
+              <select id="ufEmissorRG" [(ngModel)]="dadosPessoais.ufEmissorRG" class="form-control" name="ufEmissorRG"
+                (change)="validadorDadosPessoais.validarUfEmissorRG(dadosPessoais)"
+                [ngStyle]="!validadorDadosPessoais.ufEmissorRG && {'border-color': 'red'}" >
+                  <option value="">Selecione</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+              </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ufEmissorRG">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ufEmissorRGMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
+              <input type="text" value={{dadosPessoais.cpf}} [(ngModel)]="dadosPessoais.cpf"
+                class="form-control" id="inputCPF" disabled>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.cpfMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="telefone"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
               <input type="text" [(ngModel)]="dadosPessoais.telefone" class="form-control" id="telefone"
                 (change)="validadorDadosPessoais.validarTelefone(dadosPessoais)"
@@ -136,7 +224,7 @@
               <select id="ufNascimento" [(ngModel)]="dadosPessoais.ufNascimento" name="ufNascimento"
                 (change)="validadorDadosPessoais.validarUfNascimento(dadosPessoais)" class="form-control"
                 [ngStyle]="!validadorDadosPessoais.ufNascimento && {'border-color': 'red'}" >
-                  <option value="--">Selecione</option>
+                  <option value="">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
                   <option value="AP">Amapá</option>
@@ -216,99 +304,9 @@
 
           <div class="form-row m-0">
 
-            <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.rg" mask="000.000.000" class="form-control" id="rg"
-                (change)="validadorDadosPessoais.validarRg(dadosPessoais)"
-                [ngStyle]="!validadorDadosPessoais.rg && {'border-color': 'red'}">
-
-              <div class="px-2" *ngIf="!validadorDadosPessoais.rg">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                <span class="text-danger">
-                  {{validadorDadosPessoais.rgMensagem}}
-                </span>
-              </div>
-            </div>
-
-            <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="orgaoEmissorRG"> <b> Órgão emissor: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.orgaoEmissorRG" class="form-control" id="orgaoEmissorRG"
-                (change)="validadorDadosPessoais.validarOrgaoEmissorRG(dadosPessoais)"
-                [ngStyle]="!validadorDadosPessoais.orgaoEmissorRG && {'border-color': 'red'}" >
-
-              <div class="px-2" *ngIf="!validadorDadosPessoais.orgaoEmissorRG">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                <span class="text-danger">
-                  {{validadorDadosPessoais.orgaoEmissorRGMensagem}}
-                </span>
-              </div>
-            </div>
-
-            <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="ufEmissorRG"> <b> UF emissor: <span style="color:red" >*</span> </b> </label>
-              <select id="ufEmissorRG" [(ngModel)]="dadosPessoais.ufEmissorRG" class="form-control" name="ufEmissorRG"
-                (change)="validadorDadosPessoais.validarUfEmissorRG(dadosPessoais)"
-                [ngStyle]="!validadorDadosPessoais.ufEmissorRG && {'border-color': 'red'}" >
-                  <option value="--">Selecione</option>
-                  <option value="AC">Acre</option>
-                  <option value="AL">Alagoas</option>
-                  <option value="AP">Amapá</option>
-                  <option value="AM">Amazonas</option>
-                  <option value="BA">Bahia</option>
-                  <option value="CE">Ceará</option>
-                  <option value="DF">Distrito Federal</option>
-                  <option value="ES">Espírito Santo</option>
-                  <option value="GO">Goiás</option>
-                  <option value="MA">Maranhão</option>
-                  <option value="MT">Mato Grosso</option>
-                  <option value="MS">Mato Grosso do Sul</option>
-                  <option value="MG">Minas Gerais</option>
-                  <option value="PA">Pará</option>
-                  <option value="PB">Paraíba</option>
-                  <option value="PR">Paraná</option>
-                  <option value="PE">Pernambuco</option>
-                  <option value="PI">Piauí</option>
-                  <option value="RJ">Rio de Janeiro</option>
-                  <option value="RN">Rio Grande do Norte</option>
-                  <option value="RS">Rio Grande do Sul</option>
-                  <option value="RO">Rondônia</option>
-                  <option value="RR">Roraima</option>
-                  <option value="SC">Santa Catarina</option>
-                  <option value="SP">São Paulo</option>
-                  <option value="SE">Sergipe</option>
-                  <option value="TO">Tocantins</option>
-              </select>
-
-              <div class="px-2" *ngIf="!validadorDadosPessoais.ufEmissorRG">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                <span class="text-danger">
-                  {{validadorDadosPessoais.ufEmissorRGMensagem}}
-                </span>
-              </div>
-            </div>
-
-            <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
-              <input type="text" value={{dadosPessoais.cpf}} [(ngModel)]="dadosPessoais.cpf"
-                class="form-control" id="inputCPF" disabled>
-
-              <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                <span class="text-danger">
-                  {{validadorDadosPessoais.cpfMensagem}}
-                </span>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="form-row m-0">
-
             <div class="form-group col-md-4 col-lg-4 pr-3">
-              <label for="nis"> <b> Numero de identificação social (NIS): <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.nis" class="form-control" id="nis"
-                (change)="validadorDadosPessoais.validarNis(dadosPessoais)"
-                [ngStyle]="!validadorDadosPessoais.nis && {'border-color': 'red'}" >
+              <label for="nis"> <b> Numero de identificação social (NIS): </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.nis" class="form-control" id="nis">
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.nis">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
@@ -327,6 +325,7 @@
               <select [(ngModel)]="dadosPessoais.escolaridade" id="escolaridade" class="form-control" name="escolaridade"
                 (change)="validadorDadosPessoais.validarEscolaridade(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.escolaridade && {'border-color': 'red'}" >
+                <option value="0">Selecione</option>
                 <option value="1">Fundamental – incompleto</option>
                 <option value="2">Fundamental – completo</option>
                 <option value="3">Médio – incompleto</option>
@@ -459,7 +458,7 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-6 col-lg-6 pr-3">
-              <label for="beneficiosSociais" class="mr-3"><b>Benefícios sociais: (selecionar 1 ou mais) <span style="color:red" >*</span> </b> </label>
+              <label for="beneficiosSociais" class="mr-3"><b>Benefícios sociais: (selecionar 1 ou mais) </b> </label>
               <br>
 
               <div class="form-check form-check-inline">
@@ -545,6 +544,7 @@
               <select [(ngModel)]="dadosPessoais.estadoCivil" id="estadoCivil" class="form-control" name="estadoCivil"
                 (change)="validadorDadosPessoais.validarEstadoCivil(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.estadoCivil && {'border-color': 'red'}" >
+                <option value="0">Selecione</option>
                 <option value="1">Solteiro(a)</option>
                 <option value="2">União estável</option>
                 <option value="3">Separado</option>
@@ -631,12 +631,16 @@
             </div>
           </div>
 
-          <b> <span style="color:red" >* Campo obrigatório</span>  </b>
           <br>
+          <div class="mb-2">
+            <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
-          <button (click)="continuar1()" class="btn btn-primary float-right my-2">Continuar</button>
+            <button (click)="continuar1()" class="btn btn-primary float-right mx-2">Continuar</button>
 
-          <br><br>
+            <button (click)="salvar()" class="btn btn-primary float-right ">Salvar</button>
+          </div>
+
+          <br>
         </div>
 
       </mat-tab >

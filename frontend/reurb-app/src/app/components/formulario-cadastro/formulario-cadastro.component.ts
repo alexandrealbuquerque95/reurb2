@@ -48,18 +48,21 @@ export class FormularioCadastroComponent implements OnInit {
 
   continuar1(): void
   {
-    this.validadorDadosPessoais = this.validadorDadosPessoais.validarDados(this.dadosPessoais);
-    if(this.validadorDadosPessoais.validouDados)
-    {
-      this.validouFormularioCadastro1 = true;
-      this.tabIndex = 1;
+    this.validouFormularioCadastro1 = true;
+    this.tabIndex = 1;
+
+    //this.validadorDadosPessoais = this.validadorDadosPessoais.validarDados(this.dadosPessoais);
+    //if(this.validadorDadosPessoais.validouDados)
+    //{
+      //this.validouFormularioCadastro1 = true;
+      //this.tabIndex = 1;
       //this.mostrarFormularioCadastro1 = false;
       //this.mostrarFormularioCadastro2 = true;
-    }
-    else
-    {
-      this.tabIndex = 0;
-    }
+    //}
+    //else
+    //{
+      //this.tabIndex = 0;
+    //}
   }
 
   continuar2(): void
@@ -160,7 +163,12 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    this.validadorDadosPessoais.validarBeneficiosSociais(this.dadosPessoais);
+    //this.validadorDadosPessoais.validarBeneficiosSociais(this.dadosPessoais);
+  }
+
+  salvar(): void
+  {
+
   }
 
 }

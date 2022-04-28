@@ -12,19 +12,19 @@ export class DadosPessoais {
   nomePai: string;
 
   municipioNascimento: string;
-  ufNascimento: string;
+  ufNascimento: string = '';
 
   dataNascimento: string;
   emancipado: string = '0';
 
   rg: string;
   orgaoEmissorRG: string;
-  ufEmissorRG: string;
+  ufEmissorRG: string = '';
   cpf: string;
 
   nis: string;
 
-  escolaridade: number;
+  escolaridade: number = 0;
   escolaridadeTexto: string;
 
   ocupacao: number[] = [];
@@ -35,7 +35,7 @@ export class DadosPessoais {
   beneficiosSociaisTexto: string;
   mostrarOutrosBeneficiosSociais: boolean = false;
 
-  estadoCivil: number;
+  estadoCivil: number = 0;
   nomeConjuge: string;
 
   dataCasamento: string;

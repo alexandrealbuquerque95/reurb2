@@ -90,12 +90,12 @@ export class ValidadorDadosPessoais {
     this.validarOrgaoEmissorRG(dadosPessoais);
     this.validarUfEmissorRG(dadosPessoais);
     this.validarCpf(dadosPessoais);
-    this.validarNis(dadosPessoais);
+    //this.validarNis(dadosPessoais);
     this.validarEscolaridade(dadosPessoais);
     this.validarEscolaridadeTexto(dadosPessoais);
     this.validarOcupacao(dadosPessoais);
     this.validarMostrarOutrosOcupacao(dadosPessoais);
-    this.validarBeneficiosSociais(dadosPessoais);
+    //this.validarBeneficiosSociais(dadosPessoais);
     this.validarMostrarOutrosBeneficiosSociais(dadosPessoais);
     this.validarEstadoCivil(dadosPessoais);
     this.validarNomeConjuge(dadosPessoais);
