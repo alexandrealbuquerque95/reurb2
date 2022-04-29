@@ -646,76 +646,181 @@
       </mat-tab >
 
       <mat-tab label = "Identificação do Cônjuge ou companheiro(a)" *ngIf="dadosPessoais.estadoCivil == 6">
+        <div>
+          <hr>
+
+        </div>
 
       </mat-tab >
 
       <mat-tab label = "Identificação do imóvel" >
 
         <div>
+          <hr>
 
           <div class="form-row m-0">
 
-            <div class="form-group col-md-10 col-lg-10">
-              <label for="endereco">Endereço: </label>
-              <input type="text" class="form-control" id="endereco" placeholder="Rua dos Bandeirantes, nº 0">
+            <div class="form-group col-md-10 col-lg-10 pr-3">
+              <label for="enderecoImovel"> <b> Localização do imóvel (rua, número, quadra, lote): <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="enderecoImovel" name="enderecoImovel" placeholder="Rua dos Bandeirantes, nº 0">
             </div>
 
-            <div class="form-group col-md-2 col-lg-2">
-              <label for="inputCEP">CEP: </label>
-              <input type="number" class="form-control" id="inputCEP">
+            <div class="form-group col-md-2 col-lg-2 px-3">
+              <label for="cepImovel" ><b>CEP: <span style="color:red" >*</span> </b></label>
+              <input type="text" mask="00.000.000" class="form-control" id="cepImovel"  name="cepImovel">
             </div>
           </div>
 
           <div class="form-row m-0">
-            <div class="form-group col-md-4 col-lg-4">
-                <label for="inputEstado">Estado:</label>
-                <select id="inputEstado" class="form-control">
-                  <option selected>Escolher...</option>
-                  <option>...</option>
+            <div class="form-group col-md-4 col-lg-4 pr-3">
+                <label for="ufImovel"><b>UF: <span style="color:red" >*</span> </b></label>
+                <select id="ufImovel" class="form-control" name="ufImovel">
+                  <option value="">Selecione</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
                 </select>
               </div>
 
-            <div class="form-group col-md-4 col-lg-4">
-              <label for="cidade">Cidade:</label>
-              <input type="text" class="form-control" id="cidade" >
+            <div class="form-group col-md-4 col-lg-4 px-3">
+              <label for="municipioImovel"><b>Município: <span style="color:red" >*</span> </b></label>
+              <input type="text" class="form-control" id="municipioImovel" name="municipioImovel" >
             </div>
 
-            <div class="form-group col-md-4 col-lg-4">
-              <label for="bairro">Bairro:</label>
-              <input type="text" class="form-control" id="bairro" >
+            <div class="form-group col-md-4 col-lg-4 px-3">
+              <label for="bairroImovel"><b>Bairro: <span style="color:red" >*</span> </b></label>
+              <input type="text" class="form-control" id="bairroImovel" name="bairroImovel">
             </div>
 
           </div>
 
-          <br>
+          <div class="form-row m-0">
+            <div class="form-group col-md-4 col-lg-4 pr-3">
+              <label for="nucleoUrbanoImovel"><b>Nome do núcleo urbano informal: </b></label>
+              <input type="text" class="form-control" id="nucleoUrbanoImovel" name="nucleoUrbanoImovel" >
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 px-3">
+              <label for="tipoImovel"> <b> Esse imóvel é: <span style="color:red" >*</span> </b> </label>
+              <select  id="tipoImovel" class="form-control" name="tipoImovel">
+                <option value="0">Selecione</option>
+                <option value="1">Próprio</option>
+                <option value="2">Locado</option>
+                <option value="3">Emprestado</option>
+                <option value="4">Cedido</option>
+                <option value="5">Outros</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 px-3">
+              <label for="tipoImovel"> <b> Esse imóvel é para uso: <span style="color:red" >*</span> </b> </label>
+              <select id="tipoImovel" class="form-control" name="tipoImovel">
+                <option value="0">Selecione</option>
+                <option value="1">Residencial</option>
+                <option value="2">Comercial</option>
+                <option value="3">Misto</option>
+                <option value="4">Outros</option>
+              </select>
+            </div>
+
+          </div>
 
           <div class="form-row m-0">
-              <div class="form-group col-md-6 col-lg-6">
-                <label for="email">Email: </label>
-                <input type="email" class="form-control" id="inputEmail">
-              </div>
-              <div class="form-group col-md-6 col-lg-6">
-                <label for="confirmarEmail">Confirmar Email: </label>
-                <input type="email" class="form-control" id="confirmarEmail">
+            <div class="form-group col-md-4 col-lg-4 pr-3">
+              <label for="tempoOcupacaoImovel"> <b> Tempo de ocupação do imóvel: <span style="color:red" >*</span> </b> </label>
+              <select id="tempoOcupacaoImovel" class="form-control" name="tempoOcupacaoImovel">
+                <option value="0">Selecione</option>
+                <option value="1">1 ano ou menos</option>
+                <option value="2">2 anos</option>
+                <option value="3">3 anos</option>
+                <option value="4">4 anos</option>
+                <option value="5">5 anos</option>
+                <option value="6">6 anos</option>
+                <option value="7">7 anos</option>
+                <option value="8">8 anos</option>
+                <option value="9">9 anos</option>
+                <option value="10">10 anos</option>
+                <option value="11">11 anos</option>
+                <option value="12">12 anos</option>
+                <option value="13">13 anos</option>
+                <option value="14">14 anos</option>
+                <option value="15">15 anos</option>
+                <option value="16">16 anos</option>
+                <option value="17">17 anos</option>
+                <option value="18">18 anos</option>
+                <option value="19">19 anos</option>
+                <option value="20">20 anos</option>
+                <option value="21">21 anos</option>
+                <option value="22">22 anos</option>
+                <option value="23">23 anos</option>
+                <option value="24">24 anos</option>
+                <option value="25">25 anos ou mais</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 px-3">
+              <label for="mais1DomicilioLote"> <b> Existe mais de um domicílio no lote?:
+                <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="mais1DomicilioLote" id="mais1DomicilioLoteNao"
+                    value="0" checked >
+                  <label class="form-check-label" for="mais1DomicilioLoteNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="mais1DomicilioLote" id="mais1DomicilioLoteSim"
+                    value="1" >
+                  <label class="form-check-label" for="mais1DomicilioLoteSim">
+                    Sim
+                  </label>
+                </div>
               </div>
             </div>
 
-            <div class="form-row m-0">
-              <div class="form-group col-md-3 col-lg-3">
-                <label for="senha">Senha: </label>
-                <input type="password" class="form-control" id="senha" placeholder="Senha">
-              </div>
-              <div class="form-group col-md-3 col-lg-3">
-                <label for="confirmacaoSenha">Confirmação de Senha: </label>
-                <input type="password" class="form-control" id="confirmacaoSenha" placeholder="Confirmar Senha">
-              </div>
+            <div class="form-group col-md-4 col-lg-4">
 
             </div>
+
+
+          </div>
+
 
           <br>
+          <div class="mb-2">
+            <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
-          <button (click)="continuar2()" class="btn btn-primary float-right">Continuar 2</button>
-          <br><br>
+            <button (click)="continuar2()"  class="btn btn-primary float-right mx-2">Continuar</button>
+
+            <button (click)="salvar()" class="btn btn-primary float-right ">Salvar</button>
+          </div>
+
+          <br>
 
         </div>
 
