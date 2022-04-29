@@ -561,7 +561,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="dadosPessoais.estadoCivil == 6">
+            <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
               <label for="nomeConjuge"><b>Nome do(a) cônjuge: <span style="color:red" >* </span> </b></label>
               <input type="text" [(ngModel)]="dadosPessoais.nomeConjuge" class="form-control" id="nomeConjuge"
                 (change)="validadorDadosPessoais.validarNomeConjuge(dadosPessoais)"
@@ -576,7 +576,7 @@
             </div>
           </div>
 
-          <div class="form-row m-0" *ngIf="dadosPessoais.estadoCivil == 6">
+          <div class="form-row m-0" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
             <div class="form-group col-md-3 col-lg-3 pr-3 pr-3">
               <label for="dataCasamento"> <b> Data do casamento: <span style="color:red" >* </span> </b> </label>
               <input type="text" [(ngModel)]="dadosPessoais.dataCasamento" mask="00/00/0000" class="form-control"
@@ -645,7 +645,7 @@
 
       </mat-tab >
 
-      <mat-tab label = "Identificação do Cônjuge ou companheiro(a)" *ngIf="dadosPessoais.estadoCivil == 6">
+      <mat-tab label = "Identificação do Cônjuge ou companheiro(a)" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
         <div>
           <hr>
 
@@ -725,8 +725,8 @@
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
-              <label for="tipoImovel"> <b> Esse imóvel é: <span style="color:red" >*</span> </b> </label>
-              <select  id="tipoImovel" class="form-control" name="tipoImovel">
+              <label for="ImovelEh"> <b> Esse imóvel é: <span style="color:red" >*</span> </b> </label>
+              <select  id="ImovelEh" class="form-control" name="ImovelEh">
                 <option value="0">Selecione</option>
                 <option value="1">Próprio</option>
                 <option value="2">Locado</option>
@@ -737,8 +737,8 @@
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
-              <label for="tipoImovel"> <b> Esse imóvel é para uso: <span style="color:red" >*</span> </b> </label>
-              <select id="tipoImovel" class="form-control" name="tipoImovel">
+              <label for="usoImovel"> <b> Esse imóvel é para uso: <span style="color:red" >*</span> </b> </label>
+              <select id="usoImovel" class="form-control" name="usoImovel">
                 <option value="0">Selecione</option>
                 <option value="1">Residencial</option>
                 <option value="2">Comercial</option>
@@ -788,14 +788,14 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="mais1DomicilioLote" id="mais1DomicilioLoteNao"
-                    value="0" checked >
+                    value="0" [(ngModel)]="dadosImovel.mais1DomicilioLote">
                   <label class="form-check-label" for="mais1DomicilioLoteNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="mais1DomicilioLote" id="mais1DomicilioLoteSim"
-                    value="1" >
+                    value="1" [(ngModel)]="dadosImovel.mais1DomicilioLote" >
                   <label class="form-check-label" for="mais1DomicilioLoteSim">
                     Sim
                   </label>
@@ -803,15 +803,150 @@
               </div>
             </div>
 
-            <div class="form-group col-md-4 col-lg-4">
+            <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="dadosImovel.mais1DomicilioLote == '1'">
+              <label for="quantidadeDomiciliosLote"> <b> Quantos no total? <span style="color:red" >*</span> </b> </label>
+              <select id="quantidadeDomiciliosLote" class="form-control" name="quantidadeDomiciliosLote">
+                <option value="0">Selecione</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4 ou mais</option>
+              </select>
+            </div>
 
+          </div>
+
+          <div class="form-row m-0">
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="acessoIndependente"> <b> Todos os domicílios possuem acesso independente? <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="acessoIndependente" id="acessoIndependenteNao"
+                    value="0" checked >
+                  <label class="form-check-label" for="acessoIndependenteNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="acessoIndependente" id="acessoIndependenteSim"
+                    value="1" >
+                  <label class="form-check-label" for="acessoIndependenteSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3">
+              <label for="atendidoEnergiaEletrica"> <b> Esse imóvel é atendido por rede de energia elétrica? <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="atendidoEnergiaEletrica" id="atendidoEnergiaEletricaNao"
+                    value="0" checked>
+                  <label class="form-check-label" for="atendidoEnergiaEletricaNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="atendidoEnergiaEletrica" id="atendidoEnergiaEletricaSim"
+                    value="1" >
+                  <label class="form-check-label" for="atendidoEnergiaEletricaSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
             </div>
 
 
           </div>
 
+          <div class="form-row m-0">
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="atendidoAgua"> <b> Esse imóvel é atendido por rede de abastecimento de água? <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="atendidoAgua" id="atendidoAguaNao"
+                    value="0" checked >
+                  <label class="form-check-label" for="atendidoAguaNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="atendidoAgua" id="atendidoAguaSim"
+                    value="1" >
+                  <label class="form-check-label" for="atendidoAguaSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
+            </div>
 
-          <br>
+            <div class="form-group col-md-6 col-lg-6 px-3">
+              <label for="atendidoEsgoto"> <b> Esse imóvel é atendido por rede de esgotamento sanitário? <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="atendidoEsgoto" id="atendidoEsgotoNao"
+                    value="0" checked>
+                  <label class="form-check-label" for="atendidoEsgotoNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="atendidoEsgoto" id="atendidoEsgotoSim"
+                    value="1" >
+                  <label class="form-check-label" for="atendidoEsgotoSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="tempoOcupacaoImovel"> <b> Esse imóvel é atendido por sistema de captação de águas pluviais (drenagem)?  <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="atendidoAguasPluviais" id="atendidoAguasPluviaisNao"
+                    value="0" checked >
+                  <label class="form-check-label" for="atendidoAguasPluviaisNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="atendidoAguasPluviais" id="atendidoAguasPluviaisSim"
+                    value="1" >
+                  <label class="form-check-label" for="atendidoAguasPluviaisSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3">
+              <label for="tempoOcupacaoImovel"> <b> Esse imóvel é atendido por pavimentação? <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="atendidoPavimentacao" id="atendidoPavimentacaoNao"
+                    value="0" checked>
+                  <label class="form-check-label" for="atendidoPavimentacaoNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="atendidoPavimentacao" id="atendidoPavimentacaoSim"
+                    value="1" >
+                  <label class="form-check-label" for="atendidoPavimentacaoSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <br><br>
           <div class="mb-2">
             <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 

@@ -368,7 +368,7 @@ export class ValidadorDadosPessoais {
 
   validarNomeConjuge(dadosPessoais: DadosPessoais)
   {
-    if(dadosPessoais.estadoCivil == 6 && dadosPessoais.nomeConjuge == undefined || dadosPessoais.nomeConjuge == '')
+    if((dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6) && dadosPessoais.nomeConjuge == undefined || dadosPessoais.nomeConjuge == '')
     {
       this.nomeConjuge = false;
       this.validouDados = false;
@@ -381,7 +381,7 @@ export class ValidadorDadosPessoais {
 
   validarDataCasamento(dadosPessoais: DadosPessoais)
   {
-    if(dadosPessoais.estadoCivil == 6 && dadosPessoais.dataCasamento == undefined || dadosPessoais.dataCasamento == '')
+    if((dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6) && dadosPessoais.dataCasamento == undefined || dadosPessoais.dataCasamento == '')
     {
       this.dataCasamento = false;
       this.validouDados = false;
@@ -394,7 +394,7 @@ export class ValidadorDadosPessoais {
 
   validarRegimeBens(dadosPessoais: DadosPessoais)
   {
-    if(dadosPessoais.estadoCivil == 6 && dadosPessoais.regimeBens == undefined || dadosPessoais.regimeBens == 0)
+    if((dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6) && dadosPessoais.regimeBens == undefined || dadosPessoais.regimeBens == 0)
     {
       this.regimeBens = false;
       this.validouDados = false;

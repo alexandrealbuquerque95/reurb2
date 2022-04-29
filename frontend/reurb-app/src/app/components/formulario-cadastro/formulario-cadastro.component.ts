@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoais';
+import { DadosImovel } from 'src/app/models/dados-imovel.model';
 
 
 @Component({
@@ -22,6 +23,8 @@ export class FormularioCadastroComponent implements OnInit {
 
   dadosPessoais: DadosPessoais = new DadosPessoais();
   validadorDadosPessoais: ValidadorDadosPessoais;
+
+  dadosImovel: DadosImovel = new DadosImovel();
 
   tabIndex = 0;
 
