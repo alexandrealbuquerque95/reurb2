@@ -646,9 +646,547 @@
       </mat-tab >
 
       <mat-tab label = "Identificação do Cônjuge ou companheiro(a)" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
+
         <div>
           <hr>
 
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-9 col-lg-9 pr-3">
+              <label for="inputNome"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.nome"
+                (change)="validadorDadosPessoais.validarNome(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'} " class="form-control" id="inputNome" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.nome">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.nomeMensagem}}
+                </span>
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 pl-3 px-3 ">
+              <label for="sexoMasculino"> <b> Sexo: <span style="color:red" >*</span> </b> </label>
+
+              <div class="d-flex">
+                <div class="form-check ">
+                  <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino"
+                    value="F" checked [(ngModel)]="dadosConjuge.sexo">
+                  <label class="form-check-label" for="sexoFeminino">
+                    Feminino
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino"
+                    value="M" [(ngModel)]="dadosConjuge.sexo">
+                  <label class="form-check-label" for="sexoMasculino">
+                    Masculino
+                  </label>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.rg" mask="000.000.000" class="form-control" id="rg"
+                (change)="validadorDadosPessoais.validarRg(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.rg && {'border-color': 'red'}">
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.rg">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.rgMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="orgaoEmissorRG"> <b> Órgão emissor: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.orgaoEmissorRG" class="form-control" id="orgaoEmissorRG"
+                (change)="validadorDadosPessoais.validarOrgaoEmissorRG(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.orgaoEmissorRG && {'border-color': 'red'}" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.orgaoEmissorRG">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.orgaoEmissorRGMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="ufEmissorRG"> <b> UF emissor: <span style="color:red" >*</span> </b> </label>
+              <select id="ufEmissorRG" [(ngModel)]="dadosConjuge.ufEmissorRG" class="form-control" name="ufEmissorRG"
+                (change)="validadorDadosPessoais.validarUfEmissorRG(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.ufEmissorRG && {'border-color': 'red'}" >
+                  <option value="">Selecione</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+              </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ufEmissorRG">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ufEmissorRGMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
+              <input type="text" value={{dadosConjuge.cpf}} [(ngModel)]="dadosConjuge.cpf"
+                class="form-control" id="inputCPF" disabled>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.cpfMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="telefone"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.telefone" class="form-control" id="telefone"
+                (change)="validadorDadosPessoais.validarTelefone(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.telefone && {'border-color': 'red'}" mask="(00)00000-0000"  >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.telefone">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.telefoneMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="pessoaComDeficienciaNao"> <b> Pessoa com deficiência: <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="pessoaComDeficiencia" id="pessoaComDeficienciaNao"
+                    value="0" [(ngModel)]="dadosConjuge.pessoaComDeficiencia" checked>
+                  <label class="form-check-label" for="pessoaComDeficienciaNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" [(ngModel)]="dadosConjuge.pessoaComDeficiencia" type="radio"
+                    name="pessoaComDeficiencia" id="pessoaComDeficienciaSim" value="1">
+                  <label class="form-check-label" for="pessoaComDeficienciaSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-9 col-lg-9 pr-3">
+              <label for="inputNomeMae"> <b> Nome da mãe: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.nomeMae" class="form-control" id="inputNomeMae"
+                (change)="validadorDadosPessoais.validarNomeMae(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.nomeMae && {'border-color': 'red'}" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.nomeMae">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.nomeMaeMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-9 col-lg-9 pr-3">
+              <label for="inputNomePai"> <b> Nome do pai: </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.nomePai" class="form-control" id="inputNomePai" >
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+            <div class="form-group col-md-4 col-lg-4 pr-3">
+              <label for="municipioNascimento"> <b> Município de nascimento: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" [(ngModel)]="dadosConjuge.municipioNascimento" id="municipioNascimento"
+                (change)="validadorDadosPessoais.validarMunicipioNascimento(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.municipioNascimento && {'border-color': 'red'}" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.municipioNascimento">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.municipioNascimentoMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="ufNascimento"> <b> UF: <span style="color:red" >*</span> </b> </label>
+              <select id="ufNascimento" [(ngModel)]="dadosConjuge.ufNascimento" name="ufNascimento"
+                (change)="validadorDadosPessoais.validarUfNascimento(dadosConjuge)" class="form-control"
+                [ngStyle]="!validadorDadosPessoais.ufNascimento && {'border-color': 'red'}" >
+                  <option value="">Selecione</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+              </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ufNascimento">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ufNascimentoMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="dataNascimento"> <b> Data de nascimento: <span style="color:red" >*</span> </b> </label>
+              <input [(ngModel)]="dadosConjuge.dataNascimento" type="text" mask="00/00/0000" class="form-control"
+                (change)="validadorDadosPessoais.validarDataNascimento(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.dataNascimento && {'border-color': 'red'}" id="dataNascimento" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.dataNascimento">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.dataNascimentoMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="!maior18()">
+              <label for="emancipadoNao"> <b> Emancipado: <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="emancipado" id="emancipadoNao"
+                    value="0" checked [(ngModel)]="dadosConjuge.emancipado">
+                  <label class="form-check-label" for="emancipadoNao">
+                    Não
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="emancipado" id="emancipadoSim"
+                    value="1" [(ngModel)]="dadosConjuge.emancipado">
+                  <label class="form-check-label" for="emancipadoSim">
+                    Sim
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-4 col-lg-4 pr-3">
+              <label for="nis"> <b> Numero de identificação social (NIS): </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.nis" class="form-control" id="nis">
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.nis">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.nisMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="escolaridade"> <b> Escolaridade: <span style="color:red" >*</span> </b> </label>
+              <select [(ngModel)]="dadosConjuge.escolaridade" id="escolaridade" class="form-control" name="escolaridade"
+                (change)="validadorDadosPessoais.validarEscolaridade(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.escolaridade && {'border-color': 'red'}" >
+                <option value="0">Selecione</option>
+                <option value="1">Fundamental – incompleto</option>
+                <option value="2">Fundamental – completo</option>
+                <option value="3">Médio – incompleto</option>
+                <option value="4">Médio – completo</option>
+                <option value="5">Superior – incompleto</option>
+                <option value="6">Superior – completo</option>
+                <option value="7">Outros</option>
+              </select>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.escolaridade">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.escolaridadeMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosConjuge.escolaridade == 7">
+              <label for="escolaridadeTexto"> <b> Escolaridade | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.escolaridadeTexto" class="form-control" id="escolaridadeTexto"
+                (change)="validadorDadosPessoais.validarEscolaridadeTexto(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.escolaridadeTexto && {'border-color': 'red'}"  >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.escolaridadeTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.escolaridadeTextoMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <br>
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="ocupacao" class="mr-3"><b>Ocupação: (selecionar 1 ou mais)  <span style="color:red" >*</span> </b> </label>
+
+              <br>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="1" id="desempregado">
+                <label class="form-check-label" for="desempregado">
+                    Desempregado
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="2" id="empregadoCLT" >
+                <label class="form-check-label" for="empregadoCLT">
+                    Empregado (CLT)
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="3" id="servidorPublico">
+                <label class="form-check-label" for="servidorPublico">
+                    Servidor público
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="4" id="autonomo" >
+                <label class="form-check-label" for="autonomo">
+                    Autônomo
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="5" id="estagiario">
+                <label class="form-check-label" for="estagiario">
+                    Estagiário
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="6" id="menorAprendiz" >
+                <label class="form-check-label" for="menorAprendiz">
+                    Menor aprendiz
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="7" id="aposentado">
+                <label class="form-check-label" for="aposentado">
+                    Aposentado
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="8" id="pensionista" >
+                <label class="form-check-label" for="pensionista">
+                    Pensionista
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="9" id="ajudaDoacaoTerceiros">
+                <label class="form-check-label" for="ajudaDoacaoTerceiros">
+                    Ajuda/doação de terceiros
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="10" id="ocupacaoOutros" >
+                <label class="form-check-label" for="ocupacaoOutros">
+                    Outros
+                </label>
+              </div>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ocupacao">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ocupacaoMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosConjuge.mostrarOutrosOcupacao">
+              <label for="ocupacaoTexto"> <b> Ocupação | Outros: <span style="color:red" >* </span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.ocupacaoTexto" class="form-control" id="ocupacaoTexto"
+                (change)="validadorDadosPessoais.validarMostrarOutrosOcupacao(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.ocupacaoTexto && {'border-color': 'red'}" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.ocupacaoTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.ocupacaoTextoMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <br>
+          <div class="form-row m-0">
+
+            <div class="form-group col-md-6 col-lg-6 pr-3">
+              <label for="beneficiosSociais" class="mr-3"><b>Benefícios sociais: (selecionar 1 ou mais) </b> </label>
+              <br>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="1" (change)="onCheckboxBeneficiosSociaisChange($event)" id="seguroDesemprego">
+                <label class="form-check-label" for="seguroDesemprego">
+                    Seguro-desemprego
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="2" (change)="onCheckboxBeneficiosSociaisChange($event)" id="auxilioDoenca" >
+                <label class="form-check-label" for="auxilioDoenca">
+                    Auxílio-doença
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="3" (change)="onCheckboxBeneficiosSociaisChange($event)" id="bolsaFamilia" >
+                <label class="form-check-label" for="bolsaFamilia">
+                    Bolsa Família
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="4" (change)="onCheckboxBeneficiosSociaisChange($event)" id="tarifaSocialEnergiaEletrica">
+                <label class="form-check-label" for="tarifaSocialEnergiaEletrica">
+                    Tarifa social de energia elétrica
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="5" (change)="onCheckboxBeneficiosSociaisChange($event)" id="carteiraIdoso" >
+                <label class="form-check-label" for="carteiraIdoso">
+                    Carteira do idoso
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="6" (change)="onCheckboxBeneficiosSociaisChange($event)" id="identidadeJovem">
+                <label class="form-check-label" for="identidadeJovem">
+                  Identidade Jovem
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="7" (change)="onCheckboxBeneficiosSociaisChange($event)" id="BpcLoas" >
+                <label class="form-check-label" for="BpcLoas">
+                    BPC/LOAS
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="8" (change)="onCheckboxBeneficiosSociaisChange($event)" id="outros">
+                <label class="form-check-label" for="outros">
+                    Outros
+                </label>
+              </div>
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociais">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.beneficiosSociaisMensagem}}
+                </span>
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosConjuge.mostrarOutrosBeneficiosSociais">
+              <label for="beneficiosSociaisTexto"><b>Benefícios sociais | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.beneficiosSociaisTexto" class="form-control"
+                (change)="validadorDadosPessoais.validarMostrarOutrosBeneficiosSociais(dadosConjuge)"
+                [ngStyle]="!validadorDadosPessoais.beneficiosSociaisTexto && {'border-color': 'red'}" id="beneficiosSociaisTexto" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociaisTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.beneficiosSociaisTextoMensagem}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <br>
+          <div class="mb-2">
+            <b> <span style="color:red" >* Campo obrigatório</span>  </b>
+
+            <button (click)="continuar2()" class="btn btn-primary float-right mx-2">Continuar</button>
+
+            <button (click)="salvar()" class="btn btn-primary float-right ">Salvar</button>
+          </div>
+
+          <br>
         </div>
 
       </mat-tab >

@@ -24,6 +24,8 @@ export class FormularioCadastroComponent implements OnInit {
   dadosPessoais: DadosPessoais = new DadosPessoais();
   validadorDadosPessoais: ValidadorDadosPessoais;
 
+  dadosConjuge: DadosPessoais = new DadosPessoais();
+
   dadosImovel: DadosImovel = new DadosImovel();
 
   tabIndex = 0;
@@ -70,9 +72,7 @@ export class FormularioCadastroComponent implements OnInit {
 
   continuar2(): void
   {
-    this.mostrarFormularioCadastro1 = false;
-    this.mostrarFormularioCadastro2 = false;
-    this.validouFormularioCadastro2 = true;
+    this.tabIndex = 2;
   }
 
   onTabChanged($event) {
