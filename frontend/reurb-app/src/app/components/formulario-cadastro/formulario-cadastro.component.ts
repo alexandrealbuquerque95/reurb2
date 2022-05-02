@@ -25,6 +25,7 @@ export class FormularioCadastroComponent implements OnInit {
   validadorDadosPessoais: ValidadorDadosPessoais;
 
   dadosConjuge: DadosPessoais = new DadosPessoais();
+  validadorDadosConjuge: ValidadorDadosPessoais;
 
   dadosImovel: DadosImovel = new DadosImovel();
 
@@ -43,6 +44,12 @@ export class FormularioCadastroComponent implements OnInit {
     this.dadosPessoais.cpf = this.route.snapshot.paramMap.get('cpf');
 
     this.validadorDadosPessoais = new ValidadorDadosPessoais();
+    this.validadorDadosConjuge = new ValidadorDadosPessoais();
+
+    //if(this.dadosConjuge == undefined)
+    //{
+      //this.dadosConjuge = new DadosPessoais();
+    //}
   }
 
   handleKeyUp(e: any){
@@ -54,7 +61,7 @@ export class FormularioCadastroComponent implements OnInit {
   continuar1(): void
   {
     this.validouFormularioCadastro1 = true;
-    this.tabIndex = 1;
+    this.tabIndex++;
 
     //this.validadorDadosPessoais = this.validadorDadosPessoais.validarDados(this.dadosPessoais);
     //if(this.validadorDadosPessoais.validouDados)
@@ -70,18 +77,23 @@ export class FormularioCadastroComponent implements OnInit {
     //}
   }
 
-  continuar2(): void
+  continuar(): void
   {
-    this.tabIndex = 2;
+    this.tabIndex++;
+  }
+
+  voltar(): void
+  {
+    this.tabIndex--;
   }
 
   onTabChanged($event) {
     let clickedIndex = $event.index;
 
-    if(clickedIndex == 1)
-    {
-      this.continuar1();
-    }
+    //if(clickedIndex == 1)
+    //{
+      //this.continuar1();
+    //}
   }
 
   getIdade(data)
@@ -113,13 +125,13 @@ export class FormularioCadastroComponent implements OnInit {
     return datearray[1] + '-' + datearray[0] + '-' + datearray[2];
   }
 
-  maior18() : boolean
+  maior18(dadosPessoais: DadosPessoais) : boolean
   {
-    if(this.dadosPessoais.dataNascimento == undefined || this.dadosPessoais.dataNascimento.length < 8)
+    if(dadosPessoais.dataNascimento == undefined || dadosPessoais.dataNascimento.length < 8)
     {
       return true;
     }
-    if(this.getIdade(this.dadosPessoais.dataNascimento) >= 18)
+    if(this.getIdade(dadosPessoais.dataNascimento) >= 18)
         return true;
     else
       return false;
@@ -147,6 +159,28 @@ export class FormularioCadastroComponent implements OnInit {
     this.validadorDadosPessoais.validarOcupacao(this.dadosPessoais);
   }
 
+  onCheckboxOcupacaoConjugeChange(event: any)
+  {
+    if (event.target.checked) {
+      this.dadosConjuge.ocupacao.push(event.target.value);
+
+      if(event.target.value == "10")
+      {
+        this.dadosConjuge.mostrarOutrosOcupacao = true;
+      }
+    } else {
+      const index = this.dadosConjuge.ocupacao.findIndex(x => x === event.target.value);
+      this.dadosConjuge.ocupacao.splice(index);
+
+      if(event.target.value == "10")
+      {
+        this.dadosConjuge.mostrarOutrosOcupacao = false;
+      }
+    }
+
+    this.validadorDadosConjuge.validarOcupacao(this.dadosConjuge);
+  }
+
   onCheckboxBeneficiosSociaisChange(event: any)
   {
     if (event.target.checked) {
@@ -169,7 +203,34 @@ export class FormularioCadastroComponent implements OnInit {
     //this.validadorDadosPessoais.validarBeneficiosSociais(this.dadosPessoais);
   }
 
+  onCheckboxBeneficiosSociaisConjugeChange(event: any)
+  {
+    if (event.target.checked) {
+      this.dadosConjuge.beneficiosSociais.push(event.target.value);
+
+      if(event.target.value == "8")
+      {
+        this.dadosConjuge.mostrarOutrosBeneficiosSociais = true;
+      }
+    } else {
+      const index = this.dadosConjuge.beneficiosSociais.findIndex(x => x === event.target.value);
+      this.dadosConjuge.beneficiosSociais.splice(index);
+
+      if(event.target.value == "8")
+      {
+        this.dadosConjuge.mostrarOutrosBeneficiosSociais = false;
+      }
+    }
+
+    //this.validadorDadosConjuge.validarBeneficiosSociais(this.dadosConjuge);
+  }
+
   salvar(): void
+  {
+
+  }
+
+  enviarDados(): void
   {
 
   }

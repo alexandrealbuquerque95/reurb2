@@ -9,6 +9,13 @@
         <div >
           <hr>
 
+          <div class="form-row m-0 ">
+            <div class="col-md-12 col-lg-12 ">
+              <b class="text-center fs-18">Informe os dados do titular do imóvel:</b>
+            </div>
+          </div>
+          <br>
+
           <div class="form-row m-0">
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
@@ -167,7 +174,7 @@
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" [(ngModel)]="dadosPessoais.pessoaComDeficiencia" type="radio"
-                    name="pessoaComDeficiencia" id="pessoaComDeficienciaSim" value="1">
+                    name="pessoaComDeficiencia" id="pessoaComDeficienciaSim" value="1" >
                   <label class="form-check-label" for="pessoaComDeficienciaSim">
                     Sim
                   </label>
@@ -280,7 +287,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="!maior18()">
+            <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="!maior18(dadosPessoais)">
               <label for="emancipadoNao"> <b> Emancipado: <span style="color:red" >*</span> </b> </label>
               <div class="d-flex">
                 <div class="form-check">
@@ -635,9 +642,9 @@
           <div class="mb-2">
             <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
-            <button (click)="continuar1()" class="btn btn-primary float-right mx-2">Continuar</button>
+            <button (click)="continuar()" class="btn btn-primary float-right mx-2">Continuar</button>
 
-            <button (click)="salvar()" class="btn btn-primary float-right ">Salvar</button>
+            <button (click)="salvar()" class="btn btn-primary float-right">Salvar</button>
           </div>
 
           <br>
@@ -645,43 +652,50 @@
 
       </mat-tab >
 
-      <mat-tab label = "Identificação do Cônjuge ou companheiro(a)" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
+      <mat-tab label = "Identificação do cônjuge ou companheiro(a)" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
 
         <div>
           <hr>
+
+          <div class="form-row m-0 ">
+            <div class="col-md-12 col-lg-12 ">
+              <b class="text-center fs-18">Informe os dados do cônjuge ou companheiro(a) do titular do imóvel:</b>
+            </div>
+          </div>
+          <br>
 
           <div class="form-row m-0">
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
               <label for="inputNome"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.nome"
-                (change)="validadorDadosPessoais.validarNome(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'} " class="form-control" id="inputNome" >
+              <input type="text" [(ngModel)]="dadosPessoais.nomeConjuge"
+                (change)="validadorDadosConjuge.validarNomeConjuge(dadosPessoais)"
+                [ngStyle]="!validadorDadosConjuge.nomeConjuge && {'border-color': 'red'} " class="form-control" id="inputNomeConjuge" >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.nome">
+              <div class="px-2" *ngIf="!validadorDadosPessoais.nomeConjuge">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.nomeMensagem}}
+                  {{validadorDadosPessoais.nomeConjugeMensagem}}
                 </span>
               </div>
 
             </div>
 
             <div class="form-group col-md-3 col-lg-3 pl-3 px-3 ">
-              <label for="sexoMasculino"> <b> Sexo: <span style="color:red" >*</span> </b> </label>
+              <label for="sexoMasculinoConjuge"> <b> Sexo: <span style="color:red" >*</span> </b> </label>
 
               <div class="d-flex">
                 <div class="form-check ">
-                  <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino"
+                  <input class="form-check-input" type="radio" name="sexoConjuge" id="sexoFemininoConjuge"
                     value="F" checked [(ngModel)]="dadosConjuge.sexo">
-                  <label class="form-check-label" for="sexoFeminino">
+                  <label class="form-check-label" for="sexoFemininoConjuge">
                     Feminino
                   </label>
                 </div>
                 <div class="form-check pl-5">
-                  <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino"
+                  <input class="form-check-input" type="radio" name="sexoConjuge" id="sexoMasculinoConjuge"
                     value="M" [(ngModel)]="dadosConjuge.sexo">
-                  <label class="form-check-label" for="sexoMasculino">
+                  <label class="form-check-label" for="sexoMasculinoConjuge">
                     Masculino
                   </label>
                 </div>
@@ -695,38 +709,38 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.rg" mask="000.000.000" class="form-control" id="rg"
-                (change)="validadorDadosPessoais.validarRg(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.rg && {'border-color': 'red'}">
+              <label for="rgConjuge"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.rg" mask="000.000.000" class="form-control" id="rgConjuge"
+                (change)="validadorDadosConjuge.validarRg(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.rg && {'border-color': 'red'}">
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.rg">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.rg">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.rgMensagem}}
+                  {{validadorDadosConjuge.rgMensagem}}
                 </span>
               </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="orgaoEmissorRG"> <b> Órgão emissor: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.orgaoEmissorRG" class="form-control" id="orgaoEmissorRG"
-                (change)="validadorDadosPessoais.validarOrgaoEmissorRG(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.orgaoEmissorRG && {'border-color': 'red'}" >
+              <label for="orgaoEmissorRGConjuge"> <b> Órgão emissor: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.orgaoEmissorRG" class="form-control" id="orgaoEmissorRGConjuge"
+                (change)="validadorDadosConjuge.validarOrgaoEmissorRG(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.orgaoEmissorRG && {'border-color': 'red'}" >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.orgaoEmissorRG">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.orgaoEmissorRG">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.orgaoEmissorRGMensagem}}
+                  {{validadorDadosConjuge.orgaoEmissorRGMensagem}}
                 </span>
               </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="ufEmissorRG"> <b> UF emissor: <span style="color:red" >*</span> </b> </label>
-              <select id="ufEmissorRG" [(ngModel)]="dadosConjuge.ufEmissorRG" class="form-control" name="ufEmissorRG"
-                (change)="validadorDadosPessoais.validarUfEmissorRG(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.ufEmissorRG && {'border-color': 'red'}" >
+              <label for="ufEmissorRGConjuge"> <b> UF emissor: <span style="color:red" >*</span> </b> </label>
+              <select id="ufEmissorRGConjuge" [(ngModel)]="dadosConjuge.ufEmissorRG" class="form-control" name="ufEmissorRGConjuge"
+                (change)="validadorDadosConjuge.validarUfEmissorRG(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.ufEmissorRG && {'border-color': 'red'}" >
                   <option value="">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -757,23 +771,23 @@
                   <option value="TO">Tocantins</option>
               </select>
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.ufEmissorRG">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.ufEmissorRG">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.ufEmissorRGMensagem}}
+                  {{validadorDadosConjuge.ufEmissorRGMensagem}}
                 </span>
               </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
+              <label for="inputCPFConjuge"> <b> CPF: <span style="color:red" >*</span> </b> </label>
               <input type="text" value={{dadosConjuge.cpf}} [(ngModel)]="dadosConjuge.cpf"
-                class="form-control" id="inputCPF" disabled>
+                class="form-control" id="inputCPFConjuge" mask="000.000.000-00">
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.cpf">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.cpfMensagem}}
+                  {{validadorDadosConjuge.cpfMensagem}}
                 </span>
               </div>
             </div>
@@ -783,33 +797,33 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="telefone"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.telefone" class="form-control" id="telefone"
-                (change)="validadorDadosPessoais.validarTelefone(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.telefone && {'border-color': 'red'}" mask="(00)00000-0000"  >
+              <label for="telefoneConjuge"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.telefone" class="form-control" id="telefoneConjuge"
+                (change)="validadorDadosConjuge.validarTelefone(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.telefone && {'border-color': 'red'}" mask="(00)00000-0000"  >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.telefone">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.telefone">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.telefoneMensagem}}
+                  {{validadorDadosConjuge.telefoneMensagem}}
                 </span>
               </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="pessoaComDeficienciaNao"> <b> Pessoa com deficiência: <span style="color:red" >*</span> </b> </label>
+              <label for="pessoaComDeficienciaNaoConjuge"> <b> Pessoa com deficiência: <span style="color:red" >*</span> </b> </label>
               <div class="d-flex">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="pessoaComDeficiencia" id="pessoaComDeficienciaNao"
+                  <input class="form-check-input" type="radio" name="pessoaComDeficienciaConjuge" id="pessoaComDeficienciaNaoConjuge"
                     value="0" [(ngModel)]="dadosConjuge.pessoaComDeficiencia" checked>
-                  <label class="form-check-label" for="pessoaComDeficienciaNao">
+                  <label class="form-check-label" for="pessoaComDeficienciaNaoConjuge">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" [(ngModel)]="dadosConjuge.pessoaComDeficiencia" type="radio"
-                    name="pessoaComDeficiencia" id="pessoaComDeficienciaSim" value="1">
-                  <label class="form-check-label" for="pessoaComDeficienciaSim">
+                    name="pessoaComDeficienciaConjuge" id="pessoaComDeficienciaSimConjuge" value="1">
+                  <label class="form-check-label" for="pessoaComDeficienciaSimConjuge">
                     Sim
                   </label>
                 </div>
@@ -821,15 +835,15 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
-              <label for="inputNomeMae"> <b> Nome da mãe: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.nomeMae" class="form-control" id="inputNomeMae"
-                (change)="validadorDadosPessoais.validarNomeMae(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.nomeMae && {'border-color': 'red'}" >
+              <label for="inputNomeMaeConjuge"> <b> Nome da mãe: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.nomeMae" class="form-control" id="inputNomeMaeConjuge"
+                (change)="validadorDadosConjuge.validarNomeMae(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.nomeMae && {'border-color': 'red'}" >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.nomeMae">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.nomeMae">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.nomeMaeMensagem}}
+                  {{validadorDadosConjuge.nomeMaeMensagem}}
                 </span>
               </div>
             </div>
@@ -839,32 +853,32 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
-              <label for="inputNomePai"> <b> Nome do pai: </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.nomePai" class="form-control" id="inputNomePai" >
+              <label for="inputNomePaiConjuge"> <b> Nome do pai: </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.nomePai" class="form-control" id="inputNomePaiConjuge" >
             </div>
 
           </div>
 
           <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4 pr-3">
-              <label for="municipioNascimento"> <b> Município de nascimento: <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" [(ngModel)]="dadosConjuge.municipioNascimento" id="municipioNascimento"
-                (change)="validadorDadosPessoais.validarMunicipioNascimento(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.municipioNascimento && {'border-color': 'red'}" >
+              <label for="municipioNascimentoConjuge"> <b> Município de nascimento: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" [(ngModel)]="dadosConjuge.municipioNascimento" id="municipioNascimentoConjuge"
+                (change)="validadorDadosConjuge.validarMunicipioNascimento(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.municipioNascimento && {'border-color': 'red'}" >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.municipioNascimento">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.municipioNascimento">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.municipioNascimentoMensagem}}
+                  {{validadorDadosConjuge.municipioNascimentoMensagem}}
                 </span>
               </div>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="ufNascimento"> <b> UF: <span style="color:red" >*</span> </b> </label>
-              <select id="ufNascimento" [(ngModel)]="dadosConjuge.ufNascimento" name="ufNascimento"
-                (change)="validadorDadosPessoais.validarUfNascimento(dadosConjuge)" class="form-control"
-                [ngStyle]="!validadorDadosPessoais.ufNascimento && {'border-color': 'red'}" >
+              <label for="ufNascimentoConjuge"> <b> UF: <span style="color:red" >*</span> </b> </label>
+              <select id="ufNascimentoConjuge" [(ngModel)]="dadosConjuge.ufNascimento" name="ufNascimentoConjuge"
+                (change)="validadorDadosConjuge.validarUfNascimento(dadosConjuge)" class="form-control"
+                [ngStyle]="!validadorDadosConjuge.ufNascimento && {'border-color': 'red'}" >
                   <option value="">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -895,10 +909,10 @@
                   <option value="TO">Tocantins</option>
               </select>
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.ufNascimento">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.ufNascimento">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.ufNascimentoMensagem}}
+                  {{validadorDadosConjuge.ufNascimentoMensagem}}
                 </span>
               </div>
             </div>
@@ -908,33 +922,33 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="dataNascimento"> <b> Data de nascimento: <span style="color:red" >*</span> </b> </label>
+              <label for="dataNascimentoConjuge"> <b> Data de nascimento: <span style="color:red" >*</span> </b> </label>
               <input [(ngModel)]="dadosConjuge.dataNascimento" type="text" mask="00/00/0000" class="form-control"
-                (change)="validadorDadosPessoais.validarDataNascimento(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.dataNascimento && {'border-color': 'red'}" id="dataNascimento" >
+                (change)="validadorDadosConjuge.validarDataNascimento(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.dataNascimento && {'border-color': 'red'}" id="dataNascimentoConjuge" >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.dataNascimento">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.dataNascimento">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.dataNascimentoMensagem}}
+                  {{validadorDadosConjuge.dataNascimentoMensagem}}
                 </span>
               </div>
             </div>
 
-            <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="!maior18()">
-              <label for="emancipadoNao"> <b> Emancipado: <span style="color:red" >*</span> </b> </label>
+            <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="!maior18(dadosConjuge)">
+              <label for="emancipadoNaoConjuge"> <b> Emancipado: <span style="color:red" >*</span> </b> </label>
               <div class="d-flex">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="emancipado" id="emancipadoNao"
+                  <input class="form-check-input" type="radio" name="emancipadoConjuge" id="emancipadoNaoConjuge"
                     value="0" checked [(ngModel)]="dadosConjuge.emancipado">
-                  <label class="form-check-label" for="emancipadoNao">
+                  <label class="form-check-label" for="emancipadoNaoConjuge">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
-                  <input class="form-check-input" type="radio" name="emancipado" id="emancipadoSim"
+                  <input class="form-check-input" type="radio" name="emancipadoConjuge" id="emancipadoSimConjuge"
                     value="1" [(ngModel)]="dadosConjuge.emancipado">
-                  <label class="form-check-label" for="emancipadoSim">
+                  <label class="form-check-label" for="emancipadoSimConjuge">
                     Sim
                   </label>
                 </div>
@@ -946,13 +960,13 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-4 col-lg-4 pr-3">
-              <label for="nis"> <b> Numero de identificação social (NIS): </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.nis" class="form-control" id="nis">
+              <label for="nisConjuge"> <b> Numero de identificação social (NIS): </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.nis" class="form-control" id="nisConjuge">
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.nis">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.nis">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.nisMensagem}}
+                  {{validadorDadosConjuge.nisMensagem}}
                 </span>
               </div>
             </div>
@@ -962,10 +976,10 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-6 col-lg-6 pr-3">
-              <label for="escolaridade"> <b> Escolaridade: <span style="color:red" >*</span> </b> </label>
-              <select [(ngModel)]="dadosConjuge.escolaridade" id="escolaridade" class="form-control" name="escolaridade"
-                (change)="validadorDadosPessoais.validarEscolaridade(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.escolaridade && {'border-color': 'red'}" >
+              <label for="escolaridadeConjuge"> <b> Escolaridade: <span style="color:red" >*</span> </b> </label>
+              <select [(ngModel)]="dadosConjuge.escolaridade" id="escolaridadeConjuge" class="form-control"
+                name="escolaridadeConjuge" (change)="validadorDadosConjuge.validarEscolaridade(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.escolaridade && {'border-color': 'red'}" >
                 <option value="0">Selecione</option>
                 <option value="1">Fundamental – incompleto</option>
                 <option value="2">Fundamental – completo</option>
@@ -976,24 +990,24 @@
                 <option value="7">Outros</option>
               </select>
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.escolaridade">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.escolaridade">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.escolaridadeMensagem}}
+                  {{validadorDadosConjuge.escolaridadeMensagem}}
                 </span>
               </div>
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosConjuge.escolaridade == 7">
-              <label for="escolaridadeTexto"> <b> Escolaridade | Outros: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.escolaridadeTexto" class="form-control" id="escolaridadeTexto"
-                (change)="validadorDadosPessoais.validarEscolaridadeTexto(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.escolaridadeTexto && {'border-color': 'red'}"  >
+              <label for="escolaridadeTextoConjuge"> <b> Escolaridade | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.escolaridadeTexto" class="form-control"
+                id="escolaridadeTextoConjuge" (change)="validadorDadosConjuge.validarEscolaridadeTexto(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.escolaridadeTexto && {'border-color': 'red'}"  >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.escolaridadeTexto">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.escolaridadeTexto">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.escolaridadeTextoMensagem}}
+                  {{validadorDadosConjuge.escolaridadeTextoMensagem}}
                 </span>
               </div>
             </div>
@@ -1004,91 +1018,100 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-6 col-lg-6 pr-3">
-              <label for="ocupacao" class="mr-3"><b>Ocupação: (selecionar 1 ou mais)  <span style="color:red" >*</span> </b> </label>
+              <label for="ocupacaoConjuge" class="mr-3"><b>Ocupação: (selecionar 1 ou mais)  <span style="color:red" >*</span> </b> </label>
 
               <br>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="1" id="desempregado">
-                <label class="form-check-label" for="desempregado">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="1" id="desempregadoConjuge">
+                <label class="form-check-label" for="desempregadoConjuge">
                     Desempregado
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="2" id="empregadoCLT" >
-                <label class="form-check-label" for="empregadoCLT">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="2" id="empregadoCLTConjuge" >
+                <label class="form-check-label" for="empregadoCLTConjuge">
                     Empregado (CLT)
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="3" id="servidorPublico">
-                <label class="form-check-label" for="servidorPublico">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="3" id="servidorPublicoConjuge">
+                <label class="form-check-label" for="servidorPublicoConjuge">
                     Servidor público
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="4" id="autonomo" >
-                <label class="form-check-label" for="autonomo">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="4" id="autonomoConjuge" >
+                <label class="form-check-label" for="autonomoConjuge">
                     Autônomo
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="5" id="estagiario">
-                <label class="form-check-label" for="estagiario">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="5" id="estagiarioConjuge">
+                <label class="form-check-label" for="estagiarioConjuge">
                     Estagiário
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="6" id="menorAprendiz" >
-                <label class="form-check-label" for="menorAprendiz">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="6" id="menorAprendizConjuge" >
+                <label class="form-check-label" for="menorAprendizConjuge">
                     Menor aprendiz
                 </label>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="7" id="aposentado">
-                <label class="form-check-label" for="aposentado">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="7" id="aposentadoConjuge">
+                <label class="form-check-label" for="aposentadoConjuge">
                     Aposentado
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="8" id="pensionista" >
-                <label class="form-check-label" for="pensionista">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="8" id="pensionistaConjuge" >
+                <label class="form-check-label" for="pensionistaConjuge">
                     Pensionista
                 </label>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="9" id="ajudaDoacaoTerceiros">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)" value="9" id="ajudaDoacaoTerceiros">
                 <label class="form-check-label" for="ajudaDoacaoTerceiros">
                     Ajuda/doação de terceiros
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoChange($event)" value="10" id="ocupacaoOutros" >
-                <label class="form-check-label" for="ocupacaoOutros">
+                <input class="form-check-input" type="checkbox" (change)="onCheckboxOcupacaoConjugeChange($event)"
+                  value="10" id="ocupacaoOutrosConjuge" >
+                <label class="form-check-label" for="ocupacaoOutrosConjuge">
                     Outros
                 </label>
               </div>
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.ocupacao">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.ocupacao">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.ocupacaoMensagem}}
+                  {{validadorDadosConjuge.ocupacaoMensagem}}
                 </span>
               </div>
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosConjuge.mostrarOutrosOcupacao">
-              <label for="ocupacaoTexto"> <b> Ocupação | Outros: <span style="color:red" >* </span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.ocupacaoTexto" class="form-control" id="ocupacaoTexto"
-                (change)="validadorDadosPessoais.validarMostrarOutrosOcupacao(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.ocupacaoTexto && {'border-color': 'red'}" >
+              <label for="ocupacaoTextoConjuge"> <b> Ocupação | Outros: <span style="color:red" >* </span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.ocupacaoTexto" class="form-control" id="ocupacaoTextoConjuge"
+                (change)="validadorDadosConjuge.validarMostrarOutrosOcupacao(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.ocupacaoTexto && {'border-color': 'red'}" >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.ocupacaoTexto">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.ocupacaoTexto">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.ocupacaoTextoMensagem}}
+                  {{validadorDadosConjuge.ocupacaoTextoMensagem}}
                 </span>
               </div>
             </div>
@@ -1099,78 +1122,87 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-6 col-lg-6 pr-3">
-              <label for="beneficiosSociais" class="mr-3"><b>Benefícios sociais: (selecionar 1 ou mais) </b> </label>
+              <label for="beneficiosSociaisConjuge" class="mr-3"><b>Benefícios sociais: (selecionar 1 ou mais) </b> </label>
               <br>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="1" (change)="onCheckboxBeneficiosSociaisChange($event)" id="seguroDesemprego">
-                <label class="form-check-label" for="seguroDesemprego">
+                <input class="form-check-input" type="checkbox" value="1" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)"
+                  id="seguroDesempregoConjuge">
+                <label class="form-check-label" for="seguroDesempregoConjuge">
                     Seguro-desemprego
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="2" (change)="onCheckboxBeneficiosSociaisChange($event)" id="auxilioDoenca" >
-                <label class="form-check-label" for="auxilioDoenca">
+                <input class="form-check-input" type="checkbox" value="2" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)"
+                  id="auxilioDoencaConjuge" >
+                <label class="form-check-label" for="auxilioDoencaConjuge">
                     Auxílio-doença
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="3" (change)="onCheckboxBeneficiosSociaisChange($event)" id="bolsaFamilia" >
-                <label class="form-check-label" for="bolsaFamilia">
+                <input class="form-check-input" type="checkbox" value="3" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)"
+                  id="bolsaFamiliaConjuge" >
+                <label class="form-check-label" for="bolsaFamiliaConjuge">
                     Bolsa Família
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="4" (change)="onCheckboxBeneficiosSociaisChange($event)" id="tarifaSocialEnergiaEletrica">
-                <label class="form-check-label" for="tarifaSocialEnergiaEletrica">
+                <input class="form-check-input" type="checkbox" value="4" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)"
+                  id="tarifaSocialEnergiaEletricaConjuge">
+                <label class="form-check-label" for="tarifaSocialEnergiaEletricaConjuge">
                     Tarifa social de energia elétrica
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="5" (change)="onCheckboxBeneficiosSociaisChange($event)" id="carteiraIdoso" >
-                <label class="form-check-label" for="carteiraIdoso">
+                <input class="form-check-input" type="checkbox" value="5" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)"
+                  id="carteiraIdosoConjuge" >
+                <label class="form-check-label" for="carteiraIdosoConjuge">
                     Carteira do idoso
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="6" (change)="onCheckboxBeneficiosSociaisChange($event)" id="identidadeJovem">
-                <label class="form-check-label" for="identidadeJovem">
+                <input class="form-check-input" type="checkbox" value="6" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)"
+                  id="identidadeJovemConjuge">
+                <label class="form-check-label" for="identidadeJovemConjuge">
                   Identidade Jovem
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="7" (change)="onCheckboxBeneficiosSociaisChange($event)" id="BpcLoas" >
-                <label class="form-check-label" for="BpcLoas">
+                <input class="form-check-input" type="checkbox" value="7" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)"
+                  id="BpcLoasConjuge" >
+                <label class="form-check-label" for="BpcLoasConjuge">
                     BPC/LOAS
                 </label>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="8" (change)="onCheckboxBeneficiosSociaisChange($event)" id="outros">
-                <label class="form-check-label" for="outros">
+                <input class="form-check-input" type="checkbox" value="8" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)"
+                  id="outrosConjuge">
+                <label class="form-check-label" for="outrosConjuge">
                     Outros
                 </label>
               </div>
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociais">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.beneficiosSociais">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.beneficiosSociaisMensagem}}
+                  {{validadorDadosConjuge.beneficiosSociaisMensagem}}
                 </span>
               </div>
 
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="dadosConjuge.mostrarOutrosBeneficiosSociais">
-              <label for="beneficiosSociaisTexto"><b>Benefícios sociais | Outros: <span style="color:red" >*</span> </b> </label>
+              <label for="beneficiosSociaisTextoConjuge"><b>Benefícios sociais | Outros: <span style="color:red" >*</span> </b> </label>
               <input type="text" [(ngModel)]="dadosConjuge.beneficiosSociaisTexto" class="form-control"
-                (change)="validadorDadosPessoais.validarMostrarOutrosBeneficiosSociais(dadosConjuge)"
-                [ngStyle]="!validadorDadosPessoais.beneficiosSociaisTexto && {'border-color': 'red'}" id="beneficiosSociaisTexto" >
+                (change)="validadorDadosConjuge.validarMostrarOutrosBeneficiosSociais(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.beneficiosSociaisTexto && {'border-color': 'red'}"
+                id="beneficiosSociaisTextoConjuge" >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociaisTexto">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.beneficiosSociaisTexto">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.beneficiosSociaisTextoMensagem}}
+                  {{validadorDadosConjuge.beneficiosSociaisTextoMensagem}}
                 </span>
               </div>
             </div>
@@ -1181,9 +1213,10 @@
           <div class="mb-2">
             <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
-            <button (click)="continuar2()" class="btn btn-primary float-right mx-2">Continuar</button>
+            <button (click)="continuar()" class="btn btn-primary float-right mx-2">Continuar</button>
+            <button (click)="voltar()" class="btn btn-primary float-right">Voltar</button>
 
-            <button (click)="salvar()" class="btn btn-primary float-right ">Salvar</button>
+            <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
           </div>
 
           <br>
@@ -1191,10 +1224,18 @@
 
       </mat-tab >
 
+
       <mat-tab label = "Identificação do imóvel" >
 
         <div>
           <hr>
+
+          <div class="form-row m-0 ">
+            <div class="col-md-12 col-lg-12 ">
+              <b class="text-center fs-18">Informe os dados do imóvel:</b>
+            </div>
+          </div>
+          <br>
 
           <div class="form-row m-0">
 
@@ -1488,9 +1529,10 @@
           <div class="mb-2">
             <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
-            <button (click)="continuar2()"  class="btn btn-primary float-right mx-2">Continuar</button>
+            <button (click)="continuar()"  class="btn btn-primary float-right mx-2">Continuar</button>
+            <button (click)="voltar()" class="btn btn-primary float-right">Voltar</button>
 
-            <button (click)="salvar()" class="btn btn-primary float-right ">Salvar</button>
+            <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
           </div>
 
           <br>
@@ -1498,6 +1540,53 @@
         </div>
 
       </mat-tab >
+
+      <mat-tab label = "Integrantes do grupo familiar" >
+
+        <div>
+          <hr>
+
+          <div class="form-row m-0 ">
+            <div class="col-md-12 col-lg-12 ">
+              <b class="text-center fs-18">Informe os dados dos integrantes do seu grupo familiar:</b>
+            </div>
+          </div>
+          <br>
+        </div>
+
+        <br>
+        <div class="mb-2">
+          <b> <span style="color:red" >* Campo obrigatório</span>  </b>
+
+          <button (click)="continuar()" class="btn btn-primary float-right mx-2">Continuar</button>
+          <button (click)="voltar()" class="btn btn-primary float-right">Voltar</button>
+
+          <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
+        </div>
+      </mat-tab>
+
+
+      <mat-tab label = "Características do seu domicílio" >
+
+        <div>
+          <hr>
+
+          <div class="form-row m-0 ">
+            <div class="col-md-12 col-lg-12 ">
+              <b class="text-center fs-18">Informe as características do seu domicílio:</b>
+            </div>
+          </div>
+          <br>
+        </div>
+
+        <br>
+        <div class="mb-2">
+          <b> <span style="color:red" >* Campo obrigatório</span>  </b>
+
+          <button (click)="voltar()" class="btn btn-primary float-right mx-2">Voltar</button>
+          <button (click)="enviarDados()" class="btn btn-primary float-right ">Enviar Dados</button>
+        </div>
+      </mat-tab>
 
     </mat-tab-group>
 
