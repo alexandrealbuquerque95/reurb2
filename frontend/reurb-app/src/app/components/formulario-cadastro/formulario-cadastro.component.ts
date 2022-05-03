@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoais';
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
+import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model'
 
 
 @Component({
@@ -31,6 +32,10 @@ export class FormularioCadastroComponent implements OnInit {
 
   tabIndex = 0;
 
+  integranteFamiliar: IntegranteFamiliar;
+  integrantesFamiliar: IntegranteFamiliar[];
+  valorRenda: number;
+
   constructor(private loginService: LoginService, private route: ActivatedRoute) {
 
   }
@@ -45,6 +50,15 @@ export class FormularioCadastroComponent implements OnInit {
 
     this.validadorDadosPessoais = new ValidadorDadosPessoais();
     this.validadorDadosConjuge = new ValidadorDadosPessoais();
+
+    this.integranteFamiliar = new IntegranteFamiliar();
+    this.integranteFamiliar.nome = 'Nome Teste Integrante';
+    this.integranteFamiliar.nis = '91340254210834';
+    this.integranteFamiliar.sexo = '1';
+    this.integranteFamiliar.relacaoComTitular = '1';
+    this.integranteFamiliar.dataNascimento = '28/01/1995';
+    this.integranteFamiliar.valorRenda = 3000;
+
 
     //if(this.dadosConjuge == undefined)
     //{
@@ -231,6 +245,16 @@ export class FormularioCadastroComponent implements OnInit {
   }
 
   enviarDados(): void
+  {
+
+  }
+
+  adicionarIntegrante(): void
+  {
+
+  }
+
+  removerIntegrante(): void
   {
 
   }

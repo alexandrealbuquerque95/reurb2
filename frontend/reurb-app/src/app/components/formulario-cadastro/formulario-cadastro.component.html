@@ -638,6 +638,16 @@
             </div>
           </div>
 
+          <div class="form-row m-0">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" value="1" id="termoAceite">
+              <label class="form-check-label" for="termoAceite">
+                Declaro estar de acordo com o <a href="http://localhost:4200/formulario-cadastro/12345678905"
+                  style="text-decoration: underline">Termo de aceite e consentimento</a> <span style="color:red" > * </span>
+              </label>
+            </div>
+          </div>
+
           <br>
           <div class="mb-2">
             <b> <span style="color:red" >* Campo obrigatório</span>  </b>
@@ -1551,10 +1561,83 @@
               <b class="text-center fs-18">Informe os dados dos integrantes do seu grupo familiar:</b>
             </div>
           </div>
+
           <br>
+
+          <div class="form-row m-0 ">
+
+            <div class="col-md-12 col-lg-12">
+              <table class="table table-bordered table-responsive-md text-center">
+                <thead>
+                  <tr>
+                    <th class="col-md-2 col-lg-2" scope="col">Nome</th>
+                    <th class="col-md-2 col-lg-2" scope="col">Nº de identificação Social - NIS</th>
+                    <th class="col-md-2 col-lg-2" scope="col">Relação com o titular</th>
+                    <th class="col-md-1 col-lg-1" scope="col">Sexo</th>
+                    <th class="col-md-2 col-lg-2" scope="col">Data de nascimento</th>
+                    <th class="col-md-2 col-lg-2" scope="col">Valor da renda bruta  mensal (em R$)*</th>
+                    <th class="col-md-1 col-lg-1" scope="col">Remover</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td class="pt-3-half" >
+                      <input class="form-control" [(ngModel)]="integranteFamiliar.nome">
+                    </td>
+                    <td class="pt-3-half" contenteditable="true" >
+                      <input class="form-control" type="text" tabindex="0" [(ngModel)]="integranteFamiliar.nis" >
+                    </td>
+                    <td class="pt-3-half" >
+                      <select class="form-control" [(ngModel)]="integranteFamiliar.relacaoComTitular">
+                        <option value="0">Selecione</option>
+                        <option value="1">Titular</option>
+                        <option value="2">Cônjuge/companheiro(a)</option>
+                        <option value="3">Filho(a)</option>
+                        <option value="4">Enteado(a)</option>
+                        <option value="5">Neto(a)</option>
+                        <option value="6">Pai/Mãe</option>
+                        <option value="7">Avô/Avó</option>
+                        <option value="8">Sobrinho(a)</option>
+                        <option value="9">Outros</option>
+                      </select>
+                    </td>
+                    <td class="pt-3-half" >
+                      <select class="form-control" [(ngModel)]="integranteFamiliar.sexo">
+                        <option value="0">F</option>
+                        <option value="1">M</option>
+                      </select>
+                    </td>
+                    <td class="pt-3-half" contenteditable="true" >
+                      <input type="text" mask="00/00/0000" [(ngModel)]="integranteFamiliar.dataNascimento"
+                        class="form-control" placeholder="00/00/0000">
+                    </td>
+                    <td class="pt-3-half ">
+                      <input currencyMask [(ngModel)]="integranteFamiliar.valorRenda" class="form-control"
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                    </td>
+
+                    <td class="pt-3-half ">
+                      <button type="submit" class="btn px-2 " tabindex="0" (click)="removerIntegrante()"
+                        container="body">
+                        <fa-icon class="fa-lg" [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                    </button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+              <button (click)="adicionarIntegrante()" class="btn btn-secondary float-right mx-2">Adicionar integrante</button>
+
+
+            </div>
+
+          </div>
+
         </div>
 
-        <br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <div class="mb-2">
           <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 

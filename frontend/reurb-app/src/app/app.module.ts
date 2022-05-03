@@ -17,6 +17,8 @@ import {fas} from '@fortawesome/free-solid-svg-icons';
 import { FormularioCadastroComponent } from './components/formulario-cadastro/formulario-cadastro.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CurrencyMaskModule } from "ng2-currency-mask";
+
 
 
 
@@ -39,6 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FontAwesomeModule,
     MatTabsModule,
     BrowserAnimationsModule,
+    CurrencyMaskModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
