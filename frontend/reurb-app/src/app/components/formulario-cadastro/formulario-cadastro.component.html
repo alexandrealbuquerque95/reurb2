@@ -1565,6 +1565,64 @@
           <br>
 
           <div class="form-row m-0 ">
+            <div class="form-group col-md-8 col-lg-8 pr-3">
+              <label for="nomeIntegrante"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="integranteFamiliar.nome" class="form-control" id="nomeIntegrante">
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 px-3">
+              <label for="nisIntegrante"> <b> Numero de identificação social (NIS): </b> </label>
+              <input type="text" [(ngModel)]="integranteFamiliar.nis" class="form-control" id="nisIntegrante">
+            </div>
+          </div>
+
+          <div class="form-row m-0 ">
+            <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="relacaoComIntegrante"> <b> Relação com o titular: <span style="color:red" >*</span> </b> </label>
+              <select class="form-control" [(ngModel)]="integranteFamiliar.relacaoComTitular" id="relacaoComIntegrante">
+                <option value="0">Selecione</option>
+                <option value="1">Titular</option>
+                <option value="2">Cônjuge/companheiro(a)</option>
+                <option value="3">Filho(a)</option>
+                <option value="4">Enteado(a)</option>
+                <option value="5">Neto(a)</option>
+                <option value="6">Pai/Mãe</option>
+                <option value="7">Avô/Avó</option>
+                <option value="8">Sobrinho(a)</option>
+                <option value="9">Outros</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="sexoIntegrante"> <b> Sexo: </b> </label>
+              <select class="form-control" [(ngModel)]="integranteFamiliar.sexo">
+                <option value="0">Feminino</option>
+                <option value="1">Masculino</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="dataNascimentoIntegrante"> <b> Data de nascimento: </b> </label>
+              <input type="text" mask="00/00/0000" [(ngModel)]="integranteFamiliar.dataNascimento"
+                class="form-control" placeholder="00/00/0000"  id="dataNascimentoIntegrante">
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="valorRendaIntegrante"> <b> Valor da renda bruta mensal (em R$): * </b> </label>
+              <input currencyMask [(ngModel)]="integranteFamiliar.valorRenda" class="form-control" id="valorRendaIntegrante"
+                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+            </div>
+          </div>
+
+          <div class="form-row m-0 ">
+            <div class="col-md-12 col-lg-12">
+              <button (click)="adicionarIntegrante()" class="btn btn-primary float-right mx-2">Adicionar integrante</button>
+            </div>
+          </div>
+
+          <br><br>
+
+          <div class="form-row m-0 ">
 
             <div class="col-md-12 col-lg-12">
               <table class="table table-bordered table-responsive-md text-center">
@@ -1581,55 +1639,84 @@
                 </thead>
 
                 <tbody>
-                  <tr>
+                  <tr >
                     <td class="pt-3-half" >
-                      <input class="form-control" [(ngModel)]="integranteFamiliar.nome">
-                    </td>
-                    <td class="pt-3-half" contenteditable="true" >
-                      <input class="form-control" type="text" tabindex="0" [(ngModel)]="integranteFamiliar.nis" >
+                      <span tabindex="0">{{integranteTitular.nome}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <select class="form-control" [(ngModel)]="integranteFamiliar.relacaoComTitular">
-                        <option value="0">Selecione</option>
-                        <option value="1">Titular</option>
-                        <option value="2">Cônjuge/companheiro(a)</option>
-                        <option value="3">Filho(a)</option>
-                        <option value="4">Enteado(a)</option>
-                        <option value="5">Neto(a)</option>
-                        <option value="6">Pai/Mãe</option>
-                        <option value="7">Avô/Avó</option>
-                        <option value="8">Sobrinho(a)</option>
-                        <option value="9">Outros</option>
-                      </select>
+                      <span tabindex="0">{{integranteTitular.nis}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <select class="form-control" [(ngModel)]="integranteFamiliar.sexo">
-                        <option value="0">F</option>
-                        <option value="1">M</option>
-                      </select>
+                      <span tabindex="0">Titular</span>
                     </td>
-                    <td class="pt-3-half" contenteditable="true" >
-                      <input type="text" mask="00/00/0000" [(ngModel)]="integranteFamiliar.dataNascimento"
-                        class="form-control" placeholder="00/00/0000">
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{integranteTitular.sexo}}</span>
                     </td>
-                    <td class="pt-3-half ">
-                      <input currencyMask [(ngModel)]="integranteFamiliar.valorRenda" class="form-control"
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{integranteTitular.dataNascimento}}</span>
+                    </td>
+                    <td class="pt-3-half " >
+                      <input currencyMask [(ngModel)]="integranteTitular.valorRenda" class="form-control" id="valorRendaTitular"
                         [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
                     </td>
-
                     <td class="pt-3-half ">
+                    </td>
+                  </tr>
+
+                  <tr *ngFor="let integrante of integrantesFamiliar">
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{integrante.nome}}</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0" >{{integrante.nis}}</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{integrante.sexo}}</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{integrante.relacaoComTitular}}</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{integrante.dataNascimento}}</span>
+                    </td>
+                    <td class="pt-3-half ">
+                      <span tabindex="0">{{integrante.valorRenda}}</span>
+                    </td>
+
+                    <td class="">
                       <button type="submit" class="btn px-2 " tabindex="0" (click)="removerIntegrante()"
-                        container="body">
+                        container="body" >
                         <fa-icon class="fa-lg" [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                     </button>
                     </td>
                   </tr>
 
+                  <tr >
+                    <td class="pt-3-half" >
+                      <span tabindex="0"><b>Total</b></span>
+                    </td>
+                    <td class="pt-3-half" >
+
+                    </td>
+                    <td class="pt-3-half" >
+
+                    </td>
+                    <td class="pt-3-half" >
+
+                    </td>
+                    <td class="pt-3-half" >
+
+                    </td>
+                    <td class="pt-3-half ">
+                      <span tabindex="0">{{valorRendaTotal}}</span>
+                    </td>
+
+                    <td class="">
+                    </td>
+                  </tr>
+
                 </tbody>
               </table>
-
-              <button (click)="adicionarIntegrante()" class="btn btn-secondary float-right mx-2">Adicionar integrante</button>
-
 
             </div>
 

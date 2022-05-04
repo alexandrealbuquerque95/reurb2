@@ -30,11 +30,12 @@ export class FormularioCadastroComponent implements OnInit {
 
   dadosImovel: DadosImovel = new DadosImovel();
 
-  tabIndex = 0;
+  tabIndex = 2;
 
+  integranteTitular: IntegranteFamiliar;
   integranteFamiliar: IntegranteFamiliar;
-  integrantesFamiliar: IntegranteFamiliar[];
-  valorRenda: number;
+  integrantesFamiliar: IntegranteFamiliar[] = [];
+  valorRendaTotal: number;
 
   constructor(private loginService: LoginService, private route: ActivatedRoute) {
 
@@ -51,13 +52,17 @@ export class FormularioCadastroComponent implements OnInit {
     this.validadorDadosPessoais = new ValidadorDadosPessoais();
     this.validadorDadosConjuge = new ValidadorDadosPessoais();
 
+    this.integranteTitular = new IntegranteFamiliar();
+    this.integranteTitular.nome = 'Nome Teste Integrante';
+    this.integranteTitular.nis = '91340254210834';
+    this.integranteTitular.sexo = 'Masculino';
+    this.integranteTitular.relacaoComTitular = 'Titular';
+    this.integranteTitular.dataNascimento = '28/01/1995';
+    this.integranteTitular.valorRenda = 3000;
+    
+    this.valorRendaTotal = this.integranteTitular.valorRenda;
+
     this.integranteFamiliar = new IntegranteFamiliar();
-    this.integranteFamiliar.nome = 'Nome Teste Integrante';
-    this.integranteFamiliar.nis = '91340254210834';
-    this.integranteFamiliar.sexo = '1';
-    this.integranteFamiliar.relacaoComTitular = '1';
-    this.integranteFamiliar.dataNascimento = '28/01/1995';
-    this.integranteFamiliar.valorRenda = 3000;
 
 
     //if(this.dadosConjuge == undefined)
@@ -250,6 +255,22 @@ export class FormularioCadastroComponent implements OnInit {
   }
 
   adicionarIntegrante(): void
+  {
+    if(this.integranteFamiliar.nome != undefined && this.integranteFamiliar.nome != '' &&
+      this.integranteFamiliar.relacaoComTitular != undefined && this.integranteFamiliar.relacaoComTitular != '')
+    {
+      if(this.integranteFamiliar.valorRenda != undefined && this.integranteFamiliar.valorRenda > 0)
+      {
+        this.valorRendaTotal += this.integranteFamiliar.valorRenda;
+      }
+
+      this.integrantesFamiliar.push(this.integranteFamiliar);
+
+      this.integranteFamiliar = new IntegranteFamiliar();
+    }
+  }
+
+  validarDadosIntegrate(): void
   {
 
   }
