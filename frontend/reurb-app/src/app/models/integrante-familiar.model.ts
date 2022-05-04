@@ -3,8 +3,10 @@ export class IntegranteFamiliar {
 
   nome: string;
   nis: string = '';
-  sexo: string = '0';
-  relacaoComTitular: string = '0';
+  sexo: string = 'Feminino';
+  relacaoComTitular: string = 'Selecione';
   dataNascimento: string;
   valorRenda: number;
+
+  valorRendaString: string;
 }

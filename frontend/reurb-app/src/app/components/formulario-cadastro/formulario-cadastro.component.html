@@ -1580,24 +1580,24 @@
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="relacaoComIntegrante"> <b> Relação com o titular: <span style="color:red" >*</span> </b> </label>
               <select class="form-control" [(ngModel)]="integranteFamiliar.relacaoComTitular" id="relacaoComIntegrante">
-                <option value="0">Selecione</option>
-                <option value="1">Titular</option>
-                <option value="2">Cônjuge/companheiro(a)</option>
-                <option value="3">Filho(a)</option>
-                <option value="4">Enteado(a)</option>
-                <option value="5">Neto(a)</option>
-                <option value="6">Pai/Mãe</option>
-                <option value="7">Avô/Avó</option>
-                <option value="8">Sobrinho(a)</option>
-                <option value="9">Outros</option>
+                <option value="Selecione">Selecione</option>
+                <option value="Titular">Titular</option>
+                <option value="Cônjuge/companheiro(a)">Cônjuge/companheiro(a)</option>
+                <option value="Filho(a)">Filho(a)</option>
+                <option value="Enteado(a)">Enteado(a)</option>
+                <option value="Neto(a)">Neto(a)</option>
+                <option value="Pai/Mãe">Pai/Mãe</option>
+                <option value="Avô/Avó">Avô/Avó</option>
+                <option value="Sobrinho(a)">Sobrinho(a)</option>
+                <option value="Outros">Outros</option>
               </select>
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="sexoIntegrante"> <b> Sexo: </b> </label>
-              <select class="form-control" [(ngModel)]="integranteFamiliar.sexo">
-                <option value="0">Feminino</option>
-                <option value="1">Masculino</option>
+              <select class="form-control" [(ngModel)]="integranteFamiliar.sexo" id="sexoIntegrante">
+                <option value="Feminino">Feminino</option>
+                <option value="Masculino">Masculino</option>
               </select>
             </div>
 
@@ -1657,13 +1657,14 @@
                     </td>
                     <td class="pt-3-half " >
                       <input currencyMask [(ngModel)]="integranteTitular.valorRenda" class="form-control" id="valorRendaTitular"
-                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                        (ngModelChange)="adicionarRendaTitular()" />
                     </td>
                     <td class="pt-3-half ">
                     </td>
                   </tr>
 
-                  <tr *ngFor="let integrante of integrantesFamiliar">
+                  <tr *ngFor="let integrante of integrantesFamiliar ">
                     <td class="pt-3-half" >
                       <span tabindex="0">{{integrante.nome}}</span>
                     </td>
@@ -1671,20 +1672,22 @@
                       <span tabindex="0" >{{integrante.nis}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{integrante.sexo}}</span>
-                    </td>
-                    <td class="pt-3-half" >
                       <span tabindex="0">{{integrante.relacaoComTitular}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{integrante.dataNascimento}}</span>
+                      <span tabindex="0">{{integrante.sexo}}</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0" *ngIf="integrante.dataNascimento != undefined">{{integrante.dataNascimento.substring(0,2) + '/'
+                        + integrante.dataNascimento.substring(2,4) + '/' + integrante.dataNascimento.substring(4,8) }}
+                      </span>
                     </td>
                     <td class="pt-3-half ">
-                      <span tabindex="0">{{integrante.valorRenda}}</span>
+                      <span tabindex="0">{{integrante.valorRendaString}}</span>
                     </td>
 
                     <td class="">
-                      <button type="submit" class="btn px-2 " tabindex="0" (click)="removerIntegrante()"
+                      <button type="submit" class="btn px-2 " tabindex="0" (click)="removerIntegrante(integrante)"
                         container="body" >
                         <fa-icon class="fa-lg" [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                     </button>
@@ -1708,7 +1711,7 @@
 
                     </td>
                     <td class="pt-3-half ">
-                      <span tabindex="0">{{valorRendaTotal}}</span>
+                      <span tabindex="0">{{valorRendaTotalString}}</span>
                     </td>
 
                     <td class="">
@@ -1724,11 +1727,11 @@
 
         </div>
 
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br>
         <div class="mb-2">
           <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
-          <button (click)="continuar()" class="btn btn-primary float-right mx-2">Continuar</button>
+          <button (click)="continuar()" class="btn btn-primary float-right mx-2 mb-2">Continuar</button>
           <button (click)="voltar()" class="btn btn-primary float-right">Voltar</button>
 
           <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
