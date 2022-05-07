@@ -2,7 +2,7 @@ export class IntegranteFamiliar {
   id: number;
 
   nome: string;
-  nis: string = '';
+  documento: string = '';
   sexo: string = 'Feminino';
   relacaoComTitular: string = 'Selecione';
   dataNascimento: string;

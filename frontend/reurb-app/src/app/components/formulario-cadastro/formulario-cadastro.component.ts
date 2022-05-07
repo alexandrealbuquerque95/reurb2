@@ -7,6 +7,7 @@ import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoais';
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
 import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model'
+import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model'
 
 
 @Component({
@@ -30,13 +31,15 @@ export class FormularioCadastroComponent implements OnInit {
 
   dadosImovel: DadosImovel = new DadosImovel();
 
-  tabIndex = 0;
+  tabIndex = 3;
 
   integranteTitular: IntegranteFamiliar;
   integranteFamiliar: IntegranteFamiliar;
   integrantesFamiliar: IntegranteFamiliar[] = [];
   valorRendaTotal: number;
   valorRendaTotalString: string = '0,00';
+
+  caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();;
 
   constructor(private loginService: LoginService, private route: ActivatedRoute) {
 
@@ -55,7 +58,7 @@ export class FormularioCadastroComponent implements OnInit {
 
     this.integranteTitular = new IntegranteFamiliar();
     this.integranteTitular.nome = 'Nome do Titular';
-    this.integranteTitular.nis = '91340254210834';
+    this.integranteTitular.documento = '91340254210834';
     this.integranteTitular.sexo = 'Masculino';
     this.integranteTitular.relacaoComTitular = 'Titular';
     this.integranteTitular.dataNascimento = '28/01/1995';
@@ -83,6 +86,7 @@ export class FormularioCadastroComponent implements OnInit {
   {
     this.validouFormularioCadastro1 = true;
     this.tabIndex++;
+    window.scrollTo(0, 0);
 
     //this.validadorDadosPessoais = this.validadorDadosPessoais.validarDados(this.dadosPessoais);
     //if(this.validadorDadosPessoais.validouDados)
@@ -101,6 +105,7 @@ export class FormularioCadastroComponent implements OnInit {
   continuar(): void
   {
     this.tabIndex++;
+    window.scrollTo(0, 0);
   }
 
   voltar(): void
@@ -296,6 +301,94 @@ export class FormularioCadastroComponent implements OnInit {
     this.integrantesFamiliar.splice(index, 1);
     this.valorRendaTotal -= integrante.valorRenda;
     this.valorRendaTotalString = this.valorRendaTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+  }
+
+  onCheckboxMaterialParedeChange(event: any)
+  {
+    if (event.target.checked) {
+      this.caracteristicasDomicilio.materialParedeExterna.push(event.target.value);
+
+      if(event.target.value == "5")
+      {
+        this.caracteristicasDomicilio.mostrarOutrosMaterialParedeExterna = true;
+      }
+    } else {
+      const index = this.caracteristicasDomicilio.materialParedeExterna.findIndex(x => x === event.target.value);
+      this.caracteristicasDomicilio.materialParedeExterna.splice(index);
+
+      if(event.target.value == "5")
+      {
+        this.caracteristicasDomicilio.mostrarOutrosMaterialParedeExterna = false;
+      }
+    }
+
+    //this.validadorDadosPessoais.validarOcupacao(this.caracteristicasDomicilio);
+  }
+
+  onCheckboxMaterialPisoChange(event: any)
+  {
+    if (event.target.checked) {
+      this.caracteristicasDomicilio.materialPiso.push(event.target.value);
+
+      if(event.target.value == "6")
+      {
+        this.caracteristicasDomicilio.mostrarOutrosMaterialPiso = true;
+      }
+    } else {
+      const index = this.caracteristicasDomicilio.materialPiso.findIndex(x => x === event.target.value);
+      this.caracteristicasDomicilio.materialPiso.splice(index);
+
+      if(event.target.value == "6")
+      {
+        this.caracteristicasDomicilio.mostrarOutrosMaterialPiso = false;
+      }
+    }
+
+    //this.validadorDadosPessoais.validarOcupacao(this.caracteristicasDomicilio);
+  }
+
+  onCheckboxMaterialInstalacaoEletricaChange(event: any)
+  {
+    if (event.target.checked) {
+      this.caracteristicasDomicilio.materialInstalacaoEletrica.push(event.target.value);
+
+      if(event.target.value == "8")
+      {
+        this.caracteristicasDomicilio.mostrarOutrosMaterialInstalacaoEletrica = true;
+      }
+    } else {
+      const index = this.caracteristicasDomicilio.materialInstalacaoEletrica.findIndex(x => x === event.target.value);
+      this.caracteristicasDomicilio.materialInstalacaoEletrica.splice(index);
+
+      if(event.target.value == "8")
+      {
+        this.caracteristicasDomicilio.mostrarOutrosMaterialInstalacaoEletrica = false;
+      }
+    }
+
+    //this.validadorDadosPessoais.validarOcupacao(this.caracteristicasDomicilio);
+  }
+
+  onCheckboxMaterialEsgotoSanitarioChange(event: any)
+  {
+    if (event.target.checked) {
+      this.caracteristicasDomicilio.esgotoSanitario.push(event.target.value);
+
+      if(event.target.value == "6")
+      {
+        this.caracteristicasDomicilio.mostrarOutrosEsgotoSanitario = true;
+      }
+    } else {
+      const index = this.caracteristicasDomicilio.esgotoSanitario.findIndex(x => x === event.target.value);
+      this.caracteristicasDomicilio.esgotoSanitario.splice(index);
+
+      if(event.target.value == "6")
+      {
+        this.caracteristicasDomicilio.mostrarOutrosEsgotoSanitario = false;
+      }
+    }
+
+    //this.validadorDadosPessoais.validarOcupacao(this.caracteristicasDomicilio);
   }
 
 }

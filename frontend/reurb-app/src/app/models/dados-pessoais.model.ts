@@ -2,10 +2,11 @@ export class DadosPessoais {
   id: number;
 
   nome: string;
-  sexo: string = 'F';
+  sexo: string = '';
 
+  celular: number;
   telefone: number;
-  pessoaComDeficiencia: string = '0';
+  pessoaComDeficiencia: string = '';
 
   nomeMae: string;
 
@@ -15,7 +16,7 @@ export class DadosPessoais {
   ufNascimento: string = '';
 
   dataNascimento: string;
-  emancipado: string = '0';
+  emancipado: string = '';
 
   rg: string;
   orgaoEmissorRG: string;

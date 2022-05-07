@@ -10,8 +10,8 @@ export class ValidadorDadosPessoais {
   sexo: boolean = true;
   sexoMensagem: string = 'Selecione o campo Sexo';
 
-  telefone: boolean = true;
-  telefoneMensagem: string = 'Preencha o campo Telefone para contato com DDD';
+  celular: boolean = true;
+  celularMensagem: string = 'Preencha o campo Celular para contato com DDD';
   pessoaComDeficiencia: boolean = true;
   pessoaComDeficienciaMensagem: string = 'Selecione o campo Pessoa com deficiência';
 
@@ -80,7 +80,7 @@ export class ValidadorDadosPessoais {
 
     this.validarNome(dadosPessoais);
     this.validarSexo(dadosPessoais);
-    this.validarTelefone(dadosPessoais);
+    this.validarCelular(dadosPessoais);
     this.validarPessoaComDeficiencia(dadosPessoais);
     this.validarNomeMae(dadosPessoais);
     this.validarMunicipioNascimento(dadosPessoais);
@@ -132,16 +132,16 @@ export class ValidadorDadosPessoais {
     }
   }
 
-  validarTelefone(dadosPessoais: DadosPessoais)
+  validarCelular(dadosPessoais: DadosPessoais)
   {
-    if(dadosPessoais.telefone == undefined || dadosPessoais.telefone == 0)
+    if(dadosPessoais.celular == undefined || dadosPessoais.celular == 0)
     {
-      this.telefone = false;
+      this.celular = false;
       this.validouDados = false;
     }
     else
     {
-      this.telefone = true;
+      this.celular = true;
     }
   }
 

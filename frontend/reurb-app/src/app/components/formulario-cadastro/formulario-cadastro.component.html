@@ -62,7 +62,7 @@
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.rg" mask="000.000.000" class="form-control" id="rg"
+              <input type="text" [(ngModel)]="dadosPessoais.rg" class="form-control" id="rg"
                 (change)="validadorDadosPessoais.validarRg(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.rg && {'border-color': 'red'}">
 
@@ -149,17 +149,23 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="telefone"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.telefone" class="form-control" id="telefone"
-                (change)="validadorDadosPessoais.validarTelefone(dadosPessoais)"
-                [ngStyle]="!validadorDadosPessoais.telefone && {'border-color': 'red'}" mask="(00)00000-0000"  >
+              <label for="celular"> <b> Celular para contato com DDD: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.celular" class="form-control" id="celular"
+                (change)="validadorDadosPessoais.validarCelular(dadosPessoais)"
+                [ngStyle]="!validadorDadosPessoais.celular && {'border-color': 'red'}" mask="(00)00000-0000"  >
 
-              <div class="px-2" *ngIf="!validadorDadosPessoais.telefone">
+              <div class="px-2" *ngIf="!validadorDadosPessoais.celular">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosPessoais.telefoneMensagem}}
+                  {{validadorDadosPessoais.celularMensagem}}
                 </span>
               </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="telefone"> <b> Telefone para contato com DDD: </b> </label>
+              <input type="text" [(ngModel)]="dadosPessoais.telefone" class="form-control" id="telefone"
+               mask="(00)0000-0000"  >
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
@@ -569,7 +575,7 @@
             </div>
 
             <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
-              <label for="nomeConjuge"><b>Nome do(a) cônjuge: <span style="color:red" >* </span> </b></label>
+              <label for="nomeConjuge"><b>Nome do(a) cônjuge ou companheiro(a): <span style="color:red" >* </span> </b></label>
               <input type="text" [(ngModel)]="dadosPessoais.nomeConjuge" class="form-control" id="nomeConjuge"
                 (change)="validadorDadosPessoais.validarNomeConjuge(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.nomeConjuge && {'border-color': 'red'}" >
@@ -584,8 +590,8 @@
           </div>
 
           <div class="form-row m-0" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
-            <div class="form-group col-md-3 col-lg-3 pr-3 pr-3">
-              <label for="dataCasamento"> <b> Data do casamento: <span style="color:red" >* </span> </b> </label>
+            <div class="form-group col-md-4 col-lg-4 pr-3">
+              <label for="dataCasamento"> <b> Data do casamento ou início da união estável: <span style="color:red" >* </span> </b> </label>
               <input type="text" [(ngModel)]="dadosPessoais.dataCasamento" mask="00/00/0000" class="form-control"
                 (change)="validadorDadosPessoais.validarDataCasamento(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.dataCasamento && {'border-color': 'red'}" id="dataCasamento" >
@@ -599,7 +605,7 @@
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="regimeBens"><b> Regime de bens: <span style="color:red" >* </span> </b> </label>
+              <label for="regimeBens"><b> Regime de bens:  </b> </label>
               <select [(ngModel)]="dadosPessoais.regimeBens" id="regimeBens" class="form-control" name="regimeBens"
                 (change)="validadorDadosPessoais.validarRegimeBens(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.regimeBens && {'border-color': 'red'}" >
@@ -607,6 +613,7 @@
                 <option value="2">Comunhão universal</option>
                 <option value="3">Separação total</option>
                 <option value="4">Participação final nos aquestos</option>
+                <option value="5">Outros</option>
               </select>
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.regimeBens">
@@ -807,17 +814,23 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
-              <label for="telefoneConjuge"> <b> Telefone para contato com DDD: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.telefone" class="form-control" id="telefoneConjuge"
-                (change)="validadorDadosConjuge.validarTelefone(dadosConjuge)"
-                [ngStyle]="!validadorDadosConjuge.telefone && {'border-color': 'red'}" mask="(00)00000-0000"  >
+              <label for="celularConjuge"> <b> Celular para contato com DDD: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.celular" class="form-control" id="celularConjuge"
+                (change)="validadorDadosConjuge.validarCelular(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.celular && {'border-color': 'red'}" mask="(00)00000-0000"  >
 
-              <div class="px-2" *ngIf="!validadorDadosConjuge.telefone">
+              <div class="px-2" *ngIf="!validadorDadosConjuge.celular">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
-                  {{validadorDadosConjuge.telefoneMensagem}}
+                  {{validadorDadosPessoais.celularMensagem}}
                 </span>
               </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
+              <label for="telefone"> <b> Telefone para contato com DDD: </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.telefone" class="form-control" id="telefone"
+                mask="(00)0000-0000"  >
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
@@ -1393,7 +1406,7 @@
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="dadosImovel.mais1DomicilioLote == '1'">
-              <label for="quantidadeDomiciliosLote"> <b> Quantos no total? <span style="color:red" >*</span> </b> </label>
+              <label for="quantidadeDomiciliosLote"> <b> Quantos domicílios existem no lote no total? <span style="color:red" >*</span> </b> </label>
               <select id="quantidadeDomiciliosLote" class="form-control" name="quantidadeDomiciliosLote">
                 <option value="0">Selecione</option>
                 <option value="1">1</option>
@@ -1571,8 +1584,8 @@
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
-              <label for="nisIntegrante"> <b> Numero de identificação social (NIS): </b> </label>
-              <input type="text" [(ngModel)]="integranteFamiliar.nis" class="form-control" id="nisIntegrante">
+              <label for="documentoIntegrante"> <b> Documento (CPF ou RG ou certidão de nascimento): <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="integranteFamiliar.documento" class="form-control" id="documentoIntegrante">
             </div>
           </div>
 
@@ -1608,10 +1621,14 @@
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="valorRendaIntegrante"> <b> Valor da renda bruta mensal (em R$): * </b> </label>
+              <label for="valorRendaIntegrante"> <b> Valor da renda bruta mensal (em R$): <span style="color:red" >*</span> </b> </label>
               <input currencyMask [(ngModel)]="integranteFamiliar.valorRenda" class="form-control" id="valorRendaIntegrante"
                 [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
             </div>
+          </div>
+
+          <div class="form-row m-0 ">
+            * Renda bruta mensal: não colocar valores de benefícios temporários de natureza indenizatória, assistencial ou previdenciária.
           </div>
 
           <div class="form-row m-0 ">
@@ -1629,7 +1646,7 @@
                 <thead>
                   <tr>
                     <th class="col-md-2 col-lg-2" scope="col">Nome</th>
-                    <th class="col-md-2 col-lg-2" scope="col">Nº de identificação Social - NIS</th>
+                    <th class="col-md-2 col-lg-2" scope="col">Documento</th>
                     <th class="col-md-2 col-lg-2" scope="col">Relação com o titular</th>
                     <th class="col-md-1 col-lg-1" scope="col">Sexo</th>
                     <th class="col-md-2 col-lg-2" scope="col">Data de nascimento</th>
@@ -1644,7 +1661,7 @@
                       <span tabindex="0">{{integranteTitular.nome}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{integranteTitular.nis}}</span>
+                      <span tabindex="0">{{integranteTitular.documento}}</span>
                     </td>
                     <td class="pt-3-half" >
                       <span tabindex="0">Titular</span>
@@ -1669,7 +1686,7 @@
                       <span tabindex="0">{{integrante.nome}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0" >{{integrante.nis}}</span>
+                      <span tabindex="0" >{{integrante.documento}}</span>
                     </td>
                     <td class="pt-3-half" >
                       <span tabindex="0">{{integrante.relacaoComTitular}}</span>
@@ -1727,7 +1744,26 @@
 
         </div>
 
-        <br><br><br>
+        <br>
+        <div class="form-row m-0">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="1" id="desempregado">
+            <label class="form-check-label" for="desempregado">
+              Declaro verdadeiras as informações prestadas sobre o grupo familiar e o domicílio
+            </label>
+          </div>
+        </div>
+
+        <div class="form-row m-0">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="1" id="empregadoCLT" >
+            <label class="form-check-label" for="empregadoCLT">
+              Declaro que quero aderir ao financiamento da regularização fundiária
+            </label>
+          </div>
+        </div>
+
+        <br><br>
         <div class="mb-2">
           <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
@@ -1736,10 +1772,11 @@
 
           <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
         </div>
+        <br>
       </mat-tab>
 
 
-      <mat-tab label = "Características do seu domicílio" >
+      <mat-tab label = "Características do seu domicílio" *ngIf="20000 > valorRendaTotal">
 
         <div>
           <hr>
@@ -1748,8 +1785,461 @@
             <div class="col-md-12 col-lg-12 ">
               <b class="text-center fs-18">Informe as características do seu domicílio:</b>
             </div>
+
+            <br><br>
+
+            <div class="form-group col-md-3 col-lg-3 pr-3 ">
+              <label for="sexoMasculino"> <b> Estrutura: <span style="color:red" >*</span> </b> </label>
+
+              <div class="d-flex">
+                <div class="form-check ">
+                  <input class="form-check-input" type="radio" name="estrutura" id="estruturaEstavelNao"
+                    value="0" checked [(ngModel)]="caracteristicasDomicilio.estruturaEstavel">
+                  <label class="form-check-label" for="estruturaEstavelNao">
+                    Não estável
+                  </label>
+                </div>
+
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="estrutura" id="estruturaEstavelSim"
+                    value="1" [(ngModel)]="caracteristicasDomicilio.estruturaEstavel">
+                  <label class="form-check-label" for="estruturaEstavelSim">
+                    Estável
+                  </label>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-9 col-lg-9  px-3 ">
+              <label for="sexoMasculino"> <b> Necessidade de reconstrução ou total substituição, devido a situação
+                de risco ou extrema precariedade: <span style="color:red" >*</span> </b> </label>
+
+              <div class="d-flex">
+                <div class="form-check ">
+                  <input class="form-check-input" type="radio" name="necessidadeReconstrucao" id="necessidadeReconstrucaoNao"
+                    value="0" checked [(ngModel)]="caracteristicasDomicilio.necessidadeReconstrucao">
+                  <label class="form-check-label" for="necessidadeReconstrucaoNao">
+                    Não
+                  </label>
+                </div>
+
+                <div class="form-check pl-5">
+
+                  <input class="form-check-input" type="radio" name="necessidadeReconstrucao" id="necessidadeReconstrucaoSim"
+                    value="1" [(ngModel)]="caracteristicasDomicilio.necessidadeReconstrucao">
+                  <label class="form-check-label" for="necessidadeReconstrucaoSim">
+                    Sim
+                  </label>
+                </div>
+
+              </div>
+
+            </div>
           </div>
+
           <br>
+
+          <div class="form-row m-0 ">
+            <div class="form-group col-md-3 col-lg-3 pr-3 ">
+              <label for="totalComodos"> <b> Número total de cômodos: <span style="color:red" >*</span> </b> </label>
+
+              <select id="totalComodos" class="form-control" name="totalComodos"
+                [(ngModel)]="caracteristicasDomicilio.numeroComodos">
+                <option value="0">Selecione</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8 ou mais</option>
+              </select>
+
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3 ">
+              <label for="totalMoradoresPorComodo"> <b> Número de moradores por cômodo utilizado como dormitório: <span style="color:red" >*</span> </b> </label>
+
+              <div class="form-group col-md-6 col-lg-6 p-0 ">
+                <select id="totalMoradoresPorComodo" class="form-control" name="totalMoradoresPorComodo"
+                  [(ngModel)]="caracteristicasDomicilio.numeroMoradoresPorComodo">
+                  <option value="0">Selecione</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6 ou mais</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 pr-3 ">
+              <label for="totalMoradoresPorComodo"> <b> Número de banheiros de uso exclusivo do grupo familiar: <span style="color:red" >*</span> </b> </label>
+
+              <div class="col-md-6 col-lg-6 p-0">
+                <select id="numeroBanheiros" class="form-control" name="numeroBanheiros"
+                  [(ngModel)]="caracteristicasDomicilio.numeroBanheiros">
+                  <option value="0">Selecione</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3 ou mais</option>
+                </select>
+              </div>
+
+            </div>
+
+          </div>
+
+          <br>
+
+
+          <div class="form-row m-0 ">
+
+            <div class="form-group col-md-6 col-lg-6 pr-3 ">
+              <label for="tipoParede"> <b> Paredes externas – Materiais: <span style="color:red" >*</span> </b> </label>
+              <br>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox"  value="1" id="alveraniaComRevestimento"
+                  (change)="onCheckboxMaterialParedeChange($event)">
+                <label class="form-check-label" for="desempregado">
+                    Alverania com revestimento
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="2" id="alveraniaSemRevestimento"
+                  (change)="onCheckboxMaterialParedeChange($event)">
+                <label class="form-check-label" for="desempregado">
+                    Alverania sem revestimento
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="3" id="madeiraAparelhada"
+                  (change)="onCheckboxMaterialParedeChange($event)">
+                <label class="form-check-label" for="madeiraAparelhada">
+                    Madeira aparelhada
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="4" id="taipaRevestida"
+                  (change)="onCheckboxMaterialParedeChange($event)">
+                <label class="form-check-label" for="taipaRevestida">
+                    Taipa revestida
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="5" id="outros"
+                  (change)="onCheckboxMaterialParedeChange($event)">
+                <label class="form-check-label" for="outros">
+                    Outros
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="caracteristicasDomicilio.mostrarOutrosMaterialParedeExterna">
+              <label for="materiaisTexto"> <b> Paredes externas | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="materiaisTexto"
+                [(ngModel)]="caracteristicasDomicilio.materialParedeExternaTexto">
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 pr-3 ">
+              <label for="condicoesParede"> <b> Paredes externas – Condições gerais aparentes: <span style="color:red" >*</span> </b> </label>
+
+              <div class="d-flex">
+                <div class="form-check ">
+                  <input class="form-check-input" type="radio" name="condicoesParede" id="condicoesParedeAdequadas"
+                    value="Adequadas" [(ngModel)]="caracteristicasDomicilio.condicoesParede">
+                  <label class="form-check-label" for="condicoesParedeAdequadas">
+                    Adequadas
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="condicoesParede" id="condicoesParedeInadequadas"
+                    value="Inadequadas" [(ngModel)]="caracteristicasDomicilio.condicoesParede">
+                  <label class="form-check-label" for="condicoesParedeInadequadas">
+                      Inadequadas
+                  </label>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="form-row m-0 ">
+
+            <div class="form-group col-md-6 col-lg-6 pr-3 ">
+              <label for="tipoParede"> <b> Piso – Materiais: <span style="color:red" >* </span> </b> </label>
+              <br>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox"  value="1" id="PisoTerra"
+                  (change)="onCheckboxMaterialPisoChange($event)">
+                <label class="form-check-label" for="pisoTerra">
+                    Terra
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="2" id="pisoCeramica"
+                  (change)="onCheckboxMaterialPisoChange($event)">
+                <label class="form-check-label" for="pisoCeramica">
+                    Cerâmica
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="3" id="pisoLajota"
+                  (change)="onCheckboxMaterialPisoChange($event)">
+                <label class="form-check-label" for="pisoLajota">
+                    Lajota
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="4" id="pisoMadeira"
+                  (change)="onCheckboxMaterialPisoChange($event)">
+                <label class="form-check-label" for="pisoMadeira">
+                    Madeira
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="5" id="pisoCimento"
+                  (change)="onCheckboxMaterialPisoChange($event)">
+                <label class="form-check-label" for="pisoCimento">
+                    Cimento
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="6" id="pisoOutros"
+                  (change)="onCheckboxMaterialPisoChange($event)">
+                <label class="form-check-label" for="pisoOutros">
+                    Outros
+                </label>
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="caracteristicasDomicilio.mostrarOutrosMaterialPiso">
+              <label for="pisoTexto"> <b> Piso | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="pisoTexto"
+                [(ngModel)]="caracteristicasDomicilio.materialPisoTexto">
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 pr-3 ">
+              <label for="condicoesParede"> <b> Piso – Condições gerais aparentes: <span style="color:red" >*</span> </b> </label>
+
+              <div class="d-flex">
+                <div class="form-check ">
+                  <input class="form-check-input" type="radio" name="condicoesPiso" id="condicoesPisoAdequadas"
+                    value="Adequadas" [(ngModel)]="caracteristicasDomicilio.condicoesPiso">
+                  <label class="form-check-label" for="condicoesPisoAdequadas">
+                    Adequadas
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="condicoesPiso" id="condicoesPisoInadequadas"
+                    value="Inadequadas" [(ngModel)]="caracteristicasDomicilio.condicoesPiso">
+                  <label class="form-check-label" for="condicoesPisoInadequadas">
+                      Inadequadas
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <br>
+
+          <div class="form-row m-0 ">
+
+            <div class="form-group col-md-6 col-lg-6 pr-3 ">
+              <label for="materiasInstalacaoEletrica"> <b> Instalações elétricas – Materiais: <span style="color:red" >*</span> </b> </label>
+              <br>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox"  value="1" id="ligacaoRedePublica"
+                  (change)="onCheckboxMaterialInstalacaoEletricaChange($event)">
+                <label class="form-check-label" for="ligacaoRedePublica">
+                    Ligação domiciliar à rede pública
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox"  value="2" id="possuiQuadroLuz"
+                  (change)="onCheckboxMaterialInstalacaoEletricaChange($event)">
+                <label class="form-check-label" for="possuiQuadroLuz">
+                    Possui quadro de luz
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="3" id="fiacaoEmbutida"
+                  (change)="onCheckboxMaterialInstalacaoEletricaChange($event)">
+                <label class="form-check-label" for="fiacaoEmbutida">
+                    A fiação está embutida
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="4" id="fiacaoExposta"
+                  (change)="onCheckboxMaterialInstalacaoEletricaChange($event)">
+                <label class="form-check-label" for="fiacaoExposta">
+                    A fiação está exposta
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="5" id="eletrodosDeteriorados"
+                  (change)="onCheckboxMaterialInstalacaoEletricaChange($event)">
+                <label class="form-check-label" for="eletrodosDeteriorados">
+                    Eletrodos deteriorados
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="6" id="dimensionamentoSuficiente"
+                  (change)="onCheckboxMaterialInstalacaoEletricaChange($event)">
+                <label class="form-check-label" for="dimensionamentoSuficiente">
+                    Dimensionamento suficiente
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="7" id="dimensionamentoInsuficiente"
+                  (change)="onCheckboxMaterialInstalacaoEletricaChange($event)">
+                <label class="form-check-label" for="dimensionamentoInsuficiente">
+                    Dimensionamento insuficiente
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="8" id="outros"
+                  (change)="onCheckboxMaterialInstalacaoEletricaChange($event)">
+                <label class="form-check-label" for="outros">
+                    Outros
+                </label>
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="caracteristicasDomicilio.mostrarOutrosMaterialInstalacaoEletrica">
+              <label for="escolaridadeTexto"> <b> Instalações elétricas | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="instalacoesEletricasTexto"
+                [(ngModel)]="caracteristicasDomicilio.materialInstalacaoEletricaTexto">
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 pr-3 ">
+              <label for="condicoesInstalacaoEletrica"> <b> Instalações elétricas – Condições gerais aparentes: <span style="color:red" >*</span> </b> </label>
+              <div class="d-flex">
+                <div class="form-check ">
+                  <input class="form-check-input" type="radio" name="condicoesInstalacaoEletrica" id="condicoesInstalacaoEletricaAdequadas"
+                    value="Adequadas" [(ngModel)]="caracteristicasDomicilio.condicoesInstalacaoEletrica">
+                  <label class="form-check-label" for="condicoesInstalacaoEletricaAdequadas">
+                    Adequadas
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="condicoesInstalacaoEletrica" id="condicoesInstalacaoEletricaInadequadas"
+                    value="Inadequadas" [(ngModel)]="caracteristicasDomicilio.condicoesInstalacaoEletrica">
+                  <label class="form-check-label" for="condicoesInstalacaoEletricaInadequadas">
+                      Inadequadas
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="form-row m-0 ">
+            <div class="form-group col-md-6 col-lg-6 pr-3 ">
+              <label for="materiasInstalacaoEletrica"> <b> Esgotamento sanitário – Materiais: <span style="color:red" >*</span> </b> </label>
+              <br>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox"  value="1" id="ligacaoRedeGeral"
+                  (change)="onCheckboxMaterialEsgotoSanitarioChange($event)">
+                <label class="form-check-label" for="ligacaoRedeGeral">
+                  Ligação à rede geral
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox"  value="2" id="ligacaoRedePluvial"
+                  (change)="onCheckboxMaterialEsgotoSanitarioChange($event)">
+                <label class="form-check-label" for="ligacaoRedePluvial">
+                  Ligação  à rede pluvial
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="3" id="fossaSepticaLigadaRede"
+                  (change)="onCheckboxMaterialEsgotoSanitarioChange($event)">
+                <label class="form-check-label" for="fossaSepticaLigadaRede">
+                  Fossa séptica ligada à rede
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="4" id="fossaNegra"
+                  (change)="onCheckboxMaterialEsgotoSanitarioChange($event)">
+                <label class="form-check-label" for="fossaNegra">
+                  Fossa negra
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="5" id="lancamentoDiretoRuaOuRioMar"
+                (change)="onCheckboxMaterialEsgotoSanitarioChange($event)">
+                <label class="form-check-label" for="lancamentoDiretoRuaOuRioMar">
+                  Lançamento direto na rua ou córrego ou rio ou mar
+                </label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="6" id="outrosEsgoto"
+                  (change)="onCheckboxMaterialEsgotoSanitarioChange($event)">
+                <label class="form-check-label" for="outrosEsgoto">
+                    Outros
+                </label>
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="caracteristicasDomicilio.mostrarOutrosEsgotoSanitario">
+              <label for="esgotamentoSanitario"> <b> Esgotamento sanitário | Outros: <span style="color:red" >*</span> </b> </label>
+              <input type="text" class="form-control" id="esgotamentoSanitario"
+                [(ngModel)]="caracteristicasDomicilio.esgotoSanitarioTexto">
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4 pr-3 ">
+              <label for="condicoesParede"> <b> Esgotamento sanitário – Condições gerais aparentes: <span style="color:red" >*</span> </b> </label>
+
+              <div class="d-flex">
+                <div class="form-check ">
+                  <input class="form-check-input" type="radio" name="condicoesEsgotoSanitario" id="condicoesEsgotoAdequadas"
+                    value="Adequadas" [(ngModel)]="caracteristicasDomicilio.condicoesEsgotoSanitario">
+                  <label class="form-check-label" for="condicoesEsgotoAdequadas">
+                    Adequadas
+                  </label>
+                </div>
+                <div class="form-check pl-5">
+                  <input class="form-check-input" type="radio" name="condicoesEsgotoSanitario" id="condicoesEsgotoInadequadas"
+                    value="Inadequadas" [(ngModel)]="caracteristicasDomicilio.condicoesEsgotoSanitario">
+                  <label class="form-check-label" for="condicoesEsgotoInadequadas">
+                      Inadequadas
+                  </label>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
         <br>
@@ -1759,6 +2249,8 @@
           <button (click)="voltar()" class="btn btn-primary float-right mx-2">Voltar</button>
           <button (click)="enviarDados()" class="btn btn-primary float-right ">Enviar Dados</button>
         </div>
+        <br>
+
       </mat-tab>
 
     </mat-tab-group>
