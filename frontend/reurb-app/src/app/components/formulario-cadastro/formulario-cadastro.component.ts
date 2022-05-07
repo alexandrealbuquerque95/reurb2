@@ -31,7 +31,7 @@ export class FormularioCadastroComponent implements OnInit {
 
   dadosImovel: DadosImovel = new DadosImovel();
 
-  tabIndex = 3;
+  tabIndex = 0;
 
   integranteTitular: IntegranteFamiliar;
   integranteFamiliar: IntegranteFamiliar;
