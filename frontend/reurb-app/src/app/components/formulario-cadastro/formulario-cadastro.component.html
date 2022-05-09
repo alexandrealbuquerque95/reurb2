@@ -524,6 +524,13 @@
                 </label>
               </div>
 
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="9" (change)="onCheckboxBeneficiosSociaisChange($event)" id="nenhum">
+                <label class="form-check-label" for="nenhum">
+                    Nenhum
+                </label>
+              </div>
+
               <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociais">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
