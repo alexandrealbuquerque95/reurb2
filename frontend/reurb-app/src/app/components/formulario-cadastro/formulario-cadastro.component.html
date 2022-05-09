@@ -1656,24 +1656,24 @@
                 </thead>
 
                 <tbody>
-                  <tr >
+                  <tr *ngIf="dadosPessoais != undefined">
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{integranteTitular.nome}}</span>
+                      <span tabindex="0">{{dadosPessoais.nome}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{integranteTitular.documento}}</span>
+                      <span tabindex="0">{{dadosPessoais.cpf}}</span>
                     </td>
                     <td class="pt-3-half" >
                       <span tabindex="0">Titular</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{integranteTitular.sexo}}</span>
+                      <span tabindex="0">{{dadosPessoais.sexo}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{integranteTitular.dataNascimento}}</span>
+                      <span tabindex="0">{{dadosPessoais.dataNascimento}}</span>
                     </td>
                     <td class="pt-3-half " >
-                      <input currencyMask [(ngModel)]="integranteTitular.valorRenda" class="form-control" id="valorRendaTitular"
+                      <input currencyMask [(ngModel)]="dadosPessoais.valorRenda" class="form-control" id="valorRendaTitular"
                         [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
                         (ngModelChange)="adicionarRendaTitular()" />
                     </td>
@@ -1749,7 +1749,9 @@
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" value="1" id="desempregado">
             <label class="form-check-label" for="desempregado">
-              Declaro verdadeiras as informações prestadas sobre o grupo familiar e o domicílio
+              <b>
+                Declaro verdadeiras as informações prestadas sobre o grupo familiar e o domicílio
+              </b>
             </label>
           </div>
         </div>
@@ -1758,7 +1760,9 @@
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" value="1" id="empregadoCLT" >
             <label class="form-check-label" for="empregadoCLT">
-              Declaro que quero aderir ao financiamento da regularização fundiária
+              <b>
+                Declaro que quero aderir ao financiamento da regularização fundiária
+              </b>
             </label>
           </div>
         </div>
@@ -1767,7 +1771,11 @@
         <div class="mb-2">
           <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
-          <button (click)="continuar()" class="btn btn-primary float-right mx-2 mb-2">Continuar</button>
+          <button (click)="enviarDados()" *ngIf="2000 <= valorRendaTotal"
+            class="btn btn-primary float-right mx-2 mb-2">Enviar Dados</button>
+
+          <button (click)="continuar()" *ngIf="2000 > valorRendaTotal"
+            class="btn btn-primary float-right mx-2 mb-2">Continuar</button>
           <button (click)="voltar()" class="btn btn-primary float-right">Voltar</button>
 
           <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
@@ -1776,7 +1784,7 @@
       </mat-tab>
 
 
-      <mat-tab label = "Características do seu domicílio" *ngIf="20000 > valorRendaTotal">
+      <mat-tab label = "Características do seu domicílio" *ngIf="2000 > valorRendaTotal">
 
         <div>
           <hr>
@@ -2246,8 +2254,8 @@
         <div class="mb-2">
           <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 
-          <button (click)="voltar()" class="btn btn-primary float-right mx-2">Voltar</button>
           <button (click)="enviarDados()" class="btn btn-primary float-right ">Enviar Dados</button>
+          <button (click)="voltar()" class="btn btn-primary float-right mx-2 mb-2">Voltar</button>
         </div>
         <br>
 

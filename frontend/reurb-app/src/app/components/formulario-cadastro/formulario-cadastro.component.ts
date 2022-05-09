@@ -36,7 +36,7 @@ export class FormularioCadastroComponent implements OnInit {
   integranteTitular: IntegranteFamiliar;
   integranteFamiliar: IntegranteFamiliar;
   integrantesFamiliar: IntegranteFamiliar[] = [];
-  valorRendaTotal: number;
+  valorRendaTotal: number = 0.00;
   valorRendaTotalString: string = '0,00';
 
   caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();;
@@ -46,26 +46,26 @@ export class FormularioCadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mostrarFormularioCadastro1 = true;
-    this.mostrarFormularioCadastro2 = false;
-    this.validouFormularioCadastro1 = false;
-    this.validouFormularioCadastro2 = false;
+    //this.mostrarFormularioCadastro1 = true;
+    //this.mostrarFormularioCadastro2 = false;
+    //this.validouFormularioCadastro1 = false;
+    //this.validouFormularioCadastro2 = false;
 
     this.dadosPessoais.cpf = this.route.snapshot.paramMap.get('cpf');
 
     this.validadorDadosPessoais = new ValidadorDadosPessoais();
     this.validadorDadosConjuge = new ValidadorDadosPessoais();
 
-    this.integranteTitular = new IntegranteFamiliar();
-    this.integranteTitular.nome = 'Nome do Titular';
-    this.integranteTitular.documento = '91340254210834';
-    this.integranteTitular.sexo = 'Masculino';
-    this.integranteTitular.relacaoComTitular = 'Titular';
-    this.integranteTitular.dataNascimento = '28/01/1995';
-    this.integranteTitular.valorRenda = 3000;
+    //this.integranteTitular = new IntegranteFamiliar();
+    //this.integranteTitular.nome = 'Nome do Titular';
+    //this.integranteTitular.documento = '91340254210834';
+    //this.integranteTitular.sexo = 'Masculino';
+    //this.integranteTitular.relacaoComTitular = 'Titular';
+    //this.integranteTitular.dataNascimento = '28/01/1995';
+    //this.integranteTitular.valorRenda = 0,00;
 
-    this.valorRendaTotal = this.integranteTitular.valorRenda;
-    this.valorRendaTotalString = this.valorRendaTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+    //this.valorRendaTotal = this.integranteTitular.valorRenda;
+    //this.valorRendaTotalString = this.valorRendaTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 
     this.integranteFamiliar = new IntegranteFamiliar();
 
@@ -272,7 +272,7 @@ export class FormularioCadastroComponent implements OnInit {
     });
 
     this.valorRendaTotal += soma;
-    this.valorRendaTotal += this.integranteTitular.valorRenda;
+    this.valorRendaTotal += this.dadosPessoais.valorRenda;
     this.valorRendaTotalString = this.valorRendaTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 

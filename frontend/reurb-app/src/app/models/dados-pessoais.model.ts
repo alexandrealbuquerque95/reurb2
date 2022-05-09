@@ -42,5 +42,7 @@ export class DadosPessoais {
   dataCasamento: string;
   regimeBens: number;
 
+  valorRenda: number = 0.00;
+
   anexoDocumentoIdentidade: File;
 }
