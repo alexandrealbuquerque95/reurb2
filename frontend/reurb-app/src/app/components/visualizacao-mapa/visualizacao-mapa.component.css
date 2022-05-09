@@ -1,0 +1,22 @@
+.form-div{
+  height: 100%;
+  min-height: 35em;
+}
+
+.fs-18
+{
+  font-size: 18px
+}
+
+/*buttons */
+.btn-primary, .icone-input {
+  color: $white;
+  background-color: $colorProd4;
+  border: 2px solid $colorProd4;
+}
+
+.btn-primary:hover {
+  color: $white;
+  background-color: $colorProd2;
+  border: 2px solid $colorProd6;
+}
