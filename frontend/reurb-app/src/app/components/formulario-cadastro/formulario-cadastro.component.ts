@@ -261,31 +261,50 @@ export class FormularioCadastroComponent implements OnInit {
 
   }
 
-  adicionarRendaTitular(): void
+  adicionarRendaTitularOuConjuge(): void
   {
     this.valorRendaTotal = 0;
     var soma = 0;
 
     this.integrantesFamiliar.forEach(function (integrante)
     {
-      soma += integrante.valorRenda;
+      if(integrante.valorRenda != undefined)
+      {
+        soma += integrante.valorRenda;
+      }
     });
 
-    this.valorRendaTotal += soma;
-    this.valorRendaTotal += this.dadosPessoais.valorRenda;
+    this.valorRendaTotal = soma;
+    if(this.dadosPessoais.valorRenda != undefined)
+    {
+      this.valorRendaTotal += this.dadosPessoais.valorRenda;
+    }
+
+    if(this.dadosConjuge.valorRenda != undefined)
+    {
+      this.valorRendaTotal += this.dadosConjuge.valorRenda;
+    }
+    
     this.valorRendaTotalString = this.valorRendaTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 
   adicionarIntegrante(): void
   {
     if(this.integranteFamiliar.nome != undefined && this.integranteFamiliar.nome != '' &&
-      this.integranteFamiliar.relacaoComTitular != undefined && this.integranteFamiliar.relacaoComTitular != '')
+      this.integranteFamiliar.relacaoComTitular != undefined && this.integranteFamiliar.relacaoComTitular != 'Selecione'
+      && this.integranteFamiliar.documento != undefined && this.integranteFamiliar.documento != '' &&
+      this.integranteFamiliar.sexo != undefined && this.integranteFamiliar.sexo != '' &&
+      this.integranteFamiliar.dataNascimento != undefined && this.integranteFamiliar.dataNascimento != '')
     {
       if(this.integranteFamiliar.valorRenda != undefined && this.integranteFamiliar.valorRenda > 0)
       {
         this.valorRendaTotal += this.integranteFamiliar.valorRenda;
-        this.integranteFamiliar.valorRendaString = this.integranteFamiliar.valorRenda.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
       }
+      else
+      {
+        this.integranteFamiliar.valorRenda = 0.00;
+      }
+      this.integranteFamiliar.valorRendaString = this.integranteFamiliar.valorRenda.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 
       this.valorRendaTotalString = this.valorRendaTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 
@@ -299,7 +318,11 @@ export class FormularioCadastroComponent implements OnInit {
   {
     const index = this.integrantesFamiliar.indexOf(integrante);
     this.integrantesFamiliar.splice(index, 1);
-    this.valorRendaTotal -= integrante.valorRenda;
+    
+    if(integrante.valorRenda != undefined && integrante.valorRenda > 0)
+    {
+      this.valorRendaTotal -= integrante.valorRenda;
+    }
     this.valorRendaTotalString = this.valorRendaTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 

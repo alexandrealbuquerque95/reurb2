@@ -4,7 +4,7 @@
   <div class="col-12 col-md-12 col-xl-12 form-div">
 
     <mat-tab-group [(selectedIndex)]="tabIndex" (selectedTabChange)="onTabChanged($event);">
-      <mat-tab label = "Identificação do(a) titular do imóvel" >
+      <mat-tab label = "Titular do imóvel" >
 
         <div >
           <hr>
@@ -39,14 +39,14 @@
               <div class="d-flex">
                 <div class="form-check ">
                   <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino"
-                    value="F" checked [(ngModel)]="dadosPessoais.sexo">
+                    value="Feminino" checked [(ngModel)]="dadosPessoais.sexo">
                   <label class="form-check-label" for="sexoFeminino">
                     Feminino
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino"
-                    value="M" [(ngModel)]="dadosPessoais.sexo">
+                    value="Masculino" [(ngModel)]="dadosPessoais.sexo">
                   <label class="form-check-label" for="sexoMasculino">
                     Masculino
                   </label>
@@ -134,7 +134,7 @@
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
               <input type="text" value={{dadosPessoais.cpf}} [(ngModel)]="dadosPessoais.cpf"
-                class="form-control" id="inputCPF" disabled>
+                class="form-control" id="inputCPF" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
@@ -597,7 +597,7 @@
           </div>
 
           <div class="form-row m-0" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
-            <div class="form-group col-md-4 col-lg-4 pr-3">
+            <div class="form-group col-md-3 col-lg-3 pr-3">
               <label for="dataCasamento"> <b> Data do casamento ou início da união estável: <span style="color:red" >* </span> </b> </label>
               <input type="text" [(ngModel)]="dadosPessoais.dataCasamento" mask="00/00/0000" class="form-control"
                 (change)="validadorDadosPessoais.validarDataCasamento(dadosPessoais)"
@@ -676,7 +676,7 @@
 
       </mat-tab >
 
-      <mat-tab label = "Identificação do cônjuge ou companheiro(a)" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
+      <mat-tab label = "Cônjuge ou companheiro(a)" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
 
         <div>
           <hr>
@@ -711,14 +711,14 @@
               <div class="d-flex">
                 <div class="form-check ">
                   <input class="form-check-input" type="radio" name="sexoConjuge" id="sexoFemininoConjuge"
-                    value="F" checked [(ngModel)]="dadosConjuge.sexo">
+                    value="Feminino" checked [(ngModel)]="dadosConjuge.sexo">
                   <label class="form-check-label" for="sexoFemininoConjuge">
                     Feminino
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="sexoConjuge" id="sexoMasculinoConjuge"
-                    value="M" [(ngModel)]="dadosConjuge.sexo">
+                    value="Masculino" [(ngModel)]="dadosConjuge.sexo">
                   <label class="form-check-label" for="sexoMasculinoConjuge">
                     Masculino
                   </label>
@@ -1213,6 +1213,13 @@
                 </label>
               </div>
 
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="9" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)" id="nenhum">
+                <label class="form-check-label" for="nenhum">
+                    Nenhum
+                </label>
+              </div>
+
               <div class="px-2" *ngIf="!validadorDadosConjuge.beneficiosSociais">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
@@ -1614,7 +1621,7 @@
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="sexoIntegrante"> <b> Sexo: </b> </label>
+              <label for="sexoIntegrante"> <b> Sexo: <span style="color:red" >*</span> </b> </label>
               <select class="form-control" [(ngModel)]="integranteFamiliar.sexo" id="sexoIntegrante">
                 <option value="Feminino">Feminino</option>
                 <option value="Masculino">Masculino</option>
@@ -1622,20 +1629,20 @@
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="dataNascimentoIntegrante"> <b> Data de nascimento: </b> </label>
+              <label for="dataNascimentoIntegrante"> <b> Data de nascimento: <span style="color:red" >*</span> </b> </label>
               <input type="text" mask="00/00/0000" [(ngModel)]="integranteFamiliar.dataNascimento"
                 class="form-control" placeholder="00/00/0000"  id="dataNascimentoIntegrante">
             </div>
 
             <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="valorRendaIntegrante"> <b> Valor da renda bruta mensal (em R$): <span style="color:red" >*</span> </b> </label>
+              <label for="valorRendaIntegrante"> <b> Valor da renda bruta mensal (em R$): </b> </label>
               <input currencyMask [(ngModel)]="integranteFamiliar.valorRenda" class="form-control" id="valorRendaIntegrante"
                 [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
             </div>
           </div>
 
           <div class="form-row m-0 ">
-            * Renda bruta mensal: não colocar valores de benefícios temporários de natureza indenizatória, assistencial ou previdenciária.
+            <b class="pr-1">Observação: </b> Não colocar valores de benefícios temporários de natureza indenizatória, assistencial ou previdenciária em renda bruta mensal.
           </div>
 
           <div class="form-row m-0 ">
@@ -1657,7 +1664,7 @@
                     <th class="col-md-2 col-lg-2" scope="col">Relação com o titular</th>
                     <th class="col-md-1 col-lg-1" scope="col">Sexo</th>
                     <th class="col-md-2 col-lg-2" scope="col">Data de nascimento</th>
-                    <th class="col-md-2 col-lg-2" scope="col">Valor da renda bruta  mensal (em R$)*</th>
+                    <th class="col-md-2 col-lg-2" scope="col">Valor da renda bruta  mensal (em R$)</th>
                     <th class="col-md-1 col-lg-1" scope="col">Remover</th>
                   </tr>
                 </thead>
@@ -1677,12 +1684,41 @@
                       <span tabindex="0">{{dadosPessoais.sexo}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{dadosPessoais.dataNascimento}}</span>
+                      <span tabindex="0" *ngIf="dadosPessoais.dataNascimento != undefined">{{dadosPessoais.dataNascimento.substring(0,2) + '/'
+                        + dadosPessoais.dataNascimento.substring(2,4) + '/' + dadosPessoais.dataNascimento.substring(4,8) }}
+                      </span>
                     </td>
                     <td class="pt-3-half " >
                       <input currencyMask [(ngModel)]="dadosPessoais.valorRenda" class="form-control" id="valorRendaTitular"
                         [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
-                        (ngModelChange)="adicionarRendaTitular()" />
+                        (ngModelChange)="adicionarRendaTitularOuConjuge()" />
+                    </td>
+                    <td class="pt-3-half ">
+                    </td>
+                  </tr>
+
+                  <tr *ngIf="dadosConjuge != undefined && (dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6)">
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{dadosPessoais.nomeConjuge}}</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{dadosConjuge.cpf}}</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0">Cônjuge/companheiro(a)</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0">{{dadosConjuge.sexo}}</span>
+                    </td>
+                    <td class="pt-3-half" >
+                      <span tabindex="0" *ngIf="dadosConjuge.dataNascimento != undefined">{{dadosConjuge.dataNascimento.substring(0,2) + '/'
+                        + dadosConjuge.dataNascimento.substring(2,4) + '/' + dadosConjuge.dataNascimento.substring(4,8) }}
+                      </span>
+                    </td>
+                    <td class="pt-3-half " >
+                      <input currencyMask [(ngModel)]="dadosConjuge.valorRenda" class="form-control" id="valorRendaTitular"
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                        (ngModelChange)="adicionarRendaTitularOuConjuge()" />
                     </td>
                     <td class="pt-3-half ">
                     </td>

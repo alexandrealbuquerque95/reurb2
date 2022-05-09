@@ -6,7 +6,7 @@ export class DadosPessoais {
 
   celular: number;
   telefone: number;
-  pessoaComDeficiencia: string = '';
+  pessoaComDeficiencia: string = '0';
 
   nomeMae: string;
 
