@@ -4,7 +4,7 @@ package br.com.cronos.appreurb.model;
 
 //@Entity
 //@Table(name = "tutorials")
-public class Login {
+public class Teste {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +19,11 @@ public class Login {
 //	@Column(name = "published")
 	private boolean published;
 
-	public Login() {
+	public Teste() {
 
 	}
 
-	public Login(String title, String description, boolean published) {
+	public Teste(String title, String description, boolean published) {
 		this.title = title;
 		this.description = description;
 		this.published = published;

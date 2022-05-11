@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.cronos.appreurb.model.Login;
-import br.com.cronos.appreurb.repository.LoginRepository;
+import br.com.cronos.appreurb.model.Teste;
+import br.com.cronos.appreurb.repository.TesteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 //@CrossOrigin(origins = "http://reurb.s3-website-sa-east-1.amazonaws.com")
 @RestController
 @RequestMapping("/api")
-public class LoginController {
+public class TesteController {
 
 //	@Autowired
-	LoginRepository loginRepository;
+	TesteRepository loginRepository;
 	
 	@GetMapping("/verificarPermissaoCadastro")
 	public ResponseEntity<Boolean> getPermissaoCadastroPeloCPF(@RequestParam(required = false) String cpf) 
@@ -55,7 +55,7 @@ public class LoginController {
 	}
 
 	@GetMapping("/login")
-	public ResponseEntity<Login> getLogin(@RequestParam(required = true) String cpf, @RequestParam(required = false) String senha) 
+	public ResponseEntity<Teste> getLogin(@RequestParam(required = true) String cpf, @RequestParam(required = false) String senha) 
 	{
 		System.out.println("\n\ngetLogin OK\n\n");
 
@@ -64,7 +64,7 @@ public class LoginController {
 	}
 	
 	@GetMapping("/listarLogins")
-	public ResponseEntity<List<Login>> getAllLogins(@RequestParam(required = false) String title) {
+	public ResponseEntity<List<Teste>> getAllLogins(@RequestParam(required = false) String title) {
 //		try {
 //			List<Tutorial> tutorials = new ArrayList<Tutorial>();
 //
@@ -86,16 +86,16 @@ public class LoginController {
 //			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 //		}
 		
-		List<Login> tutoriais = new ArrayList<Login>();
+		List<Teste> tutoriais = new ArrayList<Teste>();
 		
-		Login tutorial1 = new Login();
+		Teste tutorial1 = new Teste();
 		tutorial1.setDescription("Teste 123");
 		tutorial1.setPublished(true);
 		tutorial1.setTitle("Projeto Spring Boot");
 		tutoriais.add(tutorial1);
 		
 		
-		Login tutorial2 = new Login();
+		Teste tutorial2 = new Teste();
 		tutorial2.setDescription("Vamos Flamengo 12");
 		tutorial2.setPublished(false);
 		tutorial2.setTitle("Projeto Angular 12");
