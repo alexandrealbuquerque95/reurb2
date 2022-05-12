@@ -71,12 +71,12 @@ public class AuthController
 	{
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) 
 		{
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+			return ResponseEntity.badRequest().body(new MessageResponse("Erro: usuário já cadastrado!"));
 		}
 		
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) 
 		{
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+			return ResponseEntity.badRequest().body(new MessageResponse("Erro: Email já cadastrado!"));
 		}
 		
 		// Create new user's account
@@ -88,7 +88,7 @@ public class AuthController
 		if (strRoles == null) 
 		{
 			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					.orElseThrow(() -> new RuntimeException("Erro: Perfil não encontrado."));
 			roles.add(userRole);
 		} 
 		else 
@@ -98,19 +98,19 @@ public class AuthController
 				{
 					case "admin":
 						Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								.orElseThrow(() -> new RuntimeException("Erro: Perfil não encontrado."));
 						roles.add(adminRole);
 						break;
 					
 					case "mod":
 						Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								.orElseThrow(() -> new RuntimeException("Erro: Perfil não encontrado."));
 						roles.add(modRole);
 						break;
 						
 					default:
 						Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								.orElseThrow(() -> new RuntimeException("Erro: Perfil não encontrado."));
 						roles.add(userRole);
 					}
 				}
@@ -118,6 +118,6 @@ public class AuthController
 		}
 		user.setRoles(roles);
 		userRepository.save(user);
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.ok(new MessageResponse("Usuário cadastrado com sucesso!"));
 	}
 }
