@@ -1,1 +1,158 @@
-<p>board-moderator works!</p>
+<div class="panel rounded bg-white">
+  <div class="col-12 col-md-12 col-lg-12">
+
+    <p class="fs-18 pt-2"><b>Tela de consulta dos cadastros </b></p>
+    <br>
+
+    <div class="form-row m-0">
+      <div class="form-group col-md-6 col-lg-6 pr-3">
+        <label for="inputNome"> <b> Nome: </b> </label>
+        <input type="text" class="form-control" id="inputNome">
+      </div>
+      <div class="form-group col-md-3 col-lg-3 px-3">
+        <label for="inputCPF"> <b> CPF: </b> </label>
+        <input type="text" class="form-control" id="inputCPF" mask="000.000.000-00">
+      </div>
+
+      <div class="form-group col-md-3 col-lg-3 px-3">
+        <label for="selectSituacao"> <b> Situação: </b> </label>
+        <select id="selectSituacao" class="form-control" name="selectSituacao">
+          <option value="0">Selecione</option>
+          <option value="1">Envio Pendente</option>
+          <option value="2">Cadastro Enviado</option>
+          <option value="3">Regularização Concluída</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row m-0">
+      <div class="form-group col-md-6 col-lg-6 pr-3">
+        <label for="inputLocalizacao"> <b> Localização: </b> </label>
+        <input type="text" class="form-control" id="inputLocalizacao">
+      </div>
+      <div class="form-group col-md-3 col-lg-3 px-3">
+        <label for="inputCEP" > <b> CEP: </b> </label>
+        <input type="text" class="form-control" id="inputCEP" mask="00.000.000">
+      </div>
+
+      <div class="form-group col-md-3 col-lg-3 px-3">
+        <label for="inputNome"> <b> Bairro: </b> </label>
+        <input type="text" class="form-control" id="inputNome">
+      </div>
+      <div class="form-group col-md-3 col-lg-3 pr-3">
+        <label for="inputCPF"> <b> Município: </b> </label>
+        <input type="text" class="form-control" id="inputCPF">
+      </div>
+
+      <div class="form-group col-md-2 col-lg-2 pr-3">
+        <label for="selectUf"> <b> UF: </b> </label>
+        <select id="selectUf" class="form-control" name="uf">
+          <option value="">Selecione</option>
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="form-row m-0 ">
+      <div class="form-group col-md-12 col-lg-12 px-3 ">
+        <button class="btn btn-primary float-right" id="botaoPesquisar" >Pesquisar</button>
+      </div>
+    </div>
+
+
+    <br>
+    <table class="table table-bordered table-responsive-md text-center">
+      <thead>
+        <tr>
+          <th class="col-md-2 col-lg-3" scope="col">Nome</th>
+          <th class="col-md-2 col-lg-1" scope="col">CPF</th>
+          <th class="col-md-2 col-lg-2" scope="col">Localização</th>
+          <th class="col-md-2 col-lg-1" scope="col">CEP</th>
+          <th class="col-md-2 col-lg-1" scope="col">Bairro</th>
+          <th class="col-md-2 col-lg-1" scope="col">Município</th>
+          <th class="col-md-2 col-lg-1" scope="col">UF</th>
+          <th class="col-md-2 col-lg-1" scope="col">Situação</th>
+          <th class="col-md-1 col-lg-1" scope="col">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let cadastro of cadastrosPessoais ">
+          <td class="pt-3-half" >
+            <span tabindex="0">{{cadastro.nome}}</span>
+          </td>
+
+          <td class="pt-3-half" >
+            <span tabindex="0">{{cadastro.cpf}}</span>
+          </td>
+
+          <td class="pt-3-half" >
+            <span tabindex="0">{{cadastro.enderecoImovel}}</span>
+          </td>
+
+          <td class="pt-3-half" >
+            <span tabindex="0">{{cadastro.cepImovel}}</span>
+          </td>
+
+          <td class="pt-3-half" >
+            <span tabindex="0">{{cadastro.bairroImovel}}</span>
+          </td>
+
+          <td class="pt-3-half" >
+            <span tabindex="0">{{cadastro.municipioImovel}}</span>
+          </td>
+
+          <td class="pt-3-half" >
+            <span tabindex="0">{{cadastro.ufImovel}}</span>
+          </td>
+
+          <td class="pt-3-half" >
+            <span tabindex="0">{{cadastro.situacaoCadastro}}</span>
+          </td>
+
+          <td class="d-flex">
+            <button type="submit" class="btn btn-primary px-2 mx-2  " tabindex="0" container="body"
+              data-toggle="tooltip" data-placement="bottom" title="Excluir">
+              <fa-icon class="fa-lg" [icon]="['fas', 'times-circle']" ></fa-icon>
+            </button>
+            <button type="submit" class="btn btn-primary px-2  " tabindex="0" container="body"
+              data-toggle="tooltip" data-placement="bottom" title="Editar">
+              <fa-icon class="fa-lg" [icon]="['fas', 'edit']"></fa-icon>
+            </button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <br><br><br>
+
+  </div>
+</div>
