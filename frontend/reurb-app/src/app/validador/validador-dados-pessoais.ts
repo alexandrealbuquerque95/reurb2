@@ -93,7 +93,7 @@ export class ValidadorDadosPessoais {
     //this.validarNis(dadosPessoais);
     this.validarEscolaridade(dadosPessoais);
     this.validarEscolaridadeTexto(dadosPessoais);
-    this.validarOcupacao(dadosPessoais);
+    this.validarOcupacoes(dadosPessoais);
     this.validarMostrarOutrosOcupacao(dadosPessoais);
     //this.validarBeneficiosSociais(dadosPessoais);
     this.validarMostrarOutrosBeneficiosSociais(dadosPessoais);
@@ -301,7 +301,7 @@ export class ValidadorDadosPessoais {
     }
   }
 
-  validarOcupacao(dadosPessoais: DadosPessoais)
+  validarOcupacoes(dadosPessoais: DadosPessoais)
   {
     if(dadosPessoais.ocupacao == undefined || dadosPessoais.ocupacao.length == 0)
     {

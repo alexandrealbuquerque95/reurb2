@@ -17,7 +17,7 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: 'tutorials', pathMatch: 'full' },
-  { path: 'tutorials', component: LoginComponent },
+  { path: 'tutorials', component: TutorialDetailsComponent },
   { path: 'tutorials/:id', component: TutorialDetailsComponent },
   { path: 'add', component: AddTutorialComponent },
 

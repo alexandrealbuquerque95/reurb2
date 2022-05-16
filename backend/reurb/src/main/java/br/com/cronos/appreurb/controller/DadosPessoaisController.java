@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cronos.appreurb.model.DadosPessoais;
 import br.com.cronos.appreurb.model.Teste;
 import br.com.cronos.appreurb.repository.TesteRepository;
 
@@ -25,105 +26,23 @@ import br.com.cronos.appreurb.repository.TesteRepository;
 //@CrossOrigin(origins = "http://reurb.s3-website-sa-east-1.amazonaws.com")
 @RestController
 @RequestMapping("/api")
-public class TesteController {
+public class DadosPessoaisController {
 
 //	@Autowired
 	TesteRepository loginRepository;
-	
-	@GetMapping("/verificarPermissaoCadastro")
-	public ResponseEntity<Boolean> getPermissaoCadastroPeloCPF(@RequestParam(required = false) String cpf) 
+		
+	@PostMapping("/dados_pessoais")
+	public ResponseEntity<DadosPessoais> salvarDadosPessoais(@RequestBody DadosPessoais dadosPessoais) 
 	{
-		System.out.println("\n\ngetPermissaoCadastroPeloCPF OK\n\n");
-		
-		if(cpf != null && (cpf.length() == 11))
-		{
-			return new ResponseEntity<>(true, HttpStatus.OK);
-		}
-
-		
-//		if(cpf != null && (cpf.equals("052.337.431-32") || cpf.equals("05233743132")))
-//		{
-//			return new ResponseEntity<>(true, HttpStatus.OK);
-//		}
-//		
-//		if(cpf != null && (cpf.equals("539.748.751-15") || cpf.equals("53974875115")))
-//		{
-//			return new ResponseEntity<>(false, HttpStatus.OK);
-//		}
-		
-		return new ResponseEntity<>(false, HttpStatus.OK);
-	}
-
-	@GetMapping("/login")
-	public ResponseEntity<Teste> getLogin(@RequestParam(required = true) String cpf, @RequestParam(required = false) String senha) 
-	{
-		System.out.println("\n\ngetLogin OK\n\n");
-
-		
-		return null;
-	}
-	
-	@GetMapping("/listarLogins")
-	public ResponseEntity<List<Teste>> getAllLogins(@RequestParam(required = false) String title) {
-//		try {
-//			List<Tutorial> tutorials = new ArrayList<Tutorial>();
-//
-//			if (title == null)
-//			{
-//				loginRepository.findAll().forEach(tutorials::add);
-//			}
-//			else
-//			{
-//				loginRepository.findByTitleContaining(title).forEach(tutorials::add);
-//			}
-//
-//			if (tutorials.isEmpty()) {
-//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//			}
-//
-//			return new ResponseEntity<>(tutorials, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-		
-		List<Teste> tutoriais = new ArrayList<Teste>();
-		
-		Teste tutorial1 = new Teste();
-		tutorial1.setDescription("Teste 123");
-		tutorial1.setPublished(true);
-		tutorial1.setTitle("Projeto Spring Boot");
-		tutoriais.add(tutorial1);
-		
-		
-		Teste tutorial2 = new Teste();
-		tutorial2.setDescription("Vamos Flamengo 12");
-		tutorial2.setPublished(false);
-		tutorial2.setTitle("Projeto Angular 12");
-		tutoriais.add(tutorial2);
-		
-		return new ResponseEntity<>(tutoriais, HttpStatus.OK);
-	}
-//
-//	@GetMapping("/tutorials/{id}")
-//	public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
-//		Optional<Tutorial> tutorialData = loginRepository.findById(id);
-//
-//		if (tutorialData.isPresent()) {
-//			return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//	}
-//
-	@PostMapping("/tutorials")
-	public ResponseEntity<Teste> createTutorial(@RequestBody Teste teste) {
 		try {
-			return new ResponseEntity<>(teste, HttpStatus.CREATED);
+			System.out.println(dadosPessoais);
+			
+			return new ResponseEntity<>(dadosPessoais, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-//
+
 //	@PutMapping("/tutorials/{id}")
 //	public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {
 //		Optional<Tutorial> tutorialData = loginRepository.findById(id);

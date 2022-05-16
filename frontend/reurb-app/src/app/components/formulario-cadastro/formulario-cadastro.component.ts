@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LoginService } from 'src/app/services/login.service';
+import { DadosPessoaisService } from 'src/app/services/dados-pessoais.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
@@ -41,7 +42,7 @@ export class FormularioCadastroComponent implements OnInit {
 
   caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();;
 
-  constructor(private loginService: LoginService, private route: ActivatedRoute) {
+  constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute) {
 
   }
 
@@ -182,7 +183,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    this.validadorDadosPessoais.validarOcupacao(this.dadosPessoais);
+    this.validadorDadosPessoais.validarOcupacoes(this.dadosPessoais);
   }
 
   onCheckboxOcupacaoConjugeChange(event: any)
@@ -204,7 +205,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    this.validadorDadosConjuge.validarOcupacao(this.dadosConjuge);
+    this.validadorDadosConjuge.validarOcupacoes(this.dadosConjuge);
   }
 
   onCheckboxBeneficiosSociaisChange(event: any)
@@ -253,7 +254,9 @@ export class FormularioCadastroComponent implements OnInit {
 
   salvar(): void
   {
-
+    console.log('1');
+    console.log(this.dadosPessoaisService.create(this.dadosPessoais));
+    console.log('2');
   }
 
   enviarDados(): void
@@ -284,7 +287,7 @@ export class FormularioCadastroComponent implements OnInit {
     {
       this.valorRendaTotal += this.dadosConjuge.valorRenda;
     }
-    
+
     this.valorRendaTotalString = this.valorRendaTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 
@@ -318,7 +321,7 @@ export class FormularioCadastroComponent implements OnInit {
   {
     const index = this.integrantesFamiliar.indexOf(integrante);
     this.integrantesFamiliar.splice(index, 1);
-    
+
     if(integrante.valorRenda != undefined && integrante.valorRenda > 0)
     {
       this.valorRendaTotal -= integrante.valorRenda;
@@ -345,7 +348,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    //this.validadorDadosPessoais.validarOcupacao(this.caracteristicasDomicilio);
+    //this.validadorDadosPessoais.validarOcupacoes(this.caracteristicasDomicilio);
   }
 
   onCheckboxMaterialPisoChange(event: any)
@@ -367,7 +370,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    //this.validadorDadosPessoais.validarOcupacao(this.caracteristicasDomicilio);
+    //this.validadorDadosPessoais.validarOcupacoes(this.caracteristicasDomicilio);
   }
 
   onCheckboxMaterialInstalacaoEletricaChange(event: any)
@@ -389,7 +392,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    //this.validadorDadosPessoais.validarOcupacao(this.caracteristicasDomicilio);
+    //this.validadorDadosPessoais.validarOcupacoes(this.caracteristicasDomicilio);
   }
 
   onCheckboxMaterialEsgotoSanitarioChange(event: any)
@@ -411,7 +414,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    //this.validadorDadosPessoais.validarOcupacao(this.caracteristicasDomicilio);
+    //this.validadorDadosPessoais.validarOcupacoes(this.caracteristicasDomicilio);
   }
 
 }
