@@ -56,7 +56,7 @@ public class DadosPessoais implements Serializable
 	private Date dataNascimento;
 	
 	@Column(name = "emancipado")
-	private Boolean emancipado;
+	private Integer emancipado;
 	
 	@Column(name = "rg")
 	private String rg;
@@ -197,11 +197,11 @@ public class DadosPessoais implements Serializable
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Boolean getEmancipado() {
+	public Integer getEmancipado() {
 		return emancipado;
 	}
 
-	public void setEmancipado(Boolean emancipado) {
+	public void setEmancipado(Integer emancipado) {
 		this.emancipado = emancipado;
 	}
 
@@ -343,5 +343,19 @@ public class DadosPessoais implements Serializable
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "DadosPessoais [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", celular=" + celular + ", telefone="
+				+ telefone + ", pessoaComDeficiencia=" + pessoaComDeficiencia + ", nomeMae=" + nomeMae + ", nomePai="
+				+ nomePai + ", municipioNascimento=" + municipioNascimento + ", ufNascimento=" + ufNascimento
+				+ ", dataNascimento=" + dataNascimento + ", emancipado=" + emancipado + ", rg=" + rg
+				+ ", orgaoEmissorRG=" + orgaoEmissorRG + ", ufEmissorRG=" + ufEmissorRG + ", cpf=" + cpf + ", nis="
+				+ nis + ", escolaridade=" + escolaridade + ", escolaridadeTexto=" + escolaridadeTexto + ", ocupacoes="
+				+ ocupacoes + ", ocupacaoTexto=" + ocupacaoTexto + ", beneficiosSociais=" + beneficiosSociais
+				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", estadoCivil=" + estadoCivil
+				+ ", nomeConjuge=" + nomeConjuge + ", dataCasamento=" + dataCasamento + ", regimeBens=" + regimeBens
+				+ ", valorRenda=" + valorRenda + ", anexoDocumentoIdentidade=" + anexoDocumentoIdentidade + "]";
 	}
 }

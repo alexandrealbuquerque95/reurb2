@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cronos.appreurb.model.DadosPessoais;
 import br.com.cronos.appreurb.model.Teste;
+import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.TesteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -28,14 +31,32 @@ import br.com.cronos.appreurb.repository.TesteRepository;
 @RequestMapping("/api")
 public class DadosPessoaisController {
 
-//	@Autowired
-	TesteRepository loginRepository;
+	@Autowired
+	DadosPessoaisRepository dadosPessoaisRepository;
+	
+	@RequestMapping(value="/dados_pessoais", method= RequestMethod.GET)
+	public ResponseEntity<List<DadosPessoais>> listarDadosPessoais() 
+	{
+		return new ResponseEntity<>(dadosPessoaisRepository.findAll(), HttpStatus.OK);
+	}
 		
-	@PostMapping("/dados_pessoais")
+	@RequestMapping(value="/dados_pessoais", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<DadosPessoais> salvarDadosPessoais(@RequestBody DadosPessoais dadosPessoais) 
 	{
-		try {
+		try 
+		{
 			System.out.println(dadosPessoais);
+			
+			if(dadosPessoais.getCpf() != null && !dadosPessoais.getCpf().equals(""))
+			{
+				DadosPessoais dadosPessoaisConsulta = dadosPessoaisRepository.findByCpf(dadosPessoais.getCpf());
+				if(dadosPessoaisConsulta != null)
+				{
+					dadosPessoais.setId(dadosPessoaisConsulta.getId());
+				}
+			}
+			
+			dadosPessoaisRepository.save(dadosPessoais);
 			
 			return new ResponseEntity<>(dadosPessoais, HttpStatus.CREATED);
 		} catch (Exception e) {

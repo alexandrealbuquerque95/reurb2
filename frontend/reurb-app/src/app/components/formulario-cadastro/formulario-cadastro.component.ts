@@ -40,7 +40,9 @@ export class FormularioCadastroComponent implements OnInit {
   valorRendaTotal: number = 0.00;
   valorRendaTotalString: string = '0,00';
 
-  caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();;
+  caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();
+
+  submitted = false;
 
   constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute) {
 
@@ -254,9 +256,16 @@ export class FormularioCadastroComponent implements OnInit {
 
   salvar(): void
   {
-    console.log('1');
-    console.log(this.dadosPessoaisService.create(this.dadosPessoais));
-    console.log('2');
+    this.dadosPessoaisService.create(this.dadosPessoais).subscribe
+    (
+      response => {
+        console.log(response);
+        this.submitted = true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   enviarDados(): void

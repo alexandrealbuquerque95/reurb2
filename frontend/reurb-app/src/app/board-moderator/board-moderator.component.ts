@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DadosCadastroPessoal } from 'src/app/models/cadastros-pessoas.model'
+import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
+import { DadosPessoaisService } from 'src/app/services/dados-pessoais.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board-moderator',
@@ -9,7 +12,9 @@ import { DadosCadastroPessoal } from 'src/app/models/cadastros-pessoas.model'
 })
 export class BoardModeratorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dadosPessoaisService: DadosPessoaisService) { }
+
+  dadosPessoais: DadosPessoais[] = [];
 
   cadastrosPessoais: DadosCadastroPessoal[] = [];
   cadastroPessoal: DadosCadastroPessoal = new DadosCadastroPessoal();
@@ -47,6 +52,39 @@ export class BoardModeratorComponent implements OnInit {
     this.cadastroPessoal.situacaoCadastro = 'Envio Pendente';
     this.cadastrosPessoais.push(this.cadastroPessoal);
 
+    this.getDadosPessoais();
+
+    this.dadosPessoais.forEach(function (dado)
+    {
+      this.cadastroPessoal = new DadosCadastroPessoal();
+      this.cadastroPessoal.nome = dado.nome;
+      this.cadastroPessoal.cpf = dado.cpf;
+      //this.cadastroPessoal.enderecoImovel = 'Rua João Carlos, 123';
+      //this.cadastroPessoal.cepImovel = 72110330;
+      //this.cadastroPessoal.ufImovel = 'DF';
+      //this.cadastroPessoal.municipioImovel = 'Brasília';
+      //this.cadastroPessoal.bairroImovel = 'Taguatinga';
+      this.cadastroPessoal.situacaoCadastro = 'Cadastro Salvo';
+      this.cadastrosPessoais.push(this.cadastroPessoal);
+    });
+
+    //this.dadosPessoais = getDadosPessoais();
+  }
+
+  public getDadosPessoais(): DadosPessoais[]
+  {
+    this.dadosPessoaisService.getAll()
+      .subscribe(
+        data => {
+          console.log(data);
+          this.dadosPessoais = data;
+        },
+        error => {
+          console.log(error);
+        });
+
+    //console.log();
+    return this.dadosPessoais;
   }
 
 }
