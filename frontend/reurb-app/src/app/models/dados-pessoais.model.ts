@@ -1,48 +1,54 @@
+import { DadosImovel } from 'src/app/models/dados-imovel.model';
+
 export class DadosPessoais {
-  id: number;
+  id?: any;
 
-  nome: string;
-  sexo: string = '';
+  nome?: string;
+  sexo?: string = '';
 
-  celular: number;
-  telefone: number;
-  pessoaComDeficiencia: string = '0';
+  celular?: number;
+  telefone?: number;
+  pessoaComDeficiencia?: string = '0';
 
-  nomeMae: string;
+  nomeMae?: string;
 
-  nomePai: string;
+  nomePai?: string;
 
-  municipioNascimento: string;
-  ufNascimento: string = '';
+  municipioNascimento?: string;
+  ufNascimento?: string = '';
 
-  dataNascimento: string;
-  emancipado: string = '';
+  dataNascimento?: string;
+  emancipado?: string = '';
 
-  rg: string;
-  orgaoEmissorRG: string;
-  ufEmissorRG: string = '';
-  cpf: string;
+  rg?: string;
+  orgaoEmissorRG?: string;
+  ufEmissorRG?: string = '';
+  cpf?: string;
 
-  nis: string;
+  nis?: string;
 
-  escolaridade: number = 0;
-  escolaridadeTexto: string;
+  escolaridade?: number = 0;
+  escolaridadeTexto?: string;
 
-  ocupacao: number[] = [];
-  ocupacaoTexto: string;
-  mostrarOutrosOcupacao: boolean = false;
+  ocupacao?: number[] = [];
+  ocupacaoTexto?: string;
+  mostrarOutrosOcupacao?: boolean = false;
 
-  beneficiosSociais: number[] = [];
-  beneficiosSociaisTexto: string;
-  mostrarOutrosBeneficiosSociais: boolean = false;
+  beneficiosSociais?: number[] = [];
+  beneficiosSociaisTexto?: string;
+  mostrarOutrosBeneficiosSociais?: boolean = false;
 
-  estadoCivil: number = 0;
-  nomeConjuge: string;
+  estadoCivil?: number = 0;
+  nomeConjuge?: string;
 
-  dataCasamento: string;
-  regimeBens: number;
+  dataCasamento?: string;
+  regimeBens?: number;
 
-  valorRenda: number = 0.00;
+  valorRenda?: number = 0.00;
 
-  anexoDocumentoIdentidade: File;
+  anexoDocumentoIdentidade?: File;
+
+  dadosImovel: DadosImovel;
+
+  //situacaoCadastro: string = 'Início do Cadastro';
 }

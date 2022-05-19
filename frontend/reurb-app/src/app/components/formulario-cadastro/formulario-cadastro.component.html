@@ -1278,19 +1278,19 @@
 
             <div class="form-group col-md-10 col-lg-10 pr-3">
               <label for="enderecoImovel"> <b> Localização do imóvel (rua, número, quadra, lote): <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" id="enderecoImovel" name="enderecoImovel" placeholder="Rua dos Bandeirantes, nº 0">
+              <input type="text" class="form-control" [(ngModel)]="dadosImovel.enderecoImovel" id="enderecoImovel" name="enderecoImovel" placeholder="Rua dos Bandeirantes, nº 0">
             </div>
 
             <div class="form-group col-md-2 col-lg-2 px-3">
               <label for="cepImovel" ><b>CEP: <span style="color:red" >*</span> </b></label>
-              <input type="text" mask="00.000.000" class="form-control" id="cepImovel"  name="cepImovel">
+              <input type="text" mask="00.000.000" [(ngModel)]="dadosImovel.cepImovel" class="form-control" id="cepImovel"  name="cepImovel">
             </div>
           </div>
 
           <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4 pr-3">
                 <label for="ufImovel"><b>UF: <span style="color:red" >*</span> </b></label>
-                <select id="ufImovel" class="form-control" name="ufImovel">
+                <select id="ufImovel" class="form-control" [(ngModel)]="dadosImovel.ufImovel" name="ufImovel">
                   <option value="">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -1324,12 +1324,12 @@
 
             <div class="form-group col-md-4 col-lg-4 px-3">
               <label for="municipioImovel"><b>Município: <span style="color:red" >*</span> </b></label>
-              <input type="text" class="form-control" id="municipioImovel" name="municipioImovel" >
+              <input type="text" class="form-control" [(ngModel)]="dadosImovel.municipioImovel" id="municipioImovel" name="municipioImovel" >
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
               <label for="bairroImovel"><b>Bairro: <span style="color:red" >*</span> </b></label>
-              <input type="text" class="form-control" id="bairroImovel" name="bairroImovel">
+              <input type="text" class="form-control" [(ngModel)]="dadosImovel.bairroImovel" id="bairroImovel" name="bairroImovel">
             </div>
 
           </div>
@@ -1337,12 +1337,13 @@
           <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4 pr-3">
               <label for="nucleoUrbanoImovel"><b>Nome do núcleo urbano informal: </b></label>
-              <input type="text" class="form-control" id="nucleoUrbanoImovel" name="nucleoUrbanoImovel" >
+              <input type="text" class="form-control" [(ngModel)]="dadosImovel.nucleoUrbanoImovel"
+                id="nucleoUrbanoImovel" name="nucleoUrbanoImovel" >
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
               <label for="ImovelEh"> <b> Esse imóvel é: <span style="color:red" >*</span> </b> </label>
-              <select  id="ImovelEh" class="form-control" name="ImovelEh">
+              <select  id="ImovelEh" [(ngModel)]="dadosImovel.ImovelEh" class="form-control" name="ImovelEh">
                 <option value="0">Selecione</option>
                 <option value="1">Próprio</option>
                 <option value="2">Locado</option>
@@ -1354,7 +1355,7 @@
 
             <div class="form-group col-md-4 col-lg-4 px-3">
               <label for="usoImovel"> <b> Esse imóvel é para uso: <span style="color:red" >*</span> </b> </label>
-              <select id="usoImovel" class="form-control" name="usoImovel">
+              <select id="usoImovel" [(ngModel)]="dadosImovel.usoImovel" class="form-control" name="usoImovel">
                 <option value="0">Selecione</option>
                 <option value="1">Residencial</option>
                 <option value="2">Comercial</option>
@@ -1368,7 +1369,7 @@
           <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4 pr-3">
               <label for="tempoOcupacaoImovel"> <b> Tempo de ocupação do imóvel: <span style="color:red" >*</span> </b> </label>
-              <select id="tempoOcupacaoImovel" class="form-control" name="tempoOcupacaoImovel">
+              <select id="tempoOcupacaoImovel" [(ngModel)]="dadosImovel.tempoOcupacaoImovel" class="form-control" name="tempoOcupacaoImovel">
                 <option value="0">Selecione</option>
                 <option value="1">1 ano ou menos</option>
                 <option value="2">2 anos</option>
@@ -1421,7 +1422,7 @@
 
             <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="dadosImovel.mais1DomicilioLote == '1'">
               <label for="quantidadeDomiciliosLote"> <b> Quantos domicílios existem no lote no total? <span style="color:red" >*</span> </b> </label>
-              <select id="quantidadeDomiciliosLote" class="form-control" name="quantidadeDomiciliosLote">
+              <select id="quantidadeDomiciliosLote" [(ngModel)]="dadosImovel.quantidadeDomiciliosLote" class="form-control" name="quantidadeDomiciliosLote">
                 <option value="0">Selecione</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -1437,15 +1438,15 @@
               <label for="acessoIndependente"> <b> Todos os domicílios possuem acesso independente? <span style="color:red" >*</span> </b> </label>
               <div class="d-flex">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="acessoIndependente" id="acessoIndependenteNao"
-                    value="0" checked >
+                  <input class="form-check-input" type="radio"  name="acessoIndependente" id="acessoIndependenteNao"
+                    value="0" checked [(ngModel)]="dadosImovel.acessoIndependente">
                   <label class="form-check-label" for="acessoIndependenteNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="acessoIndependente" id="acessoIndependenteSim"
-                    value="1" >
+                    value="1" [(ngModel)]="dadosImovel.acessoIndependente">
                   <label class="form-check-label" for="acessoIndependenteSim">
                     Sim
                   </label>
@@ -1458,14 +1459,14 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="atendidoEnergiaEletrica" id="atendidoEnergiaEletricaNao"
-                    value="0" checked>
+                    value="0" checked [(ngModel)]="dadosImovel.atendidoEnergiaEletrica">
                   <label class="form-check-label" for="atendidoEnergiaEletricaNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="atendidoEnergiaEletrica" id="atendidoEnergiaEletricaSim"
-                    value="1" >
+                    value="1" [(ngModel)]="dadosImovel.atendidoEnergiaEletrica">
                   <label class="form-check-label" for="atendidoEnergiaEletricaSim">
                     Sim
                   </label>
@@ -1482,14 +1483,14 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="atendidoAgua" id="atendidoAguaNao"
-                    value="0" checked >
+                    value="0" checked [(ngModel)]="dadosImovel.atendidoAgua">
                   <label class="form-check-label" for="atendidoAguaNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="atendidoAgua" id="atendidoAguaSim"
-                    value="1" >
+                    value="1" [(ngModel)]="dadosImovel.atendidoAgua" >
                   <label class="form-check-label" for="atendidoAguaSim">
                     Sim
                   </label>
@@ -1502,14 +1503,14 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="atendidoEsgoto" id="atendidoEsgotoNao"
-                    value="0" checked>
+                    value="0" checked [(ngModel)]="dadosImovel.atendidoEsgoto">
                   <label class="form-check-label" for="atendidoEsgotoNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="atendidoEsgoto" id="atendidoEsgotoSim"
-                    value="1" >
+                    value="1" [(ngModel)]="dadosImovel.atendidoEsgoto">
                   <label class="form-check-label" for="atendidoEsgotoSim">
                     Sim
                   </label>
@@ -1525,14 +1526,14 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="atendidoAguasPluviais" id="atendidoAguasPluviaisNao"
-                    value="0" checked >
+                    value="0" checked [(ngModel)]="dadosImovel.atendidoAguasPluviais">
                   <label class="form-check-label" for="atendidoAguasPluviaisNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="atendidoAguasPluviais" id="atendidoAguasPluviaisSim"
-                    value="1" >
+                    value="1" [(ngModel)]="dadosImovel.atendidoAguasPluviais">
                   <label class="form-check-label" for="atendidoAguasPluviaisSim">
                     Sim
                   </label>
@@ -1545,14 +1546,14 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="atendidoPavimentacao" id="atendidoPavimentacaoNao"
-                    value="0" checked>
+                    value="0" checked [(ngModel)]="dadosImovel.atendidoPavimentacao">
                   <label class="form-check-label" for="atendidoPavimentacaoNao">
                     Não
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="atendidoPavimentacao" id="atendidoPavimentacaoSim"
-                    value="1" >
+                    value="1" [(ngModel)]="dadosImovel.atendidoPavimentacao" >
                   <label class="form-check-label" for="atendidoPavimentacaoSim">
                     Sim
                   </label>

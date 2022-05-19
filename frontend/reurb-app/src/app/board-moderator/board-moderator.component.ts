@@ -53,22 +53,6 @@ export class BoardModeratorComponent implements OnInit {
     this.cadastrosPessoais.push(this.cadastroPessoal);
 
     this.getDadosPessoais();
-
-    this.dadosPessoais.forEach(function (dado)
-    {
-      this.cadastroPessoal = new DadosCadastroPessoal();
-      this.cadastroPessoal.nome = dado.nome;
-      this.cadastroPessoal.cpf = dado.cpf;
-      //this.cadastroPessoal.enderecoImovel = 'Rua João Carlos, 123';
-      //this.cadastroPessoal.cepImovel = 72110330;
-      //this.cadastroPessoal.ufImovel = 'DF';
-      //this.cadastroPessoal.municipioImovel = 'Brasília';
-      //this.cadastroPessoal.bairroImovel = 'Taguatinga';
-      this.cadastroPessoal.situacaoCadastro = 'Cadastro Salvo';
-      this.cadastrosPessoais.push(this.cadastroPessoal);
-    });
-
-    //this.dadosPessoais = getDadosPessoais();
   }
 
   public getDadosPessoais(): DadosPessoais[]
@@ -78,6 +62,22 @@ export class BoardModeratorComponent implements OnInit {
         data => {
           console.log(data);
           this.dadosPessoais = data;
+
+          this.dadosPessoais.forEach(async dado =>
+          {
+            this.cadastroPessoal = new DadosCadastroPessoal();
+            this.cadastroPessoal.nome = dado.nome;
+            this.cadastroPessoal.cpf = dado.cpf;
+            this.cadastroPessoal.enderecoImovel = dado.dadosImovel.enderecoImovel;
+            this.cadastroPessoal.cepImovel = dado.dadosImovel.cepImovel;
+            this.cadastroPessoal.ufImovel = dado.dadosImovel.ufImovel;
+            this.cadastroPessoal.municipioImovel = dado.dadosImovel.municipioImovel;
+            this.cadastroPessoal.bairroImovel = dado.dadosImovel.bairroImovel;
+            this.cadastroPessoal.situacaoCadastro = 'Envio Pendente';
+            this.cadastrosPessoais.push(this.cadastroPessoal);
+          }
+          );
+
         },
         error => {
           console.log(error);

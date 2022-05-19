@@ -256,6 +256,8 @@ export class FormularioCadastroComponent implements OnInit {
 
   salvar(): void
   {
+    this.dadosPessoais.dadosImovel = this.dadosImovel;
+
     this.dadosPessoaisService.create(this.dadosPessoais).subscribe
     (
       response => {

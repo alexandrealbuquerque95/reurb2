@@ -12,7 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -108,6 +110,22 @@ public class DadosPessoais implements Serializable
 	
 	@Column(name = "anexoDocumentoIdentidade")
 	private File anexoDocumentoIdentidade;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "FK_DADOS_IMOVEL")
+	private DadosImovel dadosImovel;
+	
+//	@OneToOne
+//	@JoinColumn(name = "FK_INTEGRANTE_IMOVEL")
+//	private IntegranteImovel integranteImovel;
+//	
+//	@OneToOne
+//	@JoinColumn(name = "FK_CARACTERISTICAS_DOMICILIO")
+//	private CaracteristicasDomicilio caracteristicasDomicilio;
+//	
+//	@OneToOne
+//	@JoinColumn(name = "FK_DADOS_CONJUGE")
+//	private DadosPessoais dadosConjuge;
 
 	public long getId() {
 		return id;
@@ -341,8 +359,12 @@ public class DadosPessoais implements Serializable
 		this.anexoDocumentoIdentidade = anexoDocumentoIdentidade;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public DadosImovel getDadosImovel() {
+		return dadosImovel;
+	}
+
+	public void setDadosImovel(DadosImovel dadosImovel) {
+		this.dadosImovel = dadosImovel;
 	}
 
 	@Override

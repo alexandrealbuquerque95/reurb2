@@ -60,6 +60,7 @@ public class DadosPessoaisController {
 			
 			return new ResponseEntity<>(dadosPessoais, HttpStatus.CREATED);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
