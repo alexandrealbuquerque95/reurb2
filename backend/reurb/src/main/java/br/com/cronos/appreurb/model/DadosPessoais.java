@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "TB_DADOS_PESSOAIS")
@@ -25,7 +26,7 @@ public class DadosPessoais implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	
 	@Column(name = "nome")
 	private String nome;			
@@ -81,14 +82,20 @@ public class DadosPessoais implements Serializable
 	@Column(name = "escolaridadeTexto")
 	private String escolaridadeTexto;
 	
-	@OneToMany(mappedBy = "dadosPessoais", cascade=CascadeType.PERSIST, targetEntity = OcupacaoDadosPessoais.class, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "dadosPessoais", cascade=CascadeType.PERSIST, targetEntity = OcupacaoDadosPessoais.class, fetch = FetchType.EAGER)
 	private List<OcupacaoDadosPessoais> ocupacoes;
+	
+	@Transient
+	private List<Integer> ocupacao;
 
 	@Column(name = "ocupacaoTexto")
 	private String ocupacaoTexto;
 	
 	@OneToMany(mappedBy = "dadosPessoais", cascade=CascadeType.PERSIST, targetEntity = BeneficioSocialDadosPessoais.class, fetch = FetchType.LAZY)
-	private List<BeneficioSocialDadosPessoais> beneficiosSociais;
+	private List<BeneficioSocialDadosPessoais> beneficioSocial;
+	
+	@Transient
+	private List<Integer> beneficiosSociais;
 	
 	@Column(name = "beneficiosSociaisDadosPessoaisTexto")
 	private String beneficiosSociaisTexto;
@@ -127,11 +134,25 @@ public class DadosPessoais implements Serializable
 //	@JoinColumn(name = "FK_DADOS_CONJUGE")
 //	private DadosPessoais dadosConjuge;
 
-	public long getId() {
+	@Override
+	public String toString() {
+		return "DadosPessoais [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", celular=" + celular + ", telefone="
+				+ telefone + ", pessoaComDeficiencia=" + pessoaComDeficiencia + ", nomeMae=" + nomeMae + ", nomePai="
+				+ nomePai + ", municipioNascimento=" + municipioNascimento + ", ufNascimento=" + ufNascimento
+				+ ", dataNascimento=" + dataNascimento + ", emancipado=" + emancipado + ", rg=" + rg
+				+ ", orgaoEmissorRG=" + orgaoEmissorRG + ", ufEmissorRG=" + ufEmissorRG + ", cpf=" + cpf + ", nis="
+				+ nis + ", escolaridade=" + escolaridade + ", escolaridadeTexto=" + escolaridadeTexto + ", ocupacao="
+				+ ocupacao + ", ocupacaoTexto=" + ocupacaoTexto + ", beneficiosSociais=" + beneficioSocial
+				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", estadoCivil=" + estadoCivil
+				+ ", nomeConjuge=" + nomeConjuge + ", dataCasamento=" + dataCasamento + ", regimeBens=" + regimeBens
+				+ ", valorRenda=" + valorRenda + ", anexoDocumentoIdentidade=" + anexoDocumentoIdentidade + "]";
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -278,14 +299,6 @@ public class DadosPessoais implements Serializable
 	public void setEscolaridadeTexto(String escolaridadeTexto) {
 		this.escolaridadeTexto = escolaridadeTexto;
 	}
-	
-	public String getOcupacaoTexto() {
-		return ocupacaoTexto;
-	}
-
-	public void setOcupacaoTexto(String ocupacaoTexto) {
-		this.ocupacaoTexto = ocupacaoTexto;
-	}
 
 	public List<OcupacaoDadosPessoais> getOcupacoes() {
 		return ocupacoes;
@@ -295,12 +308,28 @@ public class DadosPessoais implements Serializable
 		this.ocupacoes = ocupacoes;
 	}
 
-	public List<BeneficioSocialDadosPessoais> getBeneficiosSociais() {
-		return beneficiosSociais;
+	public List<Integer> getOcupacao() {
+		return ocupacao;
 	}
 
-	public void setBeneficiosSociais(List<BeneficioSocialDadosPessoais> beneficiosSociais) {
-		this.beneficiosSociais = beneficiosSociais;
+	public void setOcupacao(List<Integer> ocupacao) {
+		this.ocupacao = ocupacao;
+	}
+
+	public String getOcupacaoTexto() {
+		return ocupacaoTexto;
+	}
+
+	public void setOcupacaoTexto(String ocupacaoTexto) {
+		this.ocupacaoTexto = ocupacaoTexto;
+	}
+
+	public List<BeneficioSocialDadosPessoais> getBeneficioSocial() {
+		return beneficioSocial;
+	}
+
+	public void setBeneficioSocial(List<BeneficioSocialDadosPessoais> beneficioSocial) {
+		this.beneficioSocial = beneficioSocial;
 	}
 
 	public String getBeneficiosSociaisTexto() {
@@ -367,17 +396,16 @@ public class DadosPessoais implements Serializable
 		this.dadosImovel = dadosImovel;
 	}
 
-	@Override
-	public String toString() {
-		return "DadosPessoais [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", celular=" + celular + ", telefone="
-				+ telefone + ", pessoaComDeficiencia=" + pessoaComDeficiencia + ", nomeMae=" + nomeMae + ", nomePai="
-				+ nomePai + ", municipioNascimento=" + municipioNascimento + ", ufNascimento=" + ufNascimento
-				+ ", dataNascimento=" + dataNascimento + ", emancipado=" + emancipado + ", rg=" + rg
-				+ ", orgaoEmissorRG=" + orgaoEmissorRG + ", ufEmissorRG=" + ufEmissorRG + ", cpf=" + cpf + ", nis="
-				+ nis + ", escolaridade=" + escolaridade + ", escolaridadeTexto=" + escolaridadeTexto + ", ocupacoes="
-				+ ocupacoes + ", ocupacaoTexto=" + ocupacaoTexto + ", beneficiosSociais=" + beneficiosSociais
-				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", estadoCivil=" + estadoCivil
-				+ ", nomeConjuge=" + nomeConjuge + ", dataCasamento=" + dataCasamento + ", regimeBens=" + regimeBens
-				+ ", valorRenda=" + valorRenda + ", anexoDocumentoIdentidade=" + anexoDocumentoIdentidade + "]";
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
+
+	public List<Integer> getBeneficiosSociais() {
+		return beneficiosSociais;
+	}
+
+	public void setBeneficiosSociais(List<Integer> beneficiosSociais) {
+		this.beneficiosSociais = beneficiosSociais;
+	}
+	
 }

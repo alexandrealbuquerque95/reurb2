@@ -2,22 +2,12 @@ package br.com.cronos.appreurb.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "TB_OCUPACAO_DADOS_PESSOAIS")
-@IdClass(OcupacaoDadosPessoaisID.class)
-public class OcupacaoDadosPessoais implements Serializable
+public class OcupacaoDadosPessoaisID implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
 	private Integer ocupacao;
 	
-	@Id
 	private Long dadosPessoais;
 
 	public Integer getOcupacao() {
@@ -39,5 +29,7 @@ public class OcupacaoDadosPessoais implements Serializable
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}		
-
+	
+	
+	
 }

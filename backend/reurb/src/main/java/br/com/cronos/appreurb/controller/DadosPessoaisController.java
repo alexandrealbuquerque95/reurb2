@@ -20,9 +20,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cronos.appreurb.model.BeneficioSocial;
+import br.com.cronos.appreurb.model.BeneficioSocialDadosPessoais;
 import br.com.cronos.appreurb.model.DadosPessoais;
+import br.com.cronos.appreurb.model.Ocupacao;
+import br.com.cronos.appreurb.model.OcupacaoDadosPessoais;
 import br.com.cronos.appreurb.model.Teste;
+import br.com.cronos.appreurb.repository.BeneficioSocialDadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
+import br.com.cronos.appreurb.repository.OcupacaoDadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.TesteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -33,6 +39,12 @@ public class DadosPessoaisController {
 
 	@Autowired
 	DadosPessoaisRepository dadosPessoaisRepository;
+	
+	@Autowired
+	OcupacaoDadosPessoaisRepository ocupacaoDadosPessoaisRepository;
+	
+	@Autowired
+	BeneficioSocialDadosPessoaisRepository beneficioSocialDadosPessoaisRepository;
 	
 	@RequestMapping(value="/dados_pessoais", method= RequestMethod.GET)
 	public ResponseEntity<List<DadosPessoais>> listarDadosPessoais() 
@@ -56,7 +68,29 @@ public class DadosPessoaisController {
 				}
 			}
 			
-			dadosPessoaisRepository.save(dadosPessoais);
+			DadosPessoais idDadosPessoais = dadosPessoaisRepository.save(dadosPessoais);
+			
+			for(Integer idOcupacao : dadosPessoais.getOcupacao())
+			{
+				OcupacaoDadosPessoais ocupacaoDadosPessoais = new OcupacaoDadosPessoais();
+				ocupacaoDadosPessoais.setDadosPessoais(idDadosPessoais.getId());
+//				Ocupacao ocupacao = new Ocupacao();
+//				ocupacao.setId(idOcupacao);
+				ocupacaoDadosPessoais.setOcupacao(idOcupacao);
+				
+				ocupacaoDadosPessoaisRepository.save(ocupacaoDadosPessoais);
+			}
+			
+			for(Integer idBeneficioSocial: dadosPessoais.getBeneficiosSociais() )
+			{
+				BeneficioSocialDadosPessoais beneficioSocialDadosPessoais = new BeneficioSocialDadosPessoais();
+				beneficioSocialDadosPessoais.setDadosPessoais(idDadosPessoais.getId());
+//				BeneficioSocial beneficioSocial= new BeneficioSocial();
+//				beneficioSocial.setId(idBeneficioSocial);
+				beneficioSocialDadosPessoais.setBeneficioSocial(idBeneficioSocial);
+				
+				beneficioSocialDadosPessoaisRepository.save(beneficioSocialDadosPessoais);
+			}
 			
 			return new ResponseEntity<>(dadosPessoais, HttpStatus.CREATED);
 		} catch (Exception e) {

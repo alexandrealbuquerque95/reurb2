@@ -171,15 +171,15 @@ export class FormularioCadastroComponent implements OnInit {
     if (event.target.checked) {
       this.dadosPessoais.ocupacao.push(event.target.value);
 
-      if(event.target.value == "10")
+      if(event.target.value == 10)
       {
         this.dadosPessoais.mostrarOutrosOcupacao = true;
       }
     } else {
       const index = this.dadosPessoais.ocupacao.findIndex(x => x === event.target.value);
-      this.dadosPessoais.ocupacao.splice(index);
+      this.dadosPessoais.ocupacao.splice(index, 1);
 
-      if(event.target.value == "10")
+      if(event.target.value == 10)
       {
         this.dadosPessoais.mostrarOutrosOcupacao = false;
       }
@@ -199,7 +199,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     } else {
       const index = this.dadosConjuge.ocupacao.findIndex(x => x === event.target.value);
-      this.dadosConjuge.ocupacao.splice(index);
+      this.dadosConjuge.ocupacao.splice(index, 1);
 
       if(event.target.value == "10")
       {
@@ -221,7 +221,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     } else {
       const index = this.dadosPessoais.beneficiosSociais.findIndex(x => x === event.target.value);
-      this.dadosPessoais.beneficiosSociais.splice(index);
+      this.dadosPessoais.beneficiosSociais.splice(index, 1);
 
       if(event.target.value == "8")
       {
@@ -243,7 +243,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     } else {
       const index = this.dadosConjuge.beneficiosSociais.findIndex(x => x === event.target.value);
-      this.dadosConjuge.beneficiosSociais.splice(index);
+      this.dadosConjuge.beneficiosSociais.splice(index, 1);
 
       if(event.target.value == "8")
       {
@@ -351,7 +351,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     } else {
       const index = this.caracteristicasDomicilio.materialParedeExterna.findIndex(x => x === event.target.value);
-      this.caracteristicasDomicilio.materialParedeExterna.splice(index);
+      this.caracteristicasDomicilio.materialParedeExterna.splice(index, 1);
 
       if(event.target.value == "5")
       {
@@ -373,7 +373,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     } else {
       const index = this.caracteristicasDomicilio.materialPiso.findIndex(x => x === event.target.value);
-      this.caracteristicasDomicilio.materialPiso.splice(index);
+      this.caracteristicasDomicilio.materialPiso.splice(index, 1);
 
       if(event.target.value == "6")
       {
@@ -395,7 +395,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     } else {
       const index = this.caracteristicasDomicilio.materialInstalacaoEletrica.findIndex(x => x === event.target.value);
-      this.caracteristicasDomicilio.materialInstalacaoEletrica.splice(index);
+      this.caracteristicasDomicilio.materialInstalacaoEletrica.splice(index, 1);
 
       if(event.target.value == "8")
       {
@@ -417,7 +417,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     } else {
       const index = this.caracteristicasDomicilio.esgotoSanitario.findIndex(x => x === event.target.value);
-      this.caracteristicasDomicilio.esgotoSanitario.splice(index);
+      this.caracteristicasDomicilio.esgotoSanitario.splice(index, 1);
 
       if(event.target.value == "6")
       {
