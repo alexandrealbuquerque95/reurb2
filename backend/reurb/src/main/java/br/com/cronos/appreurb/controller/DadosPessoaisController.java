@@ -21,14 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cronos.appreurb.model.BeneficioSocial;
-import br.com.cronos.appreurb.model.BeneficioSocialDadosPessoais;
 import br.com.cronos.appreurb.model.DadosPessoais;
 import br.com.cronos.appreurb.model.Ocupacao;
-import br.com.cronos.appreurb.model.OcupacaoDadosPessoais;
 import br.com.cronos.appreurb.model.Teste;
-import br.com.cronos.appreurb.repository.BeneficioSocialDadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
-import br.com.cronos.appreurb.repository.OcupacaoDadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.TesteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -40,16 +36,12 @@ public class DadosPessoaisController {
 	@Autowired
 	DadosPessoaisRepository dadosPessoaisRepository;
 	
-	@Autowired
-	OcupacaoDadosPessoaisRepository ocupacaoDadosPessoaisRepository;
-	
-	@Autowired
-	BeneficioSocialDadosPessoaisRepository beneficioSocialDadosPessoaisRepository;
-	
 	@RequestMapping(value="/dados_pessoais", method= RequestMethod.GET)
 	public ResponseEntity<List<DadosPessoais>> listarDadosPessoais() 
 	{
-		return new ResponseEntity<>(dadosPessoaisRepository.findAll(), HttpStatus.OK);
+		List<DadosPessoais> listaDadosPessoais = dadosPessoaisRepository.findAll();
+		//System.out.println(listaDadosPessoais.get(0).getListaBeneficiosSocial().get(0).getNomeBeneficioSocial());
+		return new ResponseEntity<>(listaDadosPessoais, HttpStatus.OK);
 	}
 		
 	@RequestMapping(value="/dados_pessoais", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -68,29 +60,31 @@ public class DadosPessoaisController {
 				}
 			}
 			
-			DadosPessoais idDadosPessoais = dadosPessoaisRepository.save(dadosPessoais);
+			if(dadosPessoais.getListaOcupacoes() == null)
+			{
+				dadosPessoais.setListaOcupacoes(new ArrayList<Ocupacao>());
+			}
 			
 			for(Integer idOcupacao : dadosPessoais.getOcupacao())
 			{
-				OcupacaoDadosPessoais ocupacaoDadosPessoais = new OcupacaoDadosPessoais();
-				ocupacaoDadosPessoais.setDadosPessoais(idDadosPessoais.getId());
-//				Ocupacao ocupacao = new Ocupacao();
-//				ocupacao.setId(idOcupacao);
-				ocupacaoDadosPessoais.setOcupacao(idOcupacao);
-				
-				ocupacaoDadosPessoaisRepository.save(ocupacaoDadosPessoais);
+				Ocupacao ocupacao = new Ocupacao();
+				ocupacao.setId(idOcupacao);
+				dadosPessoais.getListaOcupacoes().add(ocupacao);
+			}
+			
+			if(dadosPessoais.getListaBeneficiosSocial() == null)
+			{
+				dadosPessoais.setListaBeneficiosSocial(new ArrayList<BeneficioSocial>());
 			}
 			
 			for(Integer idBeneficioSocial: dadosPessoais.getBeneficiosSociais() )
 			{
-				BeneficioSocialDadosPessoais beneficioSocialDadosPessoais = new BeneficioSocialDadosPessoais();
-				beneficioSocialDadosPessoais.setDadosPessoais(idDadosPessoais.getId());
-//				BeneficioSocial beneficioSocial= new BeneficioSocial();
-//				beneficioSocial.setId(idBeneficioSocial);
-				beneficioSocialDadosPessoais.setBeneficioSocial(idBeneficioSocial);
-				
-				beneficioSocialDadosPessoaisRepository.save(beneficioSocialDadosPessoais);
+				BeneficioSocial beneficioSocial = new BeneficioSocial();
+				beneficioSocial.setId(idBeneficioSocial);
+				dadosPessoais.getListaBeneficiosSocial().add(beneficioSocial);
 			}
+			
+			dadosPessoaisRepository.save(dadosPessoais);
 			
 			return new ResponseEntity<>(dadosPessoais, HttpStatus.CREATED);
 		} catch (Exception e) {

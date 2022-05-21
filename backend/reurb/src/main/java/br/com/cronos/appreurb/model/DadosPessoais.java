@@ -13,7 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -82,8 +83,11 @@ public class DadosPessoais implements Serializable
 	@Column(name = "escolaridadeTexto")
 	private String escolaridadeTexto;
 	
-	@OneToMany(mappedBy = "dadosPessoais", cascade=CascadeType.PERSIST, targetEntity = OcupacaoDadosPessoais.class, fetch = FetchType.EAGER)
-	private List<OcupacaoDadosPessoais> ocupacoes;
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "TB_DADOS_PESSOAIS_OCUPACOES",
+           joinColumns = { @JoinColumn(name = "FK_DADOS_PESSOAIS") },
+           inverseJoinColumns = { @JoinColumn(name = "FK_OCUPACAO") })
+    private List<Ocupacao> listaOcupacoes;
 	
 	@Transient
 	private List<Integer> ocupacao;
@@ -91,8 +95,11 @@ public class DadosPessoais implements Serializable
 	@Column(name = "ocupacaoTexto")
 	private String ocupacaoTexto;
 	
-	@OneToMany(mappedBy = "dadosPessoais", cascade=CascadeType.PERSIST, targetEntity = BeneficioSocialDadosPessoais.class, fetch = FetchType.LAZY)
-	private List<BeneficioSocialDadosPessoais> beneficioSocial;
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "TB_DADOS_PESSOAIS_BENEFICIOS_SOCIAIS",
+           joinColumns = { @JoinColumn(name = "FK_Dados_Pessoais") },
+           inverseJoinColumns = { @JoinColumn(name = "FK_Beneficio_Social") })
+    private List<BeneficioSocial> listaBeneficiosSocial;
 	
 	@Transient
 	private List<Integer> beneficiosSociais;
@@ -142,7 +149,7 @@ public class DadosPessoais implements Serializable
 				+ ", dataNascimento=" + dataNascimento + ", emancipado=" + emancipado + ", rg=" + rg
 				+ ", orgaoEmissorRG=" + orgaoEmissorRG + ", ufEmissorRG=" + ufEmissorRG + ", cpf=" + cpf + ", nis="
 				+ nis + ", escolaridade=" + escolaridade + ", escolaridadeTexto=" + escolaridadeTexto + ", ocupacao="
-				+ ocupacao + ", ocupacaoTexto=" + ocupacaoTexto + ", beneficiosSociais=" + beneficioSocial
+				+ ocupacao + ", ocupacaoTexto=" + ocupacaoTexto + ", listaBeneficiosSocial=" + listaBeneficiosSocial
 				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", estadoCivil=" + estadoCivil
 				+ ", nomeConjuge=" + nomeConjuge + ", dataCasamento=" + dataCasamento + ", regimeBens=" + regimeBens
 				+ ", valorRenda=" + valorRenda + ", anexoDocumentoIdentidade=" + anexoDocumentoIdentidade + "]";
@@ -300,14 +307,6 @@ public class DadosPessoais implements Serializable
 		this.escolaridadeTexto = escolaridadeTexto;
 	}
 
-	public List<OcupacaoDadosPessoais> getOcupacoes() {
-		return ocupacoes;
-	}
-
-	public void setOcupacoes(List<OcupacaoDadosPessoais> ocupacoes) {
-		this.ocupacoes = ocupacoes;
-	}
-
 	public List<Integer> getOcupacao() {
 		return ocupacao;
 	}
@@ -322,14 +321,6 @@ public class DadosPessoais implements Serializable
 
 	public void setOcupacaoTexto(String ocupacaoTexto) {
 		this.ocupacaoTexto = ocupacaoTexto;
-	}
-
-	public List<BeneficioSocialDadosPessoais> getBeneficioSocial() {
-		return beneficioSocial;
-	}
-
-	public void setBeneficioSocial(List<BeneficioSocialDadosPessoais> beneficioSocial) {
-		this.beneficioSocial = beneficioSocial;
 	}
 
 	public String getBeneficiosSociaisTexto() {
@@ -403,9 +394,25 @@ public class DadosPessoais implements Serializable
 	public List<Integer> getBeneficiosSociais() {
 		return beneficiosSociais;
 	}
+	
+	public List<BeneficioSocial> getListaBeneficiosSocial() {
+		return listaBeneficiosSocial;
+	}
+
+	public void setListaBeneficiosSocial(List<BeneficioSocial> listaBeneficiosSocial) {
+		this.listaBeneficiosSocial = listaBeneficiosSocial;
+	}
 
 	public void setBeneficiosSociais(List<Integer> beneficiosSociais) {
 		this.beneficiosSociais = beneficiosSociais;
+	}
+
+	public List<Ocupacao> getListaOcupacoes() {
+		return listaOcupacoes;
+	}
+
+	public void setListaOcupacoes(List<Ocupacao> listaOcupacoes) {
+		this.listaOcupacoes = listaOcupacoes;
 	}
 	
 }
