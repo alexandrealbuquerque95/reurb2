@@ -4,7 +4,7 @@ export class DadosPessoais {
   id?: any;
 
   nome?: string;
-  sexo?: string = '';
+  sexo?: string = '1';
 
   celular?: number;
   telefone?: number;

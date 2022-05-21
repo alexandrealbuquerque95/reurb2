@@ -20,7 +20,7 @@
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
               <label for="inputNome"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.nome"
+              <input type="text" [(ngModel)]="dadosPessoais.nome" name="nome"
                 (change)="validadorDadosPessoais.validarNome(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.nome && {'border-color': 'red'} " class="form-control" id="inputNome" >
 
@@ -39,14 +39,14 @@
               <div class="d-flex">
                 <div class="form-check ">
                   <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino"
-                    value="Feminino" checked [(ngModel)]="dadosPessoais.sexo">
+                    value="1" checked [(ngModel)]="dadosPessoais.sexo">
                   <label class="form-check-label" for="sexoFeminino">
                     Feminino
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino"
-                    value="Masculino" [(ngModel)]="dadosPessoais.sexo">
+                    value="2" [(ngModel)]="dadosPessoais.sexo">
                   <label class="form-check-label" for="sexoMasculino">
                     Masculino
                   </label>

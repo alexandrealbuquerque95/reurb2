@@ -182,6 +182,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(event.target.value == 10)
       {
         this.dadosPessoais.mostrarOutrosOcupacao = false;
+        this.dadosPessoais.ocupacaoTexto='';
       }
     }
 
@@ -204,6 +205,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(event.target.value == "10")
       {
         this.dadosConjuge.mostrarOutrosOcupacao = false;
+        this.dadosConjuge.ocupacaoTexto='';
       }
     }
 
@@ -226,6 +228,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(event.target.value == "8")
       {
         this.dadosPessoais.mostrarOutrosBeneficiosSociais = false;
+        this.dadosPessoais.beneficiosSociaisTexto='';
       }
     }
 
@@ -248,6 +251,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(event.target.value == "8")
       {
         this.dadosConjuge.mostrarOutrosBeneficiosSociais = false;
+        this.dadosConjuge.beneficiosSociaisTexto='';
       }
     }
 
