@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cronos.appreurb.model.BeneficioSocial;
+import br.com.cronos.appreurb.model.DadosConjuge;
 import br.com.cronos.appreurb.model.DadosPessoais;
 import br.com.cronos.appreurb.model.Ocupacao;
 import br.com.cronos.appreurb.model.Teste;
+import br.com.cronos.appreurb.repository.DadosConjugeRepository;
 import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.TesteRepository;
 
@@ -35,6 +37,9 @@ public class DadosPessoaisController {
 
 	@Autowired
 	DadosPessoaisRepository dadosPessoaisRepository;
+	
+	@Autowired
+	DadosConjugeRepository dadosConjugeRepository;
 	
 	@RequestMapping(value="/dados_pessoais", method= RequestMethod.GET)
 	public ResponseEntity<List<DadosPessoais>> listarDadosPessoais() 
@@ -58,6 +63,11 @@ public class DadosPessoaisController {
 				{
 					dadosPessoais.setId(dadosPessoaisConsulta.getId());
 				}
+			}
+			
+			if(dadosPessoais.getDadosConjuge() != null)
+			{
+				salvarDadosConjuge(dadosPessoais.getDadosConjuge());
 			}
 			
 			if(dadosPessoais.getListaOcupacoes() == null)
@@ -90,6 +100,52 @@ public class DadosPessoaisController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	public void salvarDadosConjuge(@RequestBody DadosConjuge dadosConjuge) 
+	{
+		try 
+		{
+			System.out.println(dadosConjuge);
+			
+			if(dadosConjuge.getCpf() != null && !dadosConjuge.getCpf().equals(""))
+			{
+				DadosConjuge dadosConjugeConsulta = dadosConjugeRepository.findByCpf(dadosConjuge.getCpf());
+				if(dadosConjugeConsulta != null)
+				{
+					dadosConjuge.setId(dadosConjugeConsulta.getId());
+				}
+			}
+			
+			if(dadosConjuge.getListaOcupacoes() == null)
+			{
+				dadosConjuge.setListaOcupacoes(new ArrayList<Ocupacao>());
+			}
+			
+			for(Integer idOcupacao : dadosConjuge.getOcupacao())
+			{
+				Ocupacao ocupacao = new Ocupacao();
+				ocupacao.setId(idOcupacao);
+				dadosConjuge.getListaOcupacoes().add(ocupacao);
+			}
+			
+			if(dadosConjuge.getListaBeneficiosSocial() == null)
+			{
+				dadosConjuge.setListaBeneficiosSocial(new ArrayList<BeneficioSocial>());
+			}
+			
+			for(Integer idBeneficioSocial: dadosConjuge.getBeneficiosSociais() )
+			{
+				BeneficioSocial beneficioSocial = new BeneficioSocial();
+				beneficioSocial.setId(idBeneficioSocial);
+				dadosConjuge.getListaBeneficiosSocial().add(beneficioSocial);
+			}
+			
+			dadosConjugeRepository.save(dadosConjuge);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

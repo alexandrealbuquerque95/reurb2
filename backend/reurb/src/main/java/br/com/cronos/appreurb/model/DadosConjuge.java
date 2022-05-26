@@ -20,8 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "TB_DADOS_PESSOAIS")
-public class DadosPessoais implements Serializable
+@Table(name = "TB_DADOS_CONJUGE")
+public class DadosConjuge implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -84,8 +84,8 @@ public class DadosPessoais implements Serializable
 	private String escolaridadeTexto;
 	
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_DADOS_PESSOAIS_OCUPACOES",
-           joinColumns = { @JoinColumn(name = "FK_DADOS_PESSOAIS") },
+    @JoinTable(name = "TB_DADOS_CONJUGE_OCUPACOES",
+           joinColumns = { @JoinColumn(name = "FK_DADOS_CONJUGE") },
            inverseJoinColumns = { @JoinColumn(name = "FK_OCUPACAO") })
     private List<Ocupacao> listaOcupacoes;
 	
@@ -96,8 +96,8 @@ public class DadosPessoais implements Serializable
 	private String ocupacaoTexto;
 	
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_DADOS_PESSOAIS_BENEFICIOS_SOCIAIS",
-           joinColumns = { @JoinColumn(name = "FK_Dados_Pessoais") },
+    @JoinTable(name = "TB_DADOS_CONJUGE_BENEFICIOS_SOCIAIS",
+           joinColumns = { @JoinColumn(name = "FK_Dados_CONJUGE") },
            inverseJoinColumns = { @JoinColumn(name = "FK_Beneficio_Social") })
     private List<BeneficioSocial> listaBeneficiosSocial;
 	
@@ -107,51 +107,19 @@ public class DadosPessoais implements Serializable
 	@Column(name = "beneficiosSociaisDadosPessoaisTexto")
 	private String beneficiosSociaisTexto;
 	
-	@Column(name = "estadoCivil")
-	private Integer estadoCivil;
-	
-	@Column(name = "dataCasamento")
-	private String dataCasamento;
-	
-	@Column(name = "regimeBens")
-	private Integer regimeBens;
-	
 	@Column(name = "valorRenda")
 	private Double valorRenda;
-	
-	@Column(name = "anexoDocumentoIdentidade")
-	private File anexoDocumentoIdentidade;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "FK_DADOS_IMOVEL")
-	private DadosImovel dadosImovel;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "FK_DADOS_CONJUGE")
-	private DadosConjuge dadosConjuge;
-	
-//	@OneToOne
-//	@JoinColumn(name = "FK_INTEGRANTE_IMOVEL")
-//	private IntegranteImovel integranteImovel;
-//	
-//	@OneToOne
-//	@JoinColumn(name = "FK_CARACTERISTICAS_DOMICILIO")
-//	private CaracteristicasDomicilio caracteristicasDomicilio;
-	
+
 	@Override
 	public String toString() {
-		return "DadosPessoais [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", celular=" + celular + ", telefone="
+		return "DadosConjuge [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", celular=" + celular + ", telefone="
 				+ telefone + ", pessoaComDeficiencia=" + pessoaComDeficiencia + ", nomeMae=" + nomeMae + ", nomePai="
 				+ nomePai + ", municipioNascimento=" + municipioNascimento + ", ufNascimento=" + ufNascimento
 				+ ", dataNascimento=" + dataNascimento + ", emancipado=" + emancipado + ", rg=" + rg
 				+ ", orgaoEmissorRG=" + orgaoEmissorRG + ", ufEmissorRG=" + ufEmissorRG + ", cpf=" + cpf + ", nis="
-				+ nis + ", escolaridade=" + escolaridade + ", escolaridadeTexto=" + escolaridadeTexto
-				+ ", listaOcupacoes=" + listaOcupacoes + ", ocupacao=" + ocupacao + ", ocupacaoTexto=" + ocupacaoTexto
-				+ ", listaBeneficiosSocial=" + listaBeneficiosSocial + ", beneficiosSociais=" + beneficiosSociais
-				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", estadoCivil=" + estadoCivil
-				+ ", dataCasamento=" + dataCasamento + ", regimeBens=" + regimeBens
-				+ ", valorRenda=" + valorRenda + ", anexoDocumentoIdentidade=" + anexoDocumentoIdentidade
-				+ ", dadosImovel=" + dadosImovel + ", dadosConjuge=" + dadosConjuge + "]";
+				+ nis + ", escolaridade=" + escolaridade + ", escolaridadeTexto=" + escolaridadeTexto + ", ocupacao="
+				+ ocupacao + ", ocupacaoTexto=" + ocupacaoTexto + ", listaBeneficiosSocial=" + listaBeneficiosSocial
+				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", valorRenda=" + valorRenda + "]";
 	}
 
 	public Long getId() {
@@ -330,52 +298,12 @@ public class DadosPessoais implements Serializable
 		this.beneficiosSociaisTexto = beneficiosSociaisTexto;
 	}
 
-	public Integer getEstadoCivil() {
-		return estadoCivil;
-	}
-
-	public void setEstadoCivil(Integer estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
-
-	public String getDataCasamento() {
-		return dataCasamento;
-	}
-
-	public void setDataCasamento(String dataCasamento) {
-		this.dataCasamento = dataCasamento;
-	}
-
-	public Integer getRegimeBens() {
-		return regimeBens;
-	}
-
-	public void setRegimeBens(Integer regimeBens) {
-		this.regimeBens = regimeBens;
-	}
-
 	public Double getValorRenda() {
 		return valorRenda;
 	}
 
 	public void setValorRenda(Double valorRenda) {
 		this.valorRenda = valorRenda;
-	}
-
-	public File getAnexoDocumentoIdentidade() {
-		return anexoDocumentoIdentidade;
-	}
-
-	public void setAnexoDocumentoIdentidade(File anexoDocumentoIdentidade) {
-		this.anexoDocumentoIdentidade = anexoDocumentoIdentidade;
-	}
-
-	public DadosImovel getDadosImovel() {
-		return dadosImovel;
-	}
-
-	public void setDadosImovel(DadosImovel dadosImovel) {
-		this.dadosImovel = dadosImovel;
 	}
 
 	public static long getSerialversionuid() {
@@ -405,14 +333,5 @@ public class DadosPessoais implements Serializable
 	public void setListaOcupacoes(List<Ocupacao> listaOcupacoes) {
 		this.listaOcupacoes = listaOcupacoes;
 	}
-
-	public DadosConjuge getDadosConjuge() {
-		return dadosConjuge;
-	}
-
-	public void setDadosConjuge(DadosConjuge dadosConjuge) {
-		this.dadosConjuge = dadosConjuge;
-	}
-	
 	
 }

@@ -39,7 +39,6 @@ export class DadosPessoais {
   mostrarOutrosBeneficiosSociais?: boolean = false;
 
   estadoCivil?: number = 0;
-  nomeConjuge?: string;
 
   dataCasamento?: string;
   regimeBens?: number;
@@ -49,6 +48,8 @@ export class DadosPessoais {
   anexoDocumentoIdentidade?: File;
 
   dadosImovel: DadosImovel;
+
+  dadosConjuge: DadosPessoais;
 
   //situacaoCadastro: string = 'Início do Cadastro';
 }

@@ -583,17 +583,9 @@
 
             <div class="form-group col-md-9 col-lg-9 px-3" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
               <label for="nomeConjuge"><b>Nome do(a) cônjuge ou companheiro(a): <span style="color:red" >* </span> </b></label>
-              <input type="text" [(ngModel)]="dadosPessoais.nomeConjuge" class="form-control" id="nomeConjuge"
-                (change)="validadorDadosPessoais.validarNomeConjuge(dadosPessoais)"
-                [ngStyle]="!validadorDadosPessoais.nomeConjuge && {'border-color': 'red'}" >
+              <input type="text" [(ngModel)]="dadosConjuge.nome" class="form-control" id="nomeConjuge" >
             </div>
 
-            <div class="px-2" *ngIf="!validadorDadosPessoais.nomeConjuge">
-              <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-              <span class="text-danger">
-                {{validadorDadosPessoais.nomeConjugeMensagem}}
-              </span>
-            </div>
           </div>
 
           <div class="form-row m-0" *ngIf="dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6">
@@ -691,17 +683,8 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
-              <label for="inputNome"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosPessoais.nomeConjuge"
-                (change)="validadorDadosConjuge.validarNomeConjuge(dadosPessoais)"
-                [ngStyle]="!validadorDadosConjuge.nomeConjuge && {'border-color': 'red'} " class="form-control" id="inputNomeConjuge" >
-
-              <div class="px-2" *ngIf="!validadorDadosPessoais.nomeConjuge">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                <span class="text-danger">
-                  {{validadorDadosPessoais.nomeConjugeMensagem}}
-                </span>
-              </div>
+              <label for="inputNomeConjuge"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
+              <input type="text" [(ngModel)]="dadosConjuge.nome" class="form-control" id="inputNomeConjuge" >
 
             </div>
 
@@ -711,14 +694,14 @@
               <div class="d-flex">
                 <div class="form-check ">
                   <input class="form-check-input" type="radio" name="sexoConjuge" id="sexoFemininoConjuge"
-                    value="Feminino" checked [(ngModel)]="dadosConjuge.sexo">
+                    value="1" checked [(ngModel)]="dadosConjuge.sexo">
                   <label class="form-check-label" for="sexoFemininoConjuge">
                     Feminino
                   </label>
                 </div>
                 <div class="form-check pl-5">
                   <input class="form-check-input" type="radio" name="sexoConjuge" id="sexoMasculinoConjuge"
-                    value="Masculino" [(ngModel)]="dadosConjuge.sexo">
+                    value="2" [(ngModel)]="dadosConjuge.sexo">
                   <label class="form-check-label" for="sexoMasculinoConjuge">
                     Masculino
                   </label>
@@ -1700,7 +1683,7 @@
 
                   <tr *ngIf="dadosConjuge != undefined && (dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6)">
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{dadosPessoais.nomeConjuge}}</span>
+                      <span tabindex="0">{{dadosConjuge.nome}}</span>
                     </td>
                     <td class="pt-3-half" >
                       <span tabindex="0">{{dadosConjuge.cpf}}</span>
@@ -1841,7 +1824,7 @@
             <br><br>
 
             <div class="form-group col-md-3 col-lg-3 pr-3 ">
-              <label for="sexoMasculino"> <b> Estrutura: <span style="color:red" >*</span> </b> </label>
+              <label for="estruturaEstavelNao"> <b> Estrutura: <span style="color:red" >*</span> </b> </label>
 
               <div class="d-flex">
                 <div class="form-check ">
@@ -1865,7 +1848,7 @@
             </div>
 
             <div class="form-group col-md-9 col-lg-9  px-3 ">
-              <label for="sexoMasculino"> <b> Necessidade de reconstrução ou total substituição, devido a situação
+              <label for="necessidadeReconstrucaoNao"> <b> Necessidade de reconstrução ou total substituição, devido a situação
                 de risco ou extrema precariedade: <span style="color:red" >*</span> </b> </label>
 
               <div class="d-flex">
