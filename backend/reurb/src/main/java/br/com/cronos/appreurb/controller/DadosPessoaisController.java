@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cronos.appreurb.model.BeneficioSocial;
 import br.com.cronos.appreurb.model.DadosConjuge;
 import br.com.cronos.appreurb.model.DadosPessoais;
+import br.com.cronos.appreurb.model.IntegranteImovel;
 import br.com.cronos.appreurb.model.Ocupacao;
 import br.com.cronos.appreurb.model.Teste;
 import br.com.cronos.appreurb.repository.DadosConjugeRepository;
 import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
+import br.com.cronos.appreurb.repository.IntegranteImovelRepository;
 import br.com.cronos.appreurb.repository.TesteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -40,6 +42,9 @@ public class DadosPessoaisController {
 	
 	@Autowired
 	DadosConjugeRepository dadosConjugeRepository;
+	
+	@Autowired
+	IntegranteImovelRepository integranteImovelRepository;
 	
 	@RequestMapping(value="/dados_pessoais", method= RequestMethod.GET)
 	public ResponseEntity<List<DadosPessoais>> listarDadosPessoais() 
@@ -55,10 +60,11 @@ public class DadosPessoaisController {
 		try 
 		{
 			System.out.println(dadosPessoais);
+			DadosPessoais dadosPessoaisConsulta = null;
 			
 			if(dadosPessoais.getCpf() != null && !dadosPessoais.getCpf().equals(""))
 			{
-				DadosPessoais dadosPessoaisConsulta = dadosPessoaisRepository.findByCpf(dadosPessoais.getCpf());
+				dadosPessoaisConsulta = dadosPessoaisRepository.findByCpf(dadosPessoais.getCpf());
 				if(dadosPessoaisConsulta != null)
 				{
 					dadosPessoais.setId(dadosPessoaisConsulta.getId());
@@ -75,11 +81,14 @@ public class DadosPessoaisController {
 				dadosPessoais.setListaOcupacoes(new ArrayList<Ocupacao>());
 			}
 			
-			for(Integer idOcupacao : dadosPessoais.getOcupacao())
+			if(dadosPessoais.getOcupacao() != null)
 			{
-				Ocupacao ocupacao = new Ocupacao();
-				ocupacao.setId(idOcupacao);
-				dadosPessoais.getListaOcupacoes().add(ocupacao);
+				for(Integer idOcupacao : dadosPessoais.getOcupacao())
+				{
+					Ocupacao ocupacao = new Ocupacao();
+					ocupacao.setId(idOcupacao);
+					dadosPessoais.getListaOcupacoes().add(ocupacao);
+				}
 			}
 			
 			if(dadosPessoais.getListaBeneficiosSocial() == null)
@@ -87,14 +96,43 @@ public class DadosPessoaisController {
 				dadosPessoais.setListaBeneficiosSocial(new ArrayList<BeneficioSocial>());
 			}
 			
-			for(Integer idBeneficioSocial: dadosPessoais.getBeneficiosSociais() )
+			if(dadosPessoais.getBeneficiosSociais() != null)
 			{
-				BeneficioSocial beneficioSocial = new BeneficioSocial();
-				beneficioSocial.setId(idBeneficioSocial);
-				dadosPessoais.getListaBeneficiosSocial().add(beneficioSocial);
+				for(Integer idBeneficioSocial: dadosPessoais.getBeneficiosSociais() )
+				{
+					BeneficioSocial beneficioSocial = new BeneficioSocial();
+					beneficioSocial.setId(idBeneficioSocial);
+					dadosPessoais.getListaBeneficiosSocial().add(beneficioSocial);
+				}
 			}
 			
-			dadosPessoaisRepository.save(dadosPessoais);
+			if(dadosPessoais.getListaIntegranteImovel() != null)
+			{
+				if(dadosPessoaisConsulta != null && !dadosPessoaisConsulta.getListaIntegranteImovel().isEmpty())
+				{
+					for(IntegranteImovel integranteSalvo : dadosPessoaisConsulta.getListaIntegranteImovel())
+					{
+						boolean apagar = true;
+						for(IntegranteImovel integranteImovel : dadosPessoais.getListaIntegranteImovel())
+						{
+							if(integranteImovel.getId() != null && 
+								integranteImovel.getId().equals(integranteSalvo.getId()) )
+							{
+								apagar = false;
+								break;
+							}
+						}
+						
+						if(apagar)
+						{
+							integranteImovelRepository.deleteIntegranteImovelById(integranteSalvo.getId());
+							integranteImovelRepository.flush();
+						}
+					}
+				}
+			}
+			
+			dadosPessoais = dadosPessoaisRepository.save(dadosPessoais);
 			
 			return new ResponseEntity<>(dadosPessoais, HttpStatus.CREATED);
 		} catch (Exception e) {

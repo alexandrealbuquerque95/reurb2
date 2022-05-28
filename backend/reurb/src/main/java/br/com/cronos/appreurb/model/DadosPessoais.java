@@ -15,9 +15,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "TB_DADOS_PESSOAIS")
@@ -130,10 +133,11 @@ public class DadosPessoais implements Serializable
 	@JoinColumn(name = "FK_DADOS_CONJUGE")
 	private DadosConjuge dadosConjuge;
 	
-//	@OneToOne
-//	@JoinColumn(name = "FK_INTEGRANTE_IMOVEL")
-//	private IntegranteImovel integranteImovel;
-//	
+	@JsonManagedReference
+	@OneToMany(mappedBy="dadosPessoais", targetEntity = IntegranteImovel.class, fetch = FetchType.EAGER, 
+		cascade=CascadeType.ALL)
+	private List<IntegranteImovel> listaIntegranteImovel;
+
 //	@OneToOne
 //	@JoinColumn(name = "FK_CARACTERISTICAS_DOMICILIO")
 //	private CaracteristicasDomicilio caracteristicasDomicilio;
@@ -413,6 +417,44 @@ public class DadosPessoais implements Serializable
 	public void setDadosConjuge(DadosConjuge dadosConjuge) {
 		this.dadosConjuge = dadosConjuge;
 	}
-	
+
+	public List<IntegranteImovel> getListaIntegranteImovel() {
+		return listaIntegranteImovel;
+	}
+
+	public void setListaIntegranteImovel(List<IntegranteImovel> listaIntegranteImovel) {
+		this.listaIntegranteImovel = listaIntegranteImovel;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DadosPessoais other = (DadosPessoais) obj;
+		if (cpf == null) {
+			if (other.cpf != null)
+				return false;
+		} else if (!cpf.equals(other.cpf))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 	
 }

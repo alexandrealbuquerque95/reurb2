@@ -1607,8 +1607,8 @@
             <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="sexoIntegrante"> <b> Sexo: <span style="color:red" >*</span> </b> </label>
               <select class="form-control" [(ngModel)]="integranteFamiliar.sexo" id="sexoIntegrante">
-                <option value="Feminino">Feminino</option>
-                <option value="Masculino">Masculino</option>
+                <option value="1">Feminino</option>
+                <option value="2">Masculino</option>
               </select>
             </div>
 
@@ -1665,7 +1665,8 @@
                       <span tabindex="0">Titular</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{dadosPessoais.sexo}}</span>
+                      <span *ngIf="dadosPessoais.sexo == '1'" tabindex="0">Feminino</span>
+                      <span *ngIf="dadosPessoais.sexo == '2'" tabindex="0">Masculino</span>
                     </td>
                     <td class="pt-3-half" >
                       <span tabindex="0" *ngIf="dadosPessoais.dataNascimento != undefined">{{dadosPessoais.dataNascimento.substring(0,2) + '/'
@@ -1692,7 +1693,9 @@
                       <span tabindex="0">Cônjuge/companheiro(a)</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{dadosConjuge.sexo}}</span>
+                      <span *ngIf="dadosConjuge.sexo == '1'" tabindex="0">Feminino</span>
+                      <span *ngIf="dadosConjuge.sexo == '2'" tabindex="0">Masculino</span>
+
                     </td>
                     <td class="pt-3-half" >
                       <span tabindex="0" *ngIf="dadosConjuge.dataNascimento != undefined">{{dadosConjuge.dataNascimento.substring(0,2) + '/'
@@ -1719,7 +1722,8 @@
                       <span tabindex="0">{{integrante.relacaoComTitular}}</span>
                     </td>
                     <td class="pt-3-half" >
-                      <span tabindex="0">{{integrante.sexo}}</span>
+                      <span *ngIf="integrante.sexo == '1'" tabindex="0">Feminino</span>
+                      <span *ngIf="integrante.sexo == '2'" tabindex="0">Masculino</span>
                     </td>
                     <td class="pt-3-half" >
                       <span tabindex="0" *ngIf="integrante.dataNascimento != undefined">{{integrante.dataNascimento.substring(0,2) + '/'

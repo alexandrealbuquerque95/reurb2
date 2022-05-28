@@ -262,11 +262,14 @@ export class FormularioCadastroComponent implements OnInit {
   {
     this.dadosPessoais.dadosImovel = this.dadosImovel;
     this.dadosPessoais.dadosConjuge = this.dadosConjuge;
+    this.dadosPessoais.listaIntegranteImovel = this.integrantesFamiliar;
 
     this.dadosPessoaisService.create(this.dadosPessoais).subscribe
     (
       response => {
         console.log(response);
+        this.dadosPessoais = response;
+        this.integrantesFamiliar = this.dadosPessoais.listaIntegranteImovel;
         this.submitted = true;
       },
       error => {
