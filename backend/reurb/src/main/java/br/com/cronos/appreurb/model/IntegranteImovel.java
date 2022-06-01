@@ -39,7 +39,7 @@ public class IntegranteImovel implements Serializable
 	private String dataNascimento;
 	
 	@Column(name = "valorRenda")
-	private String valorRenda;
+	private Long valorRenda;
 	
 	@JsonBackReference
 	@ManyToOne
@@ -94,11 +94,11 @@ public class IntegranteImovel implements Serializable
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getValorRenda() {
+	public Long getValorRenda() {
 		return valorRenda;
 	}
 
-	public void setValorRenda(String valorRenda) {
+	public void setValorRenda(Long valorRenda) {
 		this.valorRenda = valorRenda;
 	}
 

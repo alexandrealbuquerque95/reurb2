@@ -3,7 +3,7 @@ export class IntegranteFamiliar {
 
   nome: string;
   documento: string = '';
-  sexo: string = 'Feminino';
+  sexo: string = '1';
   relacaoComTitular: string = 'Selecione';
   dataNascimento: string;
   valorRenda: number;

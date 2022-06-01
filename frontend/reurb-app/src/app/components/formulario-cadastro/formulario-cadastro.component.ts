@@ -270,6 +270,8 @@ export class FormularioCadastroComponent implements OnInit {
         console.log(response);
         this.dadosPessoais = response;
         this.integrantesFamiliar = this.dadosPessoais.listaIntegranteImovel;
+        this.adicionarRendaTitularOuConjuge();
+
         this.submitted = true;
       },
       error => {
@@ -293,6 +295,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(integrante.valorRenda != undefined)
       {
         soma += integrante.valorRenda;
+        integrante.valorRendaString = integrante.valorRenda.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
       }
     });
 
