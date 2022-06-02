@@ -8,7 +8,7 @@ export class DadosImovel {
   bairroImovel: string;
 
   nucleoUrbanoImovel: string;
-  ImovelEh: string = '0';
+  imovelEh: string = '0';
   usoImovel: string = '0';
 
   tempoOcupacaoImovel: string = '0';
