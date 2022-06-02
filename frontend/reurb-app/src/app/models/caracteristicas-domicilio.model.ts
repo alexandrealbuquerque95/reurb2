@@ -9,19 +9,23 @@ export class CaracteristicasDomicilio {
 
   numeroBanheiros: string = '0';
 
-  materialParedeExterna: string[] = [];
+  materialParedeExternaArray: string[] = [];
+  materialParedeExterna: string = '';
   materialParedeExternaTexto: string;
   condicoesParede: string = 'Adequadas';
 
-  materialPiso: string[] = [];
+  materialPisoArray: string[] = [];
+  materialPiso: string = '';
   materialPisoTexto: string;
   condicoesPiso: string = 'Adequadas';
 
-  materialInstalacaoEletrica: string[] = [];
+  materialInstalacaoEletricaArray: string[] = [];
+  materialInstalacaoEletrica: string = '';
   materialInstalacaoEletricaTexto: string;
   condicoesInstalacaoEletrica: string = 'Adequadas';
 
-  esgotoSanitario: string[] = [];
+  esgotoSanitarioArray: string[] = [];
+  esgotoSanitario: string = '';
   esgotoSanitarioTexto: string;
   condicoesEsgotoSanitario: string = 'Adequadas';
 

@@ -86,6 +86,14 @@ public class DadosPessoaisController {
 							dadosPessoais.getDadosConjuge().setId(dadosPessoaisConsulta.getDadosConjuge().getId());
 						}
 					}
+					
+					if(dadosPessoaisConsulta.getCaracteristicasDomicilio() != null)
+					{
+						if(dadosPessoais.getCaracteristicasDomicilio() != null)
+						{
+							dadosPessoais.getCaracteristicasDomicilio().setId(dadosPessoaisConsulta.getCaracteristicasDomicilio().getId());
+						}
+					}
 				}
 				
 			}

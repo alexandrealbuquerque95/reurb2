@@ -7,9 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoais';
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
-import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model'
-import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model'
-
+import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model';
+import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model';
 
 @Component({
   selector: 'app-formulario-cadastro.component',
@@ -32,6 +31,8 @@ export class FormularioCadastroComponent implements OnInit {
 
   dadosImovel: DadosImovel = new DadosImovel();
 
+  caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();
+
   tabIndex = 0;
 
   integranteTitular: IntegranteFamiliar;
@@ -39,8 +40,6 @@ export class FormularioCadastroComponent implements OnInit {
   integrantesFamiliar: IntegranteFamiliar[] = [];
   valorRendaTotal: number = 0.00;
   valorRendaTotalString: string = '0,00';
-
-  caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();
 
   submitted = false;
 
@@ -263,6 +262,9 @@ export class FormularioCadastroComponent implements OnInit {
     this.dadosPessoais.dadosImovel = this.dadosImovel;
     this.dadosPessoais.dadosConjuge = this.dadosConjuge;
     this.dadosPessoais.listaIntegranteImovel = this.integrantesFamiliar;
+    this.dadosPessoais.caracteristicasDomicilio = this.caracteristicasDomicilio;
+
+    this.corrigirDadosCaracteristicasDomicilio();
 
     this.dadosPessoaisService.create(this.dadosPessoais).subscribe
     (
@@ -278,6 +280,87 @@ export class FormularioCadastroComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  corrigirDadosCaracteristicasDomicilio(): void
+  {
+    if(this.caracteristicasDomicilio.materialParedeExternaArray != [])
+    {
+      var material = '';
+
+      this.caracteristicasDomicilio.materialParedeExternaArray.forEach(function (caracteristica)
+      {
+        if(material == undefined || material == '')
+        {
+          material = '' + caracteristica;
+        }
+        else
+        {
+          material += ', ' + caracteristica;
+        }
+      });
+
+      this.dadosPessoais.caracteristicasDomicilio.materialParedeExterna = '' + material;
+    }
+
+    if(this.caracteristicasDomicilio.materialPisoArray != [])
+    {
+      var material = '';
+
+      this.caracteristicasDomicilio.materialPisoArray.forEach(function (caracteristica)
+      {
+        if(material == undefined || material == '')
+        {
+          material = '' + caracteristica;
+        }
+        else
+        {
+          material += ', ' + caracteristica;
+        }
+      });
+
+      this.dadosPessoais.caracteristicasDomicilio.materialPiso = '' + material;
+    }
+
+    if(this.caracteristicasDomicilio.materialInstalacaoEletricaArray != [])
+    {
+      var material = '';
+
+      this.caracteristicasDomicilio.materialInstalacaoEletricaArray.forEach(function (caracteristica)
+      {
+        if(material == undefined || material == '')
+        {
+          material = '' + caracteristica;
+        }
+        else
+        {
+          material += ', ' + caracteristica;
+        }
+      });
+
+      this.dadosPessoais.caracteristicasDomicilio.materialInstalacaoEletrica = '' + material;
+    }
+
+    if(this.caracteristicasDomicilio.esgotoSanitarioArray != [])
+    {
+      var material = '';
+
+      this.caracteristicasDomicilio.esgotoSanitarioArray.forEach(function (caracteristica)
+      {
+        if(material == undefined || material == '')
+        {
+          material = '' + caracteristica;
+        }
+        else
+        {
+          material += ', ' + caracteristica;
+        }
+      });
+
+      this.dadosPessoais.caracteristicasDomicilio.esgotoSanitario = '' + material;
+    }
+
+
   }
 
   enviarDados(): void
@@ -354,15 +437,15 @@ export class FormularioCadastroComponent implements OnInit {
   onCheckboxMaterialParedeChange(event: any)
   {
     if (event.target.checked) {
-      this.caracteristicasDomicilio.materialParedeExterna.push(event.target.value);
+      this.caracteristicasDomicilio.materialParedeExternaArray.push(event.target.value);
 
       if(event.target.value == "5")
       {
         this.caracteristicasDomicilio.mostrarOutrosMaterialParedeExterna = true;
       }
     } else {
-      const index = this.caracteristicasDomicilio.materialParedeExterna.findIndex(x => x === event.target.value);
-      this.caracteristicasDomicilio.materialParedeExterna.splice(index, 1);
+      const index = this.caracteristicasDomicilio.materialParedeExternaArray.findIndex(x => x === event.target.value);
+      this.caracteristicasDomicilio.materialParedeExternaArray.splice(index, 1);
 
       if(event.target.value == "5")
       {
@@ -376,15 +459,15 @@ export class FormularioCadastroComponent implements OnInit {
   onCheckboxMaterialPisoChange(event: any)
   {
     if (event.target.checked) {
-      this.caracteristicasDomicilio.materialPiso.push(event.target.value);
+      this.caracteristicasDomicilio.materialPisoArray.push(event.target.value);
 
       if(event.target.value == "6")
       {
         this.caracteristicasDomicilio.mostrarOutrosMaterialPiso = true;
       }
     } else {
-      const index = this.caracteristicasDomicilio.materialPiso.findIndex(x => x === event.target.value);
-      this.caracteristicasDomicilio.materialPiso.splice(index, 1);
+      const index = this.caracteristicasDomicilio.materialPisoArray.findIndex(x => x === event.target.value);
+      this.caracteristicasDomicilio.materialPisoArray.splice(index, 1);
 
       if(event.target.value == "6")
       {
@@ -398,15 +481,15 @@ export class FormularioCadastroComponent implements OnInit {
   onCheckboxMaterialInstalacaoEletricaChange(event: any)
   {
     if (event.target.checked) {
-      this.caracteristicasDomicilio.materialInstalacaoEletrica.push(event.target.value);
+      this.caracteristicasDomicilio.materialInstalacaoEletricaArray.push(event.target.value);
 
       if(event.target.value == "8")
       {
         this.caracteristicasDomicilio.mostrarOutrosMaterialInstalacaoEletrica = true;
       }
     } else {
-      const index = this.caracteristicasDomicilio.materialInstalacaoEletrica.findIndex(x => x === event.target.value);
-      this.caracteristicasDomicilio.materialInstalacaoEletrica.splice(index, 1);
+      const index = this.caracteristicasDomicilio.materialInstalacaoEletricaArray.findIndex(x => x === event.target.value);
+      this.caracteristicasDomicilio.materialInstalacaoEletricaArray.splice(index, 1);
 
       if(event.target.value == "8")
       {
@@ -420,15 +503,15 @@ export class FormularioCadastroComponent implements OnInit {
   onCheckboxMaterialEsgotoSanitarioChange(event: any)
   {
     if (event.target.checked) {
-      this.caracteristicasDomicilio.esgotoSanitario.push(event.target.value);
+      this.caracteristicasDomicilio.esgotoSanitarioArray.push(event.target.value);
 
       if(event.target.value == "6")
       {
         this.caracteristicasDomicilio.mostrarOutrosEsgotoSanitario = true;
       }
     } else {
-      const index = this.caracteristicasDomicilio.esgotoSanitario.findIndex(x => x === event.target.value);
-      this.caracteristicasDomicilio.esgotoSanitario.splice(index, 1);
+      const index = this.caracteristicasDomicilio.esgotoSanitarioArray.findIndex(x => x === event.target.value);
+      this.caracteristicasDomicilio.esgotoSanitarioArray.splice(index, 1);
 
       if(event.target.value == "6")
       {

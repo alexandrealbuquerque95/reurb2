@@ -138,9 +138,9 @@ public class DadosPessoais implements Serializable
 		cascade=CascadeType.ALL)
 	private List<IntegranteImovel> listaIntegranteImovel;
 
-//	@OneToOne
-//	@JoinColumn(name = "FK_CARACTERISTICAS_DOMICILIO")
-//	private CaracteristicasDomicilio caracteristicasDomicilio;
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "FK_CARACTERISTICAS_DOMICILIO")
+	private CaracteristicasDomicilio caracteristicasDomicilio;
 	
 	@Override
 	public String toString() {
@@ -424,6 +424,14 @@ public class DadosPessoais implements Serializable
 
 	public void setListaIntegranteImovel(List<IntegranteImovel> listaIntegranteImovel) {
 		this.listaIntegranteImovel = listaIntegranteImovel;
+	}
+	
+	public CaracteristicasDomicilio getCaracteristicasDomicilio() {
+		return caracteristicasDomicilio;
+	}
+
+	public void setCaracteristicasDomicilio(CaracteristicasDomicilio caracteristicasDomicilio) {
+		this.caracteristicasDomicilio = caracteristicasDomicilio;
 	}
 
 	@Override

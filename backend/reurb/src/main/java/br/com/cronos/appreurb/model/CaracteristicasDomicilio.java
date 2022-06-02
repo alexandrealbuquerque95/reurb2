@@ -9,8 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "TB_CARACTERISTICA_DOMICILIO")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CaracteristicasDomicilio implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -70,17 +73,17 @@ public class CaracteristicasDomicilio implements Serializable
 	@Column(name = "condicoesEsgotoSanitario")
 	private String condicoesEsgotoSanitario;
 	
-	@Column(name = "mostrarOutrosMaterialParedeExterna")
-	private Boolean mostrarOutrosMaterialParedeExterna;
-	
-	@Column(name = "mostrarOutrosMaterialPiso")
-	private Boolean mostrarOutrosMaterialPiso;
-	
-	@Column(name = "mostrarOutrosMaterialInstalacaoEletrica")
-	private Boolean mostrarOutrosMaterialInstalacaoEletrica;
-	
-	@Column(name = "mostrarOutrosEsgotoSanitario")
-	private Boolean mostrarOutrosEsgotoSanitario;
+//	@Column(name = "mostrarOutrosMaterialParedeExterna")
+//	private Boolean mostrarOutrosMaterialParedeExterna;
+//	
+//	@Column(name = "mostrarOutrosMaterialPiso")
+//	private Boolean mostrarOutrosMaterialPiso;
+//	
+//	@Column(name = "mostrarOutrosMaterialInstalacaoEletrica")
+//	private Boolean mostrarOutrosMaterialInstalacaoEletrica;
+//	
+//	@Column(name = "mostrarOutrosEsgotoSanitario")
+//	private Boolean mostrarOutrosEsgotoSanitario;
 	
 
 	public long getId() {
@@ -227,35 +230,35 @@ public class CaracteristicasDomicilio implements Serializable
 		this.condicoesEsgotoSanitario = condicoesEsgotoSanitario;
 	}
 
-	public Boolean getMostrarOutrosMaterialParedeExterna() {
-		return mostrarOutrosMaterialParedeExterna;
-	}
-
-	public void setMostrarOutrosMaterialParedeExterna(Boolean mostrarOutrosMaterialParedeExterna) {
-		this.mostrarOutrosMaterialParedeExterna = mostrarOutrosMaterialParedeExterna;
-	}
-
-	public Boolean getMostrarOutrosMaterialPiso() {
-		return mostrarOutrosMaterialPiso;
-	}
-
-	public void setMostrarOutrosMaterialPiso(Boolean mostrarOutrosMaterialPiso) {
-		this.mostrarOutrosMaterialPiso = mostrarOutrosMaterialPiso;
-	}
-
-	public Boolean getMostrarOutrosMaterialInstalacaoEletrica() {
-		return mostrarOutrosMaterialInstalacaoEletrica;
-	}
-
-	public void setMostrarOutrosMaterialInstalacaoEletrica(Boolean mostrarOutrosMaterialInstalacaoEletrica) {
-		this.mostrarOutrosMaterialInstalacaoEletrica = mostrarOutrosMaterialInstalacaoEletrica;
-	}
-
-	public Boolean getMostrarOutrosEsgotoSanitario() {
-		return mostrarOutrosEsgotoSanitario;
-	}
-
-	public void setMostrarOutrosEsgotoSanitario(Boolean mostrarOutrosEsgotoSanitario) {
-		this.mostrarOutrosEsgotoSanitario = mostrarOutrosEsgotoSanitario;
-	}
+//	public Boolean getMostrarOutrosMaterialParedeExterna() {
+//		return mostrarOutrosMaterialParedeExterna;
+//	}
+//
+//	public void setMostrarOutrosMaterialParedeExterna(Boolean mostrarOutrosMaterialParedeExterna) {
+//		this.mostrarOutrosMaterialParedeExterna = mostrarOutrosMaterialParedeExterna;
+//	}
+//
+//	public Boolean getMostrarOutrosMaterialPiso() {
+//		return mostrarOutrosMaterialPiso;
+//	}
+//
+//	public void setMostrarOutrosMaterialPiso(Boolean mostrarOutrosMaterialPiso) {
+//		this.mostrarOutrosMaterialPiso = mostrarOutrosMaterialPiso;
+//	}
+//
+//	public Boolean getMostrarOutrosMaterialInstalacaoEletrica() {
+//		return mostrarOutrosMaterialInstalacaoEletrica;
+//	}
+//
+//	public void setMostrarOutrosMaterialInstalacaoEletrica(Boolean mostrarOutrosMaterialInstalacaoEletrica) {
+//		this.mostrarOutrosMaterialInstalacaoEletrica = mostrarOutrosMaterialInstalacaoEletrica;
+//	}
+//
+//	public Boolean getMostrarOutrosEsgotoSanitario() {
+//		return mostrarOutrosEsgotoSanitario;
+//	}
+//
+//	public void setMostrarOutrosEsgotoSanitario(Boolean mostrarOutrosEsgotoSanitario) {
+//		this.mostrarOutrosEsgotoSanitario = mostrarOutrosEsgotoSanitario;
+//	}
 }

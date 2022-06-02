@@ -1,5 +1,6 @@
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
 import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model';
+import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model';
 
 export class DadosPessoais {
   id?: any;
@@ -51,6 +52,8 @@ export class DadosPessoais {
   dadosImovel: DadosImovel;
 
   dadosConjuge: DadosPessoais;
+
+  caracteristicasDomicilio: CaracteristicasDomicilio;
 
   listaIntegranteImovel?: IntegranteFamiliar[] = [];
 
