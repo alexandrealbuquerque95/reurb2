@@ -37,8 +37,8 @@ public class DadosImovel implements Serializable
 	@Column(name = "nucleoUrbanoImovel")
 	private String nucleoUrbanoImovel;
 	
-	@Column(name = "ImovelEh")
-	private String ImovelEh;
+	@Column(name = "imovelEh")
+	private String imovelEh;
 	
 	@Column(name = "usoImovel")
 	private String usoImovel;
@@ -47,25 +47,25 @@ public class DadosImovel implements Serializable
 	private String tempoOcupacaoImovel;
 	
 	@Column(name = "mais1DomicilioLote")
-	private String mais1DomicilioLote;
+	private Integer mais1DomicilioLote;
 	
 	@Column(name = "quantidadeDomiciliosLote")
 	private String quantidadeDomiciliosLote;
 	
 	@Column(name = "acessoIndependente")
-	private String acessoIndependente;
+	private Integer acessoIndependente;
 	
 	@Column(name = "atendidoEnergiaEletrica")
-	private String atendidoEnergiaEletrica;
+	private Integer atendidoEnergiaEletrica;
 	
 	@Column(name = "atendidoAgua")
-	private String atendidoAgua;
+	private Integer atendidoAgua;
 	
 	@Column(name = "atendidoEsgoto")
-	private String atendidoEsgoto;
+	private Integer atendidoEsgoto;
 	
 	@Column(name = "atendidoAguasPluviais")
-	private String atendidoAguasPluviais;
+	private Integer atendidoAguasPluviais;
 	
 	@Column(name = "atendidoPavimentacao")
 	private Integer atendidoPavimentacao;
@@ -127,11 +127,11 @@ public class DadosImovel implements Serializable
 	}
 
 	public String getImovelEh() {
-		return ImovelEh;
+		return imovelEh;
 	}
 
 	public void setImovelEh(String imovelEh) {
-		ImovelEh = imovelEh;
+		this.imovelEh = imovelEh;
 	}
 
 	public String getUsoImovel() {
@@ -150,11 +150,11 @@ public class DadosImovel implements Serializable
 		this.tempoOcupacaoImovel = tempoOcupacaoImovel;
 	}
 
-	public String getMais1DomicilioLote() {
+	public Integer getMais1DomicilioLote() {
 		return mais1DomicilioLote;
 	}
 
-	public void setMais1DomicilioLote(String mais1DomicilioLote) {
+	public void setMais1DomicilioLote(Integer mais1DomicilioLote) {
 		this.mais1DomicilioLote = mais1DomicilioLote;
 	}
 
@@ -166,43 +166,43 @@ public class DadosImovel implements Serializable
 		this.quantidadeDomiciliosLote = quantidadeDomiciliosLote;
 	}
 
-	public String getAcessoIndependente() {
+	public Integer getAcessoIndependente() {
 		return acessoIndependente;
 	}
 
-	public void setAcessoIndependente(String acessoIndependente) {
+	public void setAcessoIndependente(Integer acessoIndependente) {
 		this.acessoIndependente = acessoIndependente;
 	}
 
-	public String getAtendidoEnergiaEletrica() {
+	public Integer getAtendidoEnergiaEletrica() {
 		return atendidoEnergiaEletrica;
 	}
 
-	public void setAtendidoEnergiaEletrica(String atendidoEnergiaEletrica) {
+	public void setAtendidoEnergiaEletrica(Integer atendidoEnergiaEletrica) {
 		this.atendidoEnergiaEletrica = atendidoEnergiaEletrica;
 	}
 
-	public String getAtendidoAgua() {
+	public Integer getAtendidoAgua() {
 		return atendidoAgua;
 	}
 
-	public void setAtendidoAgua(String atendidoAgua) {
+	public void setAtendidoAgua(Integer atendidoAgua) {
 		this.atendidoAgua = atendidoAgua;
 	}
 
-	public String getAtendidoEsgoto() {
+	public Integer getAtendidoEsgoto() {
 		return atendidoEsgoto;
 	}
 
-	public void setAtendidoEsgoto(String atendidoEsgoto) {
+	public void setAtendidoEsgoto(Integer atendidoEsgoto) {
 		this.atendidoEsgoto = atendidoEsgoto;
 	}
 
-	public String getAtendidoAguasPluviais() {
+	public Integer getAtendidoAguasPluviais() {
 		return atendidoAguasPluviais;
 	}
 
-	public void setAtendidoAguasPluviais(String atendidoAguasPluviais) {
+	public void setAtendidoAguasPluviais(Integer atendidoAguasPluviais) {
 		this.atendidoAguasPluviais = atendidoAguasPluviais;
 	}
 

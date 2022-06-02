@@ -70,7 +70,24 @@ public class DadosPessoaisController {
 				if(dadosPessoaisConsulta != null)
 				{
 					dadosPessoais.setId(dadosPessoaisConsulta.getId());
+					
+					if(dadosPessoaisConsulta.getDadosImovel() != null)
+					{
+						if(dadosPessoais.getDadosImovel() != null)
+						{
+							dadosPessoais.getDadosImovel().setId(dadosPessoaisConsulta.getDadosImovel().getId());
+						}
+					}
+					
+					if(dadosPessoaisConsulta.getDadosConjuge() != null)
+					{
+						if(dadosPessoais.getDadosConjuge() != null)
+						{
+							dadosPessoais.getDadosConjuge().setId(dadosPessoaisConsulta.getDadosConjuge().getId());
+						}
+					}
 				}
+				
 			}
 			
 			if(dadosPessoais.getDadosConjuge() != null)

@@ -1,8 +1,6 @@
 package br.com.cronos.appreurb.model;
 
-import java.io.File;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,12 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "TB_DADOS_CONJUGE")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class DadosConjuge implements Serializable
 {
 	private static final long serialVersionUID = 1L;
