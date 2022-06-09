@@ -21,16 +21,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.cronos.appreurb.model.BeneficioSocial;
 import br.com.cronos.appreurb.model.DadosConjuge;
 import br.com.cronos.appreurb.model.DadosPessoais;
 import br.com.cronos.appreurb.model.IntegranteImovel;
-import br.com.cronos.appreurb.model.Ocupacao;
-import br.com.cronos.appreurb.model.Teste;
 import br.com.cronos.appreurb.repository.DadosConjugeRepository;
 import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.IntegranteImovelRepository;
-import br.com.cronos.appreurb.repository.TesteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 //@CrossOrigin(origins = "http://reurb.s3-website-sa-east-1.amazonaws.com")
@@ -103,36 +99,6 @@ public class DadosPessoaisController {
 				salvarDadosConjuge(dadosPessoais.getDadosConjuge());
 			}
 			
-			if(dadosPessoais.getListaOcupacoes() == null)
-			{
-				dadosPessoais.setListaOcupacoes(new ArrayList<Ocupacao>());
-			}
-			
-			if(dadosPessoais.getOcupacao() != null)
-			{
-				for(Integer idOcupacao : dadosPessoais.getOcupacao())
-				{
-					Ocupacao ocupacao = new Ocupacao();
-					ocupacao.setId(idOcupacao);
-					dadosPessoais.getListaOcupacoes().add(ocupacao);
-				}
-			}
-			
-			if(dadosPessoais.getListaBeneficiosSocial() == null)
-			{
-				dadosPessoais.setListaBeneficiosSocial(new ArrayList<BeneficioSocial>());
-			}
-			
-			if(dadosPessoais.getBeneficiosSociais() != null)
-			{
-				for(Integer idBeneficioSocial: dadosPessoais.getBeneficiosSociais() )
-				{
-					BeneficioSocial beneficioSocial = new BeneficioSocial();
-					beneficioSocial.setId(idBeneficioSocial);
-					dadosPessoais.getListaBeneficiosSocial().add(beneficioSocial);
-				}
-			}
-			
 			if(dadosPessoais.getListaIntegranteImovel() != null)
 			{
 				if(dadosPessoaisConsulta != null && !dadosPessoaisConsulta.getListaIntegranteImovel().isEmpty())
@@ -181,30 +147,6 @@ public class DadosPessoaisController {
 				{
 					dadosConjuge.setId(dadosConjugeConsulta.getId());
 				}
-			}
-			
-			if(dadosConjuge.getListaOcupacoes() == null)
-			{
-				dadosConjuge.setListaOcupacoes(new ArrayList<Ocupacao>());
-			}
-			
-			for(Integer idOcupacao : dadosConjuge.getOcupacao())
-			{
-				Ocupacao ocupacao = new Ocupacao();
-				ocupacao.setId(idOcupacao);
-				dadosConjuge.getListaOcupacoes().add(ocupacao);
-			}
-			
-			if(dadosConjuge.getListaBeneficiosSocial() == null)
-			{
-				dadosConjuge.setListaBeneficiosSocial(new ArrayList<BeneficioSocial>());
-			}
-			
-			for(Integer idBeneficioSocial: dadosConjuge.getBeneficiosSociais() )
-			{
-				BeneficioSocial beneficioSocial = new BeneficioSocial();
-				beneficioSocial.setId(idBeneficioSocial);
-				dadosConjuge.getListaBeneficiosSocial().add(beneficioSocial);
 			}
 			
 			dadosConjugeRepository.save(dadosConjuge);

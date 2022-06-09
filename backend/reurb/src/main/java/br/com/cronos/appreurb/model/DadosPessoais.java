@@ -68,7 +68,7 @@ public class DadosPessoais implements Serializable
 	@Column(name = "rg")
 	private String rg;
 	
-	@Column(name = "orgaoEmissorRG")
+	@Column(name = "orgao_Emissor_RG")
 	private String orgaoEmissorRG;
 	
 	@Column(name = "ufEmissorRG")
@@ -86,28 +86,16 @@ public class DadosPessoais implements Serializable
 	@Column(name = "escolaridadeTexto")
 	private String escolaridadeTexto;
 	
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_DADOS_PESSOAIS_OCUPACOES",
-           joinColumns = { @JoinColumn(name = "FK_DADOS_PESSOAIS") },
-           inverseJoinColumns = { @JoinColumn(name = "FK_OCUPACAO") })
-    private List<Ocupacao> listaOcupacoes;
+	@Column(name = "ocupacao")
+    private String ocupacao;
 	
-	@Transient
-	private List<Integer> ocupacao;
-
 	@Column(name = "ocupacaoTexto")
 	private String ocupacaoTexto;
 	
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_DADOS_PESSOAIS_BENEFICIOS_SOCIAIS",
-           joinColumns = { @JoinColumn(name = "FK_Dados_Pessoais") },
-           inverseJoinColumns = { @JoinColumn(name = "FK_Beneficio_Social") })
-    private List<BeneficioSocial> listaBeneficiosSocial;
+	@Column(name = "beneficios_sociais")
+	private String beneficiosSociais;
 	
-	@Transient
-	private List<Integer> beneficiosSociais;
-	
-	@Column(name = "beneficiosSociaisDadosPessoaisTexto")
+	@Column(name = "beneficiosSociaisTexto")
 	private String beneficiosSociaisTexto;
 	
 	@Column(name = "estadoCivil")
@@ -150,8 +138,8 @@ public class DadosPessoais implements Serializable
 				+ ", dataNascimento=" + dataNascimento + ", emancipado=" + emancipado + ", rg=" + rg
 				+ ", orgaoEmissorRG=" + orgaoEmissorRG + ", ufEmissorRG=" + ufEmissorRG + ", cpf=" + cpf + ", nis="
 				+ nis + ", escolaridade=" + escolaridade + ", escolaridadeTexto=" + escolaridadeTexto
-				+ ", listaOcupacoes=" + listaOcupacoes + ", ocupacao=" + ocupacao + ", ocupacaoTexto=" + ocupacaoTexto
-				+ ", listaBeneficiosSocial=" + listaBeneficiosSocial + ", beneficiosSociais=" + beneficiosSociais
+				+ "ocupacao=" + ocupacao + ", ocupacaoTexto=" + ocupacaoTexto
+				+ ", beneficiosSociais=" + beneficiosSociais
 				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", estadoCivil=" + estadoCivil
 				+ ", dataCasamento=" + dataCasamento + ", regimeBens=" + regimeBens
 				+ ", valorRenda=" + valorRenda + ", anexoDocumentoIdentidade=" + anexoDocumentoIdentidade
@@ -310,11 +298,11 @@ public class DadosPessoais implements Serializable
 		this.escolaridadeTexto = escolaridadeTexto;
 	}
 
-	public List<Integer> getOcupacao() {
+	public String getOcupacao() {
 		return ocupacao;
 	}
 
-	public void setOcupacao(List<Integer> ocupacao) {
+	public void setOcupacao(String ocupacao) {
 		this.ocupacao = ocupacao;
 	}
 
@@ -386,30 +374,6 @@ public class DadosPessoais implements Serializable
 		return serialVersionUID;
 	}
 
-	public List<Integer> getBeneficiosSociais() {
-		return beneficiosSociais;
-	}
-	
-	public List<BeneficioSocial> getListaBeneficiosSocial() {
-		return listaBeneficiosSocial;
-	}
-
-	public void setListaBeneficiosSocial(List<BeneficioSocial> listaBeneficiosSocial) {
-		this.listaBeneficiosSocial = listaBeneficiosSocial;
-	}
-
-	public void setBeneficiosSociais(List<Integer> beneficiosSociais) {
-		this.beneficiosSociais = beneficiosSociais;
-	}
-
-	public List<Ocupacao> getListaOcupacoes() {
-		return listaOcupacoes;
-	}
-
-	public void setListaOcupacoes(List<Ocupacao> listaOcupacoes) {
-		this.listaOcupacoes = listaOcupacoes;
-	}
-
 	public DadosConjuge getDadosConjuge() {
 		return dadosConjuge;
 	}
@@ -432,6 +396,14 @@ public class DadosPessoais implements Serializable
 
 	public void setCaracteristicasDomicilio(CaracteristicasDomicilio caracteristicasDomicilio) {
 		this.caracteristicasDomicilio = caracteristicasDomicilio;
+	}
+	
+	public String getBeneficiosSociais() {
+		return beneficiosSociais;
+	}
+
+	public void setBeneficiosSociais(String beneficiosSociais) {
+		this.beneficiosSociais = beneficiosSociais;
 	}
 
 	@Override

@@ -32,11 +32,13 @@ export class DadosPessoais {
   escolaridade?: number = 0;
   escolaridadeTexto?: string;
 
-  ocupacao?: number[] = [];
+  ocupacaoArray?: number[] = [];
+  ocupacao?: string;
   ocupacaoTexto?: string;
   mostrarOutrosOcupacao?: boolean = false;
 
-  beneficiosSociais?: number[] = [];
+  beneficiosSociaisArray?: number[] = [];
+  beneficiosSociais?: string;
   beneficiosSociaisTexto?: string;
   mostrarOutrosBeneficiosSociais?: boolean = false;
 
@@ -53,7 +55,7 @@ export class DadosPessoais {
 
   dadosConjuge: DadosPessoais;
 
-  caracteristicasDomicilio: CaracteristicasDomicilio;
+  caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();
 
   listaIntegranteImovel?: IntegranteFamiliar[] = [];
 

@@ -168,15 +168,15 @@ export class FormularioCadastroComponent implements OnInit {
   onCheckboxOcupacaoChange(event: any)
   {
     if (event.target.checked) {
-      this.dadosPessoais.ocupacao.push(event.target.value);
+      this.dadosPessoais.ocupacaoArray.push(event.target.value);
 
       if(event.target.value == 10)
       {
         this.dadosPessoais.mostrarOutrosOcupacao = true;
       }
     } else {
-      const index = this.dadosPessoais.ocupacao.findIndex(x => x === event.target.value);
-      this.dadosPessoais.ocupacao.splice(index, 1);
+      const index = this.dadosPessoais.ocupacaoArray.findIndex(x => x === event.target.value);
+      this.dadosPessoais.ocupacaoArray.splice(index, 1);
 
       if(event.target.value == 10)
       {
@@ -191,15 +191,15 @@ export class FormularioCadastroComponent implements OnInit {
   onCheckboxOcupacaoConjugeChange(event: any)
   {
     if (event.target.checked) {
-      this.dadosConjuge.ocupacao.push(event.target.value);
+      this.dadosConjuge.ocupacaoArray.push(event.target.value);
 
       if(event.target.value == "10")
       {
         this.dadosConjuge.mostrarOutrosOcupacao = true;
       }
     } else {
-      const index = this.dadosConjuge.ocupacao.findIndex(x => x === event.target.value);
-      this.dadosConjuge.ocupacao.splice(index, 1);
+      const index = this.dadosConjuge.ocupacaoArray.findIndex(x => x === event.target.value);
+      this.dadosConjuge.ocupacaoArray.splice(index, 1);
 
       if(event.target.value == "10")
       {
@@ -214,15 +214,15 @@ export class FormularioCadastroComponent implements OnInit {
   onCheckboxBeneficiosSociaisChange(event: any)
   {
     if (event.target.checked) {
-      this.dadosPessoais.beneficiosSociais.push(event.target.value);
+      this.dadosPessoais.beneficiosSociaisArray.push(event.target.value);
 
       if(event.target.value == "8")
       {
         this.dadosPessoais.mostrarOutrosBeneficiosSociais = true;
       }
     } else {
-      const index = this.dadosPessoais.beneficiosSociais.findIndex(x => x === event.target.value);
-      this.dadosPessoais.beneficiosSociais.splice(index, 1);
+      const index = this.dadosPessoais.beneficiosSociaisArray.findIndex(x => x === event.target.value);
+      this.dadosPessoais.beneficiosSociaisArray.splice(index, 1);
 
       if(event.target.value == "8")
       {
@@ -237,15 +237,15 @@ export class FormularioCadastroComponent implements OnInit {
   onCheckboxBeneficiosSociaisConjugeChange(event: any)
   {
     if (event.target.checked) {
-      this.dadosConjuge.beneficiosSociais.push(event.target.value);
+      this.dadosConjuge.beneficiosSociaisArray.push(event.target.value);
 
       if(event.target.value == "8")
       {
         this.dadosConjuge.mostrarOutrosBeneficiosSociais = true;
       }
     } else {
-      const index = this.dadosConjuge.beneficiosSociais.findIndex(x => x === event.target.value);
-      this.dadosConjuge.beneficiosSociais.splice(index, 1);
+      const index = this.dadosConjuge.beneficiosSociaisArray.findIndex(x => x === event.target.value);
+      this.dadosConjuge.beneficiosSociaisArray.splice(index, 1);
 
       if(event.target.value == "8")
       {
@@ -259,18 +259,20 @@ export class FormularioCadastroComponent implements OnInit {
 
   salvar(): void
   {
+    this.corrigirDadosPessoais();
+    this.corrigirDadosConjuge();
+    this.corrigirDadosCaracteristicasDomicilio();
+
     this.dadosPessoais.dadosImovel = this.dadosImovel;
     this.dadosPessoais.dadosConjuge = this.dadosConjuge;
     this.dadosPessoais.listaIntegranteImovel = this.integrantesFamiliar;
     this.dadosPessoais.caracteristicasDomicilio = this.caracteristicasDomicilio;
 
-    this.corrigirDadosCaracteristicasDomicilio();
-
     this.dadosPessoaisService.create(this.dadosPessoais).subscribe
     (
       response => {
         console.log(response);
-        this.dadosPessoais = response;
+        //this.dadosPessoais = response;
         this.integrantesFamiliar = this.dadosPessoais.listaIntegranteImovel;
         this.adicionarRendaTitularOuConjuge();
 
@@ -280,6 +282,88 @@ export class FormularioCadastroComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  corrigirDadosPessoais(): void
+  {
+    if(this.dadosPessoais.beneficiosSociaisArray != [])
+    {
+      var beneficio = '';
+
+      this.dadosPessoais.beneficiosSociaisArray.forEach(function (caracteristica)
+      {
+        if(beneficio == undefined || beneficio == '')
+        {
+          beneficio = '' + caracteristica;
+        }
+        else
+        {
+          beneficio += ', ' + caracteristica;
+        }
+      });
+
+      this.dadosPessoais.beneficiosSociais = '' + beneficio;
+    }
+
+    if(this.dadosPessoais.ocupacaoArray != [])
+    {
+      var ocupacao = '';
+
+      this.dadosPessoais.ocupacaoArray.forEach(function (caracteristica)
+      {
+        if(ocupacao == undefined || ocupacao == '')
+        {
+          ocupacao = '' + caracteristica;
+        }
+        else
+        {
+          ocupacao += ', ' + caracteristica;
+        }
+      });
+
+      this.dadosPessoais.ocupacao = '' + ocupacao;
+    }
+  }
+
+  corrigirDadosConjuge(): void
+  {
+    if(this.dadosConjuge.beneficiosSociaisArray != [])
+    {
+      var beneficio = '';
+
+      this.dadosConjuge.beneficiosSociaisArray.forEach(function (caracteristica)
+      {
+        if(beneficio == undefined || beneficio == '')
+        {
+          beneficio = '' + caracteristica;
+        }
+        else
+        {
+          beneficio += ', ' + caracteristica;
+        }
+      });
+
+      this.dadosConjuge.beneficiosSociais = '' + beneficio;
+    }
+
+    if(this.dadosConjuge.ocupacaoArray != [])
+    {
+      var ocupacao = '';
+
+      this.dadosConjuge.ocupacaoArray.forEach(function (caracteristica)
+      {
+        if(ocupacao == undefined || ocupacao == '')
+        {
+          ocupacao = '' + caracteristica;
+        }
+        else
+        {
+          ocupacao += ', ' + caracteristica;
+        }
+      });
+
+      this.dadosConjuge.ocupacao = '' + ocupacao;
+    }
   }
 
   corrigirDadosCaracteristicasDomicilio(): void

@@ -83,26 +83,14 @@ public class DadosConjuge implements Serializable
 	@Column(name = "escolaridadeTexto")
 	private String escolaridadeTexto;
 	
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_DADOS_CONJUGE_OCUPACOES",
-           joinColumns = { @JoinColumn(name = "FK_DADOS_CONJUGE") },
-           inverseJoinColumns = { @JoinColumn(name = "FK_OCUPACAO") })
-    private List<Ocupacao> listaOcupacoes;
-	
-	@Transient
-	private List<Integer> ocupacao;
+	@Column(name = "ocupacao")
+    private String ocupacao;
 
 	@Column(name = "ocupacaoTexto")
 	private String ocupacaoTexto;
 	
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_DADOS_CONJUGE_BENEFICIOS_SOCIAIS",
-           joinColumns = { @JoinColumn(name = "FK_Dados_CONJUGE") },
-           inverseJoinColumns = { @JoinColumn(name = "FK_Beneficio_Social") })
-    private List<BeneficioSocial> listaBeneficiosSocial;
-	
-	@Transient
-	private List<Integer> beneficiosSociais;
+	@Column(name = "beneficios_sociais")
+	private String beneficiosSociais;
 	
 	@Column(name = "beneficiosSociaisDadosPessoaisTexto")
 	private String beneficiosSociaisTexto;
@@ -118,7 +106,7 @@ public class DadosConjuge implements Serializable
 				+ ", dataNascimento=" + dataNascimento + ", emancipado=" + emancipado + ", rg=" + rg
 				+ ", orgaoEmissorRG=" + orgaoEmissorRG + ", ufEmissorRG=" + ufEmissorRG + ", cpf=" + cpf + ", nis="
 				+ nis + ", escolaridade=" + escolaridade + ", escolaridadeTexto=" + escolaridadeTexto + ", ocupacao="
-				+ ocupacao + ", ocupacaoTexto=" + ocupacaoTexto + ", listaBeneficiosSocial=" + listaBeneficiosSocial
+				+ ocupacao + ", ocupacaoTexto=" + ocupacaoTexto 
 				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", valorRenda=" + valorRenda + "]";
 	}
 
@@ -274,11 +262,11 @@ public class DadosConjuge implements Serializable
 		this.escolaridadeTexto = escolaridadeTexto;
 	}
 
-	public List<Integer> getOcupacao() {
+	public String getOcupacao() {
 		return ocupacao;
 	}
 
-	public void setOcupacao(List<Integer> ocupacao) {
+	public void setOcupacao(String ocupacao) {
 		this.ocupacao = ocupacao;
 	}
 
@@ -288,6 +276,14 @@ public class DadosConjuge implements Serializable
 
 	public void setOcupacaoTexto(String ocupacaoTexto) {
 		this.ocupacaoTexto = ocupacaoTexto;
+	}
+	
+	public String getBeneficiosSociais() {
+		return beneficiosSociais;
+	}
+
+	public void setBeneficiosSociais(String beneficiosSociais) {
+		this.beneficiosSociais = beneficiosSociais;
 	}
 
 	public String getBeneficiosSociaisTexto() {
@@ -310,28 +306,4 @@ public class DadosConjuge implements Serializable
 		return serialVersionUID;
 	}
 
-	public List<Integer> getBeneficiosSociais() {
-		return beneficiosSociais;
-	}
-	
-	public List<BeneficioSocial> getListaBeneficiosSocial() {
-		return listaBeneficiosSocial;
-	}
-
-	public void setListaBeneficiosSocial(List<BeneficioSocial> listaBeneficiosSocial) {
-		this.listaBeneficiosSocial = listaBeneficiosSocial;
-	}
-
-	public void setBeneficiosSociais(List<Integer> beneficiosSociais) {
-		this.beneficiosSociais = beneficiosSociais;
-	}
-
-	public List<Ocupacao> getListaOcupacoes() {
-		return listaOcupacoes;
-	}
-
-	public void setListaOcupacoes(List<Ocupacao> listaOcupacoes) {
-		this.listaOcupacoes = listaOcupacoes;
-	}
-	
 }
