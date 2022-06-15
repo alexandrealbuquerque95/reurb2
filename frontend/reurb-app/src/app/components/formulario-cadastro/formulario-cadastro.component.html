@@ -608,6 +608,7 @@
               <select [(ngModel)]="dadosPessoais.regimeBens" id="regimeBens" class="form-control" name="regimeBens"
                 (change)="validadorDadosPessoais.validarRegimeBens(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.regimeBens && {'border-color': 'red'}" >
+                <option value="0">Selecione</option>
                 <option value="1">Comunhão parcial</option>
                 <option value="2">Comunhão universal</option>
                 <option value="3">Separação total</option>

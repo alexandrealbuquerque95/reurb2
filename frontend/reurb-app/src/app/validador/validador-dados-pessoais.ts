@@ -60,8 +60,6 @@ export class ValidadorDadosPessoais {
 
   estadoCivil: boolean = true;
   estadoCivilMensagem: string = 'Preencha o campo Estado Civil';
-  nomeConjuge: boolean = true;
-  nomeConjugeMensagem: string = 'Preencha o campo Nome do(a) cônjuge';
 
   dataCasamento: boolean = true;
   dataCasamentoMensagem: string = 'Preencha o campo Data do casamento';
@@ -98,7 +96,6 @@ export class ValidadorDadosPessoais {
     //this.validarBeneficiosSociais(dadosPessoais);
     this.validarMostrarOutrosBeneficiosSociais(dadosPessoais);
     this.validarEstadoCivil(dadosPessoais);
-    this.validarNomeConjuge(dadosPessoais);
     this.validarDataCasamento(dadosPessoais);
     this.validarRegimeBens(dadosPessoais);
     this.validarAnexoDocumentoIdentidade(dadosPessoais);
@@ -277,6 +274,11 @@ export class ValidadorDadosPessoais {
 
   validarEscolaridade(dadosPessoais: DadosPessoais)
   {
+    if(dadosPessoais.escolaridade != 7 )
+    {
+      dadosPessoais.escolaridadeTexto = '';
+    }
+
     if(dadosPessoais.escolaridade == undefined || dadosPessoais.escolaridade == 0)
     {
       this.escolaridade = false;
@@ -366,18 +368,6 @@ export class ValidadorDadosPessoais {
     }
   }
 
-  validarNomeConjuge(dadosPessoais: DadosPessoais)
-  {
-    if((dadosPessoais.estadoCivil == 2 || dadosPessoais.estadoCivil == 6) && dadosPessoais.nomeConjuge == undefined || dadosPessoais.nomeConjuge == '')
-    {
-      this.nomeConjuge = false;
-      this.validouDados = false;
-    }
-    else
-    {
-      this.nomeConjuge = true;
-    }
-  }
 
   validarDataCasamento(dadosPessoais: DadosPessoais)
   {

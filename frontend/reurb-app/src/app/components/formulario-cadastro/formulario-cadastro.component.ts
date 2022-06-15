@@ -185,7 +185,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    this.validadorDadosPessoais.validarOcupacoes(this.dadosPessoais);
+    //this.validadorDadosPessoais.validarOcupacoes(this.dadosPessoais);
   }
 
   onCheckboxOcupacaoConjugeChange(event: any)
@@ -208,7 +208,7 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    this.validadorDadosConjuge.validarOcupacoes(this.dadosConjuge);
+    //this.validadorDadosConjuge.validarOcupacoes(this.dadosConjuge);
   }
 
   onCheckboxBeneficiosSociaisChange(event: any)
@@ -262,6 +262,7 @@ export class FormularioCadastroComponent implements OnInit {
     this.corrigirDadosPessoais();
     this.corrigirDadosConjuge();
     this.corrigirDadosCaracteristicasDomicilio();
+    this.corrigirDadosImovel();
 
     this.dadosPessoais.dadosImovel = this.dadosImovel;
     this.dadosPessoais.dadosConjuge = this.dadosConjuge;
@@ -273,7 +274,7 @@ export class FormularioCadastroComponent implements OnInit {
       response => {
         console.log(response);
         //this.dadosPessoais = response;
-        this.integrantesFamiliar = this.dadosPessoais.listaIntegranteImovel;
+        this.integrantesFamiliar = response.listaIntegranteImovel;
         this.adicionarRendaTitularOuConjuge();
 
         this.submitted = true;
@@ -447,6 +448,14 @@ export class FormularioCadastroComponent implements OnInit {
 
   }
 
+  corrigirDadosImovel(): void
+  {
+    if(this.dadosImovel.mais1DomicilioLote == undefined || this.dadosImovel.mais1DomicilioLote == "0")
+    {
+      this.dadosImovel.quantidadeDomiciliosLote = undefined;
+    }
+  }
+
   enviarDados(): void
   {
 
@@ -534,6 +543,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(event.target.value == "5")
       {
         this.caracteristicasDomicilio.mostrarOutrosMaterialParedeExterna = false;
+        this.caracteristicasDomicilio.materialParedeExternaTexto = undefined;
       }
     }
 
@@ -556,6 +566,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(event.target.value == "6")
       {
         this.caracteristicasDomicilio.mostrarOutrosMaterialPiso = false;
+        this.caracteristicasDomicilio.materialPisoTexto = undefined;
       }
     }
 
@@ -578,6 +589,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(event.target.value == "8")
       {
         this.caracteristicasDomicilio.mostrarOutrosMaterialInstalacaoEletrica = false;
+        this.caracteristicasDomicilio.materialInstalacaoEletricaTexto = undefined;
       }
     }
 
@@ -600,6 +612,7 @@ export class FormularioCadastroComponent implements OnInit {
       if(event.target.value == "6")
       {
         this.caracteristicasDomicilio.mostrarOutrosEsgotoSanitario = false;
+        this.caracteristicasDomicilio.esgotoSanitarioTexto = undefined;
       }
     }
 

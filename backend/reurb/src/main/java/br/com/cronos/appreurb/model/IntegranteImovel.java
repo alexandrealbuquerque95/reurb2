@@ -20,7 +20,7 @@ public class IntegranteImovel implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "nome")
@@ -39,7 +39,7 @@ public class IntegranteImovel implements Serializable
 	private String dataNascimento;
 	
 	@Column(name = "valorRenda")
-	private Long valorRenda;
+	private Double valorRenda;
 	
 	@JsonBackReference
 	@ManyToOne
@@ -94,11 +94,11 @@ public class IntegranteImovel implements Serializable
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Long getValorRenda() {
+	public Double getValorRenda() {
 		return valorRenda;
 	}
 
-	public void setValorRenda(Long valorRenda) {
+	public void setValorRenda(Double valorRenda) {
 		this.valorRenda = valorRenda;
 	}
 
