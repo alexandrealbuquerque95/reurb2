@@ -28,8 +28,8 @@ import br.com.cronos.appreurb.repository.DadosConjugeRepository;
 import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.IntegranteImovelRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "http://reurb.s3-website-sa-east-1.amazonaws.com")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://reurb.s3-website-sa-east-1.amazonaws.com")
 @RestController
 @RequestMapping("/api")
 public class DadosPessoaisController {

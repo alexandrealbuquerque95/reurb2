@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DadosPessoais } from '../models/dados-pessoais.model';
 
-const baseUrl = 'http://localhost:8080/api/dados_pessoais';
-//const baseUrl = 'http://ec2-54-164-40-207.compute-1.amazonaws.com:8080/api/tutorials';
+//const baseUrl = 'http://localhost:8080/api/dados_pessoais';
+const baseUrl = 'http://ec2-3-89-8-186.compute-1.amazonaws.com:8080/api/dados_pessoais';
 
 
 @Injectable({
