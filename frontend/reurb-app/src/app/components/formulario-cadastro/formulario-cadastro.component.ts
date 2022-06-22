@@ -41,7 +41,8 @@ export class FormularioCadastroComponent implements OnInit {
   valorRendaTotal: number = 0.00;
   valorRendaTotalString: string = '0,00';
 
-  arquivosSelecionados: File[];
+  arquivosSelecionados: File[] = [];
+  nomeArquivos: string = ''
 
   submitted = false;
 
@@ -643,37 +644,50 @@ export class FormularioCadastroComponent implements OnInit {
     console.log(event);
 
     var selectedFiles = event.srcElement.files;
-    var file;
-    var nomeArquivos = ''
 
-    this.arquivosSelecionados = <File[]> event.target.files;
-
-    //if(arquivosSelecionados)
-    //{
-      //this.dadosPessoais.anexoDocumentoIdentidade = arquivosSelecionados;
-    //}
-
+    //validar quantidade carregada ao mesmo tempo
     if(selectedFiles.length > 3)
     {
       alert("Escolha no máximo 3 arquivos")
       return;
     }
+    //
+
+    //validar quantidade carregada ao todo:
+    if(this.arquivosSelecionados == undefined || this.arquivosSelecionados.length == 0)
+    {
+      //this.arquivosSelecionados = selectedFiles;
+    }
+    else
+    {
+      if(this.arquivosSelecionados.length == 3)
+      {
+        alert("Escolha no máximo 3 arquivos")
+        return;
+      }
+    }
+    //
+
+    // Setar nome dos arquivos na label
+    var file;
+
     for (var i = 0; i < selectedFiles.length; i++)
     {
       // obtém o item
       file = selectedFiles.item(i);
+      this.arquivosSelecionados.push(file);
 
-      if(nomeArquivos == undefined || nomeArquivos == '')
+      if(this.nomeArquivos == undefined || this.nomeArquivos == '')
       {
-        nomeArquivos = '' + file.name;
+        this.nomeArquivos = '' + file.name;
       }
       else
       {
-        nomeArquivos += ', ' + file.name;
+        this.nomeArquivos += ', ' + file.name;
       }
     }
-
-    document.getElementById("customFileLabel").innerHTML = nomeArquivos
+    document.getElementById("customFileLabel").innerHTML = this.nomeArquivos;
+    //
 
   }
 
