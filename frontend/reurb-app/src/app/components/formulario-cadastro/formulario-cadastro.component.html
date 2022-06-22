@@ -61,6 +61,20 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
+              <input type="text" value={{dadosPessoais.cpf}} [(ngModel)]="dadosPessoais.cpf"
+                class="form-control" id="inputCPF" mask="000.000.000-00"
+                [ngStyle]="!validadorDadosPessoais.cpf && {'border-color': 'red'}" >
+
+              <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosPessoais.cpfMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="rg"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
               <input type="text" [(ngModel)]="dadosPessoais.rg" mask="000.000.000" class="form-control" id="rg"
                 (change)="validadorDadosPessoais.validarRg(dadosPessoais)"
@@ -127,19 +141,6 @@
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
                   {{validadorDadosPessoais.ufEmissorRGMensagem}}
-                </span>
-              </div>
-            </div>
-
-            <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
-              <input type="text" value={{dadosPessoais.cpf}} [(ngModel)]="dadosPessoais.cpf"
-                class="form-control" id="inputCPF" mask="000.000.000-00">
-
-              <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                <span class="text-danger">
-                  {{validadorDadosPessoais.cpfMensagem}}
                 </span>
               </div>
             </div>
@@ -630,28 +631,17 @@
 
           <div class="form-row m-0">
             <div class="form-group col-md-9 col-lg-9">
-              <label for="anexoDocumentoIdentidade"> <b> Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento): <span style="color:red" >* </span> </b></label>
+              <label for="anexoDocumentoIdentidade"> <b> Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento) - limite: 3 arquivos: <span style="color:red" >* </span> </b></label>
 
               <div class="form-group col-md-9 col-lg-9 px-0">
-                <input type="file" [(ngModel)]="dadosPessoais.anexoDocumentoIdentidade"  class="form-control-file" id="anexoDocumentoIdentidade">
 
-                <div class="px-2" *ngIf="!validadorDadosPessoais.anexoDocumentoIdentidade">
-                  <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                  <span class="text-danger">
-                    {{validadorDadosPessoais.anexoDocumentoIdentidadeMensagem}}
-                  </span>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile"
+                    (change)="onChangeArquivo($event)" multiple="multiple">
+                  <label id="customFileLabel" class="custom-file-label" for="customFile">Escolha o(s) arquivo(s)</label>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="form-row m-0">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" value="1" id="termoAceite">
-              <label class="form-check-label" for="termoAceite">
-                <b>Declaro estar de acordo com o <a href="http://localhost:4200/formulario-cadastro/12345678905"
-                  style="text-decoration: underline">Termo de aceite e consentimento</a> </b> <span style="color:red" > * </span>
-              </label>
+              </div>
             </div>
           </div>
 
@@ -717,6 +707,20 @@
           <div class="form-row m-0">
 
             <div class="form-group col-md-3 col-lg-3 pr-3">
+              <label for="inputCPFConjuge"> <b> CPF: <span style="color:red" >*</span> </b> </label>
+              <input type="text" value={{dadosConjuge.cpf}} [(ngModel)]="dadosConjuge.cpf"
+                class="form-control" id="inputCPFConjuge" mask="000.000.000-00"
+                [ngStyle]="!validadorDadosConjuge.cpf && {'border-color': 'red'}"> >
+
+              <div class="px-2" *ngIf="!validadorDadosConjuge.cpf">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosConjuge.cpfMensagem}}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3 px-3">
               <label for="rgConjuge"> <b> Carteira de identidade: <span style="color:red" >*</span> </b> </label>
               <input type="text" [(ngModel)]="dadosConjuge.rg" mask="000.000.000" class="form-control" id="rgConjuge"
                 (change)="validadorDadosConjuge.validarRg(dadosConjuge)"
@@ -783,19 +787,6 @@
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
                   {{validadorDadosConjuge.ufEmissorRGMensagem}}
-                </span>
-              </div>
-            </div>
-
-            <div class="form-group col-md-3 col-lg-3 px-3">
-              <label for="inputCPFConjuge"> <b> CPF: <span style="color:red" >*</span> </b> </label>
-              <input type="text" value={{dadosConjuge.cpf}} [(ngModel)]="dadosConjuge.cpf"
-                class="form-control" id="inputCPFConjuge" mask="000.000.000-00">
-
-              <div class="px-2" *ngIf="!validadorDadosConjuge.cpf">
-                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
-                <span class="text-danger">
-                  {{validadorDadosConjuge.cpfMensagem}}
                 </span>
               </div>
             </div>

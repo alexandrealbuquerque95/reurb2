@@ -41,6 +41,8 @@ export class FormularioCadastroComponent implements OnInit {
   valorRendaTotal: number = 0.00;
   valorRendaTotalString: string = '0,00';
 
+  arquivosSelecionados: File[];
+
   submitted = false;
 
   constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute) {
@@ -53,7 +55,7 @@ export class FormularioCadastroComponent implements OnInit {
     //this.validouFormularioCadastro1 = false;
     //this.validouFormularioCadastro2 = false;
 
-    this.dadosPessoais.cpf = this.route.snapshot.paramMap.get('cpf');
+    //this.dadosPessoais.cpf = this.route.snapshot.paramMap.get('cpf');
 
     this.validadorDadosPessoais = new ValidadorDadosPessoais();
     this.validadorDadosConjuge = new ValidadorDadosPessoais();
@@ -259,6 +261,12 @@ export class FormularioCadastroComponent implements OnInit {
 
   salvar(): void
   {
+    if(!this.validadorDadosPessoais.validarCpf(this.dadosPessoais))
+    {
+      window.scrollTo(0, 0);
+      return;
+    }
+
     this.corrigirDadosPessoais();
     this.corrigirDadosConjuge();
     this.corrigirDadosCaracteristicasDomicilio();
@@ -273,6 +281,17 @@ export class FormularioCadastroComponent implements OnInit {
     (
       response => {
         console.log(response);
+
+        var file: File;
+
+        for (var i = 0; i < this.arquivosSelecionados.length; i++)
+        {
+          // obtém o item
+          file = this.arquivosSelecionados[i];
+
+          this.uploadArquivo(file, response.id);
+        }
+
         //this.dadosPessoais = response;
         this.integrantesFamiliar = response.listaIntegranteImovel;
         this.adicionarRendaTitularOuConjuge();
@@ -617,6 +636,62 @@ export class FormularioCadastroComponent implements OnInit {
     }
 
     //this.validadorDadosPessoais.validarOcupacoes(this.caracteristicasDomicilio);
+  }
+
+  onChangeArquivo(event)
+  {
+    console.log(event);
+
+    var selectedFiles = event.srcElement.files;
+    var file;
+    var nomeArquivos = ''
+
+    this.arquivosSelecionados = <File[]> event.target.files;
+
+    //if(arquivosSelecionados)
+    //{
+      //this.dadosPessoais.anexoDocumentoIdentidade = arquivosSelecionados;
+    //}
+
+    if(selectedFiles.length > 3)
+    {
+      alert("Escolha no máximo 3 arquivos")
+      return;
+    }
+    for (var i = 0; i < selectedFiles.length; i++)
+    {
+      // obtém o item
+      file = selectedFiles.item(i);
+
+      if(nomeArquivos == undefined || nomeArquivos == '')
+      {
+        nomeArquivos = '' + file.name;
+      }
+      else
+      {
+        nomeArquivos += ', ' + file.name;
+      }
+    }
+
+    document.getElementById("customFileLabel").innerHTML = nomeArquivos
+
+  }
+
+  private uploadArquivo(arquivo: File, id: number)
+  {
+    const formData = new FormData();
+    formData.append("file", arquivo);
+
+    this.dadosPessoaisService.uploadArquivo(formData, id).subscribe
+    (
+      response => {
+        console.log(response);FormData
+        this.submitted = true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

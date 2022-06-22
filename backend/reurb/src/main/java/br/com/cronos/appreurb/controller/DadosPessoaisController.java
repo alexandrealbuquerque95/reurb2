@@ -1,8 +1,10 @@
 package br.com.cronos.appreurb.controller;
 
-import java.util.ArrayList;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.cronos.appreurb.model.DadosConjuge;
 import br.com.cronos.appreurb.model.DadosPessoais;
@@ -28,11 +31,14 @@ import br.com.cronos.appreurb.repository.DadosConjugeRepository;
 import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.IntegranteImovelRepository;
 
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "http://reurb.s3-website-sa-east-1.amazonaws.com")
+//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://reurb.s3-website-sa-east-1.amazonaws.com")
 @RestController
 @RequestMapping("/api")
-public class DadosPessoaisController {
+public class DadosPessoaisController 
+{
+    private final String pathArquivos = "anexos/documento_pessoal/";
 
 	@Autowired
 	DadosPessoaisRepository dadosPessoaisRepository;
@@ -126,7 +132,7 @@ public class DadosPessoaisController {
 			}
 			
 			dadosPessoais = dadosPessoaisRepository.save(dadosPessoais);
-			
+						
 			return new ResponseEntity<>(dadosPessoais, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,6 +161,29 @@ public class DadosPessoaisController {
 			e.printStackTrace();
 		}
 	}
+	
+	@PostMapping("dados_pessoais/arquivoPessoal/{id}")
+    public ResponseEntity<String> salvarArquivo(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) 
+	{
+		System.out.println("Recebendo o arquivo: " + file.getOriginalFilename());
+		
+//		String caminho = pathArquivos + UUID.randomUUID() + "-" + file.getOriginalFilename();
+		String caminho = pathArquivos + id + "-" + file.getOriginalFilename();
+
+		System.out.println("Novo nome do arquivo: " + caminho);
+		
+		Path path = FileSystems.getDefault().getPath(caminho);
+
+        try {
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            
+            return new ResponseEntity<>("{ \"mensagem\": \"Arquivo carregado com sucesso!\"}", HttpStatus.OK);
+        } catch (Exception e) {
+        	e.printStackTrace();
+            return new ResponseEntity<>("{ \"mensagem\": \"Erro ao carregar o arquivo!\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+	
 
 //	@PutMapping("/tutorials/{id}")
 //	public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {

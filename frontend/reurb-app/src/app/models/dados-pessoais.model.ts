@@ -49,7 +49,7 @@ export class DadosPessoais {
 
   valorRenda?: number = 0.00;
 
-  anexoDocumentoIdentidade?: File;
+  //anexoDocumentoIdentidade?: File[];
 
   dadosImovel: DadosImovel;
 

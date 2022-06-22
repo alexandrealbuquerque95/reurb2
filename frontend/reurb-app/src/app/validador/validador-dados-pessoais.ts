@@ -98,7 +98,7 @@ export class ValidadorDadosPessoais {
     this.validarEstadoCivil(dadosPessoais);
     this.validarDataCasamento(dadosPessoais);
     this.validarRegimeBens(dadosPessoais);
-    this.validarAnexoDocumentoIdentidade(dadosPessoais);
+    //this.validarAnexoDocumentoIdentidade(dadosPessoais);
 
     return this;
   }
@@ -246,16 +246,18 @@ export class ValidadorDadosPessoais {
     }
   }
 
-  validarCpf(dadosPessoais: DadosPessoais)
+  validarCpf(dadosPessoais: DadosPessoais): boolean
   {
     if(dadosPessoais.cpf == undefined || dadosPessoais.cpf == '')
     {
       this.cpf = false;
       this.validouDados = false;
+      return false;
     }
     else
     {
       this.cpf = true;
+      return true;
     }
   }
 
@@ -395,17 +397,5 @@ export class ValidadorDadosPessoais {
     }
   }
 
-  validarAnexoDocumentoIdentidade(dadosPessoais: DadosPessoais)
-  {
-    if(dadosPessoais.anexoDocumentoIdentidade == undefined)
-    {
-      this.anexoDocumentoIdentidade = false;
-      this.validouDados = false;
-    }
-    else
-    {
-      this.anexoDocumentoIdentidade = true;
-    }
-  }
 
 }

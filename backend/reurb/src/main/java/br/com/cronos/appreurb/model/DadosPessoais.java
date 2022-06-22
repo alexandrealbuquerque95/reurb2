@@ -110,8 +110,12 @@ public class DadosPessoais implements Serializable
 	@Column(name = "valorRenda")
 	private Double valorRenda;
 	
-	@Column(name = "anexoDocumentoIdentidade")
-	private File anexoDocumentoIdentidade;
+	@Transient
+	//@Column(name = "anexoDocumentoIdentidade")
+	private String anexoDocumentoIdentidade2;
+//	
+//	@Transient
+//	private List<File> arquivosPessoais;
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "FK_DADOS_IMOVEL")
@@ -142,7 +146,7 @@ public class DadosPessoais implements Serializable
 				+ ", beneficiosSociais=" + beneficiosSociais
 				+ ", beneficiosSociaisTexto=" + beneficiosSociaisTexto + ", estadoCivil=" + estadoCivil
 				+ ", dataCasamento=" + dataCasamento + ", regimeBens=" + regimeBens
-				+ ", valorRenda=" + valorRenda + ", anexoDocumentoIdentidade=" + anexoDocumentoIdentidade
+				+ ", valorRenda=" + valorRenda 
 				+ ", dadosImovel=" + dadosImovel + ", dadosConjuge=" + dadosConjuge + "]";
 	}
 
@@ -354,16 +358,24 @@ public class DadosPessoais implements Serializable
 		this.valorRenda = valorRenda;
 	}
 
-	public File getAnexoDocumentoIdentidade() {
-		return anexoDocumentoIdentidade;
-	}
-
-	public void setAnexoDocumentoIdentidade(File anexoDocumentoIdentidade) {
-		this.anexoDocumentoIdentidade = anexoDocumentoIdentidade;
-	}
-
+//	public List<File> getArquivosPessoais() {
+//		return arquivosPessoais;
+//	}
+//
+//	public void setArquivosPessoais(List<File> arquivosPessoais) {
+//		this.arquivosPessoais = arquivosPessoais;
+//	}
+	
 	public DadosImovel getDadosImovel() {
 		return dadosImovel;
+	}
+
+	public String getAnexoDocumentoIdentidade() {
+		return anexoDocumentoIdentidade2;
+	}
+
+	public void setAnexoDocumentoIdentidade(String anexoDocumentoIdentidade) {
+		this.anexoDocumentoIdentidade2 = anexoDocumentoIdentidade;
 	}
 
 	public void setDadosImovel(DadosImovel dadosImovel) {
