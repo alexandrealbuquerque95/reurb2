@@ -110,13 +110,6 @@ public class DadosPessoais implements Serializable
 	@Column(name = "valorRenda")
 	private Double valorRenda;
 	
-	@Transient
-	//@Column(name = "anexoDocumentoIdentidade")
-	private String anexoDocumentoIdentidade2;
-//	
-//	@Transient
-//	private List<File> arquivosPessoais;
-	
 	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "FK_DADOS_IMOVEL")
 	private DadosImovel dadosImovel;
@@ -368,14 +361,6 @@ public class DadosPessoais implements Serializable
 	
 	public DadosImovel getDadosImovel() {
 		return dadosImovel;
-	}
-
-	public String getAnexoDocumentoIdentidade() {
-		return anexoDocumentoIdentidade2;
-	}
-
-	public void setAnexoDocumentoIdentidade(String anexoDocumentoIdentidade) {
-		this.anexoDocumentoIdentidade2 = anexoDocumentoIdentidade;
 	}
 
 	public void setDadosImovel(DadosImovel dadosImovel) {

@@ -1,0 +1,10 @@
+package br.com.cronos.appreurb.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.cronos.appreurb.model.ArquivoDocumentoPessoal;
+
+public interface ArquivoDocumentoPessoalRepository extends JpaRepository<ArquivoDocumentoPessoal, Long>
+{	
+	
+}
