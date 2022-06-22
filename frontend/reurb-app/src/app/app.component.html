@@ -4,7 +4,7 @@
 
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item px-2">
-        <a href="/home" class="nav-link" routerLink="home" style="font-size: 20px;  color: #e9ecef !important;">Home </a>
+        <a href="/formulario-cadastro" class="nav-link" routerLink="home" style="font-size: 20px;  color: #e9ecef !important;">Home </a>
       </li>
       <li class="nav-item px-2" *ngIf="showAdminBoard">
         <a href="/admin" class="nav-link" routerLink="admin" style="font-size: 20px;  color: #e9ecef !important;">Visão Administrador</a>
@@ -16,8 +16,8 @@
         <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user" style="font-size: 20px;  color: #e9ecef !important;">Visão Usuário Comum</a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn" >
-      <li class="nav-item px-2">
+    <ul class="navbar-nav ml-auto"  >
+      <li class="nav-item px-2" *ngIf="false">
         <a href="/register" class="nav-link" routerLink="register" style="font-size: 20px;  color: #e9ecef !important;">Registrar</a>
       </li>
       <li class="nav-item px-2">
