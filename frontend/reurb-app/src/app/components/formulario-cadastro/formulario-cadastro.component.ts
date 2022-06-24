@@ -660,7 +660,7 @@ export class FormularioCadastroComponent implements OnInit {
     }
     else
     {
-      if(this.arquivosSelecionados.length == 3)
+      if(this.arquivosSelecionados.length >= 3 || (selectedFiles.length + this.arquivosSelecionados.length > 3))
       {
         alert("Escolha no máximo 3 arquivos")
         return;
