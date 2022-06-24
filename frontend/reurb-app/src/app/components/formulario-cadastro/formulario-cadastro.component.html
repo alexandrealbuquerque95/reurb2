@@ -645,7 +645,34 @@
             </div>
           </div>
 
-          <br>
+          <div class="form-row m-0" *ngIf="arquivosSelecionados != undefined && arquivosSelecionados.length > 0">
+
+            <table class="table table-bordered table-responsive-md text-center col-md-8 col-lg-8">
+              <thead>
+                <tr>
+                  <th class="col-md-6 col-lg-6" scope="col">Nome</th>
+                  <th class="col-md-2 col-lg-2" scope="col">Remover Arquivo</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let file of arquivosSelecionados">
+                  <td class="pt-1-half" >
+                    <span tabindex="0">{{ file.name }}</span>
+                  </td>
+                  <td class="pt-1-half" >
+                    <button type="submit" class="btn px-2 " tabindex="0" (click)="removerDocumento(file)"
+                      container="body" >
+                      <fa-icon class="fa-lg" [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+          <br><br>
           <div class="mb-2">
             <b> <span style="color:red" >* Campo obrigatório</span>  </b>
 

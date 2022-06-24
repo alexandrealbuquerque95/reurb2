@@ -691,6 +691,29 @@ export class FormularioCadastroComponent implements OnInit {
 
   }
 
+  definirNomeArquivos()
+  {
+    // Setar nome dos arquivos na label
+    var file;
+
+    for (var i = 0; i < this.arquivosSelecionados.length; i++)
+    {
+      // obtém o item
+      file = this.arquivosSelecionados[i];
+
+      if(this.nomeArquivos == undefined || this.nomeArquivos == '')
+      {
+        this.nomeArquivos = '' + file.name;
+      }
+      else
+      {
+        this.nomeArquivos += ', ' + file.name;
+      }
+    }
+    document.getElementById("customFileLabel").innerHTML = this.nomeArquivos;
+    //
+  }
+
   private uploadArquivo(arquivo: File, id: number)
   {
     const formData = new FormData();
@@ -707,5 +730,27 @@ export class FormularioCadastroComponent implements OnInit {
       }
     );
   }
+
+  removerDocumento(event)
+  {
+    console.log(event);
+
+    for (var i = 0; i < this.arquivosSelecionados.length; i++)
+    {
+      if(this.arquivosSelecionados[i] == event)
+      {
+        this.arquivosSelecionados.splice(i, 1);
+      }
+    }
+
+    this.nomeArquivos = '';
+    this.definirNomeArquivos();
+
+    //var arquivoRemover = event.srcElement.files;
+
+    //console.log(arquivoRemover);
+
+  }
+
 
 }
