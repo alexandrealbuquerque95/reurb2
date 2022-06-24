@@ -42,9 +42,19 @@ export class DadosPessoaisService {
     return this.http.get<DadosPessoais[]>(`${baseUrl}?title=${title}`);
   }
 
-  uploadArquivo(data: any, id: number): Observable<any>
+  uploadArquivoPessoal(data: any, id: number): Observable<any>
   {
-    return this.http.post(baseUrl + '/arquivoPessoal/'+ id , data);
+    return this.http.post(baseUrl + '/arquivo_pessoal/'+ id , data);
+  }
+
+  uploadFotoImovel(data: any, id: number): Observable<any>
+  {
+    return this.http.post(baseUrl + '/foto_Imovel/'+ id , data);
+  }
+
+  uploadComprovanteRenda(data: any, id: number): Observable<any>
+  {
+    return this.http.post(baseUrl + '/comprovante_renda/'+ id , data);
   }
 
 }

@@ -1565,6 +1565,52 @@
 
           </div>
 
+          <br>
+
+          <div class="form-row m-0">
+            <div class="form-group col-md-9 col-lg-9">
+              <label for="anexoFotosImovel"> <b> Faça o anexo das fotos do imóvel - limite: 4 fotos: <span style="color:red" >* </span> </b></label>
+
+              <div class="form-group col-md-9 col-lg-9 px-0">
+
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile2"
+                    (change)="onChangeFotosImovel($event)" multiple="multiple">
+                  <label id="customFileLabel2" class="custom-file-label" for="customFile2">Escolha a(s) fotos(s)</label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row m-0" *ngIf="fotosImovelSelecionados != undefined && fotosImovelSelecionados.length > 0">
+
+            <table class="table table-bordered table-responsive-md text-center col-md-8 col-lg-8">
+              <thead>
+                <tr>
+                  <th class="col-md-6 col-lg-6" scope="col">Nome</th>
+                  <th class="col-md-2 col-lg-2" scope="col">Remover Arquivo</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let file of fotosImovelSelecionados">
+                  <td class="pt-1-half" >
+                    <span tabindex="0">{{ file.name }}</span>
+                  </td>
+                  <td class="pt-1-half" >
+                    <button type="submit" class="btn px-2 " tabindex="0" (click)="removerFoto(file)"
+                      container="body" >
+                      <fa-icon class="fa-lg" [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+
           <br><br>
           <div class="mb-2">
             <b> <span style="color:red" >* Campo obrigatório</span>  </b>
@@ -1791,6 +1837,24 @@
           </div>
 
         </div>
+
+        <br>
+
+        <div class="form-row m-0">
+            <div class="form-group col-md-9 col-lg-9">
+              <label for="anexoComprovanteRenda"> <b> Faça o anexo do seu comprovante de renda: </b></label>
+
+              <div class="form-group col-md-9 col-lg-9 px-0">
+
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile3"
+                    (change)="onChangeComprovanteRenda($event)" >
+                  <label id="customFileLabel3" class="custom-file-label" for="customFile3">Escolha o arquivo</label>
+                </div>
+
+              </div>
+            </div>
+          </div>
 
         <br>
         <div class="form-row m-0">

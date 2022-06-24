@@ -42,7 +42,10 @@ export class FormularioCadastroComponent implements OnInit {
   valorRendaTotalString: string = '0,00';
 
   arquivosSelecionados: File[] = [];
-  nomeArquivos: string = ''
+  fotosImovelSelecionados: File[] = [];
+  comprovanteRenda: File;
+
+  //nomeArquivos: string = ''
 
   submitted = false;
 
@@ -283,6 +286,8 @@ export class FormularioCadastroComponent implements OnInit {
       response => {
         console.log(response);
 
+        this.dadosPessoais.id = response.id;
+
         var file: File;
 
         for (var i = 0; i < this.arquivosSelecionados.length; i++)
@@ -290,7 +295,20 @@ export class FormularioCadastroComponent implements OnInit {
           // obtém o item
           file = this.arquivosSelecionados[i];
 
-          this.uploadArquivo(file, response.id);
+          this.uploadArquivoPessoal(file, response.id);
+        }
+
+        for (var i = 0; i < this.fotosImovelSelecionados.length; i++)
+        {
+          // obtém o item
+          file = this.fotosImovelSelecionados[i];
+
+          this.uploadFotoImovel(file, response.id);
+        }
+
+        if(this.comprovanteRenda != undefined)
+        {
+          this.uploadComprovanteRenda(this.comprovanteRenda, response.id);
         }
 
         //this.dadosPessoais = response;
@@ -668,61 +686,94 @@ export class FormularioCadastroComponent implements OnInit {
     }
     //
 
-    // Setar nome dos arquivos na label
+    // Adicionar item no array e Setar nome dos arquivos na label
     var file;
-
     for (var i = 0; i < selectedFiles.length; i++)
     {
       // obtém o item
       file = selectedFiles.item(i);
       this.arquivosSelecionados.push(file);
 
-      if(this.nomeArquivos == undefined || this.nomeArquivos == '')
-      {
-        this.nomeArquivos = '' + file.name;
-      }
-      else
-      {
-        this.nomeArquivos += ', ' + file.name;
-      }
+      //if(this.nomeArquivos == undefined || this.nomeArquivos == '')
+      //{
+        //this.nomeArquivos = '' + file.name;
+      //}
+      //else
+      //{
+        //this.nomeArquivos += ', ' + file.name;
+      //}
     }
-    document.getElementById("customFileLabel").innerHTML = this.nomeArquivos;
+    //document.getElementById("customFileLabel").innerHTML = this.nomeArquivos;
     //
 
   }
 
-  definirNomeArquivos()
-  {
+  //definirNomeArquivos()
+  //{
     // Setar nome dos arquivos na label
-    var file;
+    //var file;
 
-    for (var i = 0; i < this.arquivosSelecionados.length; i++)
-    {
+    //for (var i = 0; i < this.arquivosSelecionados.length; i++)
+    //{
       // obtém o item
-      file = this.arquivosSelecionados[i];
+      //file = this.arquivosSelecionados[i];
 
-      if(this.nomeArquivos == undefined || this.nomeArquivos == '')
-      {
-        this.nomeArquivos = '' + file.name;
-      }
-      else
-      {
-        this.nomeArquivos += ', ' + file.name;
-      }
-    }
-    document.getElementById("customFileLabel").innerHTML = this.nomeArquivos;
+      //if(this.nomeArquivos == undefined || this.nomeArquivos == '')
+      //{
+        //this.nomeArquivos = '' + file.name;
+      //}
+      //else
+      //{
+        //this.nomeArquivos += ', ' + file.name;
+      //}
+    //}
+    //document.getElementById("customFileLabel").innerHTML = this.nomeArquivos;
     //
-  }
+  //}
 
-  private uploadArquivo(arquivo: File, id: number)
+  private uploadArquivoPessoal(arquivo: File, id: number)
   {
     const formData = new FormData();
     formData.append("file", arquivo);
 
-    this.dadosPessoaisService.uploadArquivo(formData, id).subscribe
+    this.dadosPessoaisService.uploadArquivoPessoal(formData, id).subscribe
     (
       response => {
-        console.log(response);FormData
+        console.log(response);
+        this.submitted = true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private uploadFotoImovel(arquivo: File, id: number)
+  {
+    const formData = new FormData();
+    formData.append("file", arquivo);
+
+    this.dadosPessoaisService.uploadFotoImovel(formData, id).subscribe
+    (
+      response => {
+        console.log(response);
+        this.submitted = true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private uploadComprovanteRenda(arquivo: File, id: number)
+  {
+    const formData = new FormData();
+    formData.append("file", arquivo);
+
+    this.dadosPessoaisService.uploadComprovanteRenda(formData, id).subscribe
+    (
+      response => {
+        console.log(response);
         this.submitted = true;
       },
       error => {
@@ -743,8 +794,8 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    this.nomeArquivos = '';
-    this.definirNomeArquivos();
+    //this.nomeArquivos = '';
+    //this.definirNomeArquivos();
 
     //var arquivoRemover = event.srcElement.files;
 
@@ -752,5 +803,70 @@ export class FormularioCadastroComponent implements OnInit {
 
   }
 
+  onChangeFotosImovel(event)
+  {
+    console.log(event);
+
+    var selectedFiles = event.srcElement.files;
+
+    //validar quantidade carregada ao mesmo tempo
+    if(selectedFiles.length > 4)
+    {
+      alert("Escolha no máximo 4 fotos")
+      return;
+    }
+    //
+
+    //validar quantidade carregada ao todo:
+    if(this.fotosImovelSelecionados == undefined || this.fotosImovelSelecionados.length == 0)
+    {
+      //this.fotosImovelSelecionados = selectedFiles;
+    }
+    else
+    {
+      if(this.fotosImovelSelecionados.length >= 4 || (selectedFiles.length + this.fotosImovelSelecionados.length > 4))
+      {
+        alert("Escolha no máximo 4 fotos")
+        return;
+      }
+    }
+    //
+
+    // Adicionar item no array e Setar nome dos arquivos na label
+    var file;
+    for (var i = 0; i < selectedFiles.length; i++)
+    {
+      // obtém o item
+      file = selectedFiles.item(i);
+      this.fotosImovelSelecionados.push(file);
+    }
+    //
+  }
+
+  removerFoto(event)
+  {
+    console.log(event);
+
+    for (var i = 0; i < this.fotosImovelSelecionados.length; i++)
+    {
+      if(this.fotosImovelSelecionados[i] == event)
+      {
+        this.fotosImovelSelecionados.splice(i, 1);
+      }
+    }
+  }
+
+  onChangeComprovanteRenda(event)
+  {
+    console.log(event);
+
+    var selectedFiles = event.srcElement.files;
+
+    if(selectedFiles != undefined && selectedFiles.length > 0)
+    {
+      this.comprovanteRenda = selectedFiles[0];
+      document.getElementById("customFileLabel3").innerHTML = this.comprovanteRenda.name;
+    }
+  }
 
 }
