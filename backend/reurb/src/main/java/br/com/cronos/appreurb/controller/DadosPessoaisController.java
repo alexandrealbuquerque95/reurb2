@@ -41,6 +41,9 @@ import br.com.cronos.appreurb.repository.IntegranteImovelRepository;
 public class DadosPessoaisController 
 {
     private final String pathArquivos = "anexos/documento_pessoal/";
+    private final String pathFotosImovel= "anexos/fotos_imovel/";
+    private final String pathComprovanteRenda= "anexos/comprovante_renda/";
+
 
 	@Autowired
 	DadosPessoaisRepository dadosPessoaisRepository;
@@ -167,8 +170,8 @@ public class DadosPessoaisController
 		}
 	}
 	
-	@PostMapping("dados_pessoais/arquivoPessoal/{id}")
-    public ResponseEntity<String> salvarArquivo(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) 
+	@PostMapping("dados_pessoais/arquivo_pessoal/{id}")
+    public ResponseEntity<String> salvarArquivoPessoal(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) 
 	{
 		//System.out.println("Recebendo o arquivo: " + file.getOriginalFilename());
 		
@@ -200,6 +203,78 @@ public class DadosPessoaisController
         } catch (Exception e) {
         	e.printStackTrace();
             return new ResponseEntity<>("{ \"mensagem\": \"Erro ao carregar o arquivo!\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+	
+	@PostMapping("dados_pessoais/foto_Imovel/{id}")
+    public ResponseEntity<String> salvarFotoImovel(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) 
+	{
+		//System.out.println("Recebendo o arquivo: " + file.getOriginalFilename());
+		
+//		String caminho = pathArquivos + UUID.randomUUID() + "-" + file.getOriginalFilename();
+		String novoNomeArquivo = id + " --- " + file.getOriginalFilename();
+		String caminho = pathFotosImovel + novoNomeArquivo;
+
+		System.out.println("Novo nome do arquivo: " + novoNomeArquivo);
+		System.out.println("Caminho pro arquivo: " + caminho);
+		
+		Path path = FileSystems.getDefault().getPath(caminho);
+
+        try 
+        {
+        	System.out.println(Files.exists(path));
+        	if(!Files.exists(path))
+        	{
+        		Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                
+                ArquivoDocumentoPessoal arquivoDocumentoPessoal = new ArquivoDocumentoPessoal();
+                arquivoDocumentoPessoal.setNomeArquivo(novoNomeArquivo);
+                DadosPessoais dadosPessoais = new DadosPessoais();
+                dadosPessoais.setId(id);
+                arquivoDocumentoPessoal.setDadosPessoais(dadosPessoais);
+                arquivoDocumentoPessoalRepository.save(arquivoDocumentoPessoal);
+        	}
+        	
+            return new ResponseEntity<>("{ \"mensagem\": \"Foto carregada com sucesso!\"}", HttpStatus.OK);
+        } catch (Exception e) {
+        	e.printStackTrace();
+            return new ResponseEntity<>("{ \"mensagem\": \"Erro ao carregar foto!\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+	
+	@PostMapping("dados_pessoais/comprovante_renda/{id}")
+    public ResponseEntity<String> salvarComprovanteRenda(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) 
+	{
+		//System.out.println("Recebendo o arquivo: " + file.getOriginalFilename());
+		
+//		String caminho = pathArquivos + UUID.randomUUID() + "-" + file.getOriginalFilename();
+		String novoNomeArquivo = id + " --- " + file.getOriginalFilename();
+		String caminho = pathComprovanteRenda + novoNomeArquivo;
+
+		System.out.println("Novo nome do arquivo: " + novoNomeArquivo);
+		System.out.println("Caminho pro arquivo: " + caminho);
+		
+		Path path = FileSystems.getDefault().getPath(caminho);
+
+        try 
+        {
+        	System.out.println(Files.exists(path));
+        	if(!Files.exists(path))
+        	{
+        		Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                
+                ArquivoDocumentoPessoal arquivoDocumentoPessoal = new ArquivoDocumentoPessoal();
+                arquivoDocumentoPessoal.setNomeArquivo(novoNomeArquivo);
+                DadosPessoais dadosPessoais = new DadosPessoais();
+                dadosPessoais.setId(id);
+                arquivoDocumentoPessoal.setDadosPessoais(dadosPessoais);
+                arquivoDocumentoPessoalRepository.save(arquivoDocumentoPessoal);
+        	}
+        	
+            return new ResponseEntity<>("{ \"mensagem\": \"Comprovante de renda carregado com sucesso!\"}", HttpStatus.OK);
+        } catch (Exception e) {
+        	e.printStackTrace();
+            return new ResponseEntity<>("{ \"mensagem\": \"Erro ao carregar o Comprovante de renda!\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 	
