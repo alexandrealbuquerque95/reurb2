@@ -270,7 +270,7 @@ public class DadosPessoaisController
         }
     }
 	
-	@GetMapping("/dados_pessoais/pesquisar/{cpf}/{nome}")
+	@GetMapping("/dados_pessoais")
 	public ResponseEntity<List<DadosPessoais>> listarTodos() 
 	{
 		try 
