@@ -287,6 +287,7 @@ public class DadosPessoaisController
 		{
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
 			
 	@GetMapping("/dados_pessoais/pesquisar/{cpf}/{nome}")
 	public ResponseEntity<List<DadosPessoais>> pesquisar(@PathVariable("cpf") String cpf, @PathVariable("nome") String nome, String situacao, String localizacao,
