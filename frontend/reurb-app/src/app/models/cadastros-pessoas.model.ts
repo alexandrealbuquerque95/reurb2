@@ -8,6 +8,6 @@ export class DadosCadastroPessoal {
   ufImovel: string = '0';
   municipioImovel: string;
   bairroImovel: string;
-  situacaoCadastro: string;
+  situacaoCadastro: number;
 
 }

@@ -17,6 +17,8 @@ export class BoardModeratorComponent implements OnInit {
 
   filtroCPF: string = '';
   filtroNome: string = '';
+  filtroSituacao: number = 0;
+
   //let params = new HttpParams();
 
   dadosPessoais: DadosPessoais[] = [];
@@ -25,38 +27,6 @@ export class BoardModeratorComponent implements OnInit {
   cadastroPessoal: DadosCadastroPessoal = new DadosCadastroPessoal();
 
   ngOnInit(): void {
-    this.cadastroPessoal.nome = 'João Carlos da Silva';
-    this.cadastroPessoal.cpf = '123.456.789-50';
-    this.cadastroPessoal.enderecoImovel = 'Rua João Carlos, 123';
-    this.cadastroPessoal.cepImovel = 72110330;
-    this.cadastroPessoal.ufImovel = 'DF';
-    this.cadastroPessoal.municipioImovel = 'Brasília';
-    this.cadastroPessoal.bairroImovel = 'Taguatinga';
-    this.cadastroPessoal.situacaoCadastro = 'Cadastro Enviado';
-    this.cadastrosPessoais.push(this.cadastroPessoal);
-
-    this.cadastroPessoal = new DadosCadastroPessoal();
-    this.cadastroPessoal.nome = 'Maria Joana da Costa';
-    this.cadastroPessoal.cpf = '555.233.468-24';
-    this.cadastroPessoal.enderecoImovel = 'Rua Antônio Magalhães, 442';
-    this.cadastroPessoal.cepImovel = 20115487;
-    this.cadastroPessoal.ufImovel = 'GO';
-    this.cadastroPessoal.municipioImovel = 'Cidade Ocidental';
-    this.cadastroPessoal.bairroImovel = 'Jardim ABC';
-    this.cadastroPessoal.situacaoCadastro = 'Regularização Concluída';
-    this.cadastrosPessoais.push(this.cadastroPessoal);
-
-    this.cadastroPessoal = new DadosCadastroPessoal();
-    this.cadastroPessoal.nome = 'Pedro Paulo Tavares';
-    this.cadastroPessoal.cpf = '427.124.413-19';
-    this.cadastroPessoal.enderecoImovel = 'QNP 15, Conjunto 22, Casa 10';
-    this.cadastroPessoal.cepImovel = 58134842;
-    this.cadastroPessoal.ufImovel = 'DF';
-    this.cadastroPessoal.municipioImovel = 'Brasília';
-    this.cadastroPessoal.bairroImovel = 'Ceilândia';
-    this.cadastroPessoal.situacaoCadastro = 'Envio Pendente';
-    this.cadastrosPessoais.push(this.cadastroPessoal);
-
     this.getDadosPessoais();
   }
 
@@ -78,7 +48,7 @@ export class BoardModeratorComponent implements OnInit {
             this.cadastroPessoal.ufImovel = dado.dadosImovel.ufImovel;
             this.cadastroPessoal.municipioImovel = dado.dadosImovel.municipioImovel;
             this.cadastroPessoal.bairroImovel = dado.dadosImovel.bairroImovel;
-            this.cadastroPessoal.situacaoCadastro = 'Envio Pendente';
+            this.cadastroPessoal.situacaoCadastro = dado.situacaoCadastro;
             this.cadastrosPessoais.push(this.cadastroPessoal);
           }
           );
@@ -96,15 +66,34 @@ export class BoardModeratorComponent implements OnInit {
   {
     console.log(this.filtroCPF);
     console.log(this.filtroNome);
+    console.log(this.filtroNome);
 
     //params.set(this.filtroCPF);
     //params.append(this.filtroNome);
 
-    this.dadosPessoaisService.pesquisar(this.filtroCPF).subscribe
+    this.dadosPessoaisService.pesquisar(this.filtroCPF, this.filtroNome, this.filtroSituacao).subscribe
     (
       data => {
         console.log(data);
         this.dadosPessoais = data;
+        this.cadastrosPessoais = [];
+
+        if(this.dadosPessoais != undefined)
+        {
+          this.dadosPessoais.forEach(async dado =>
+          {
+            this.cadastroPessoal = new DadosCadastroPessoal();
+            this.cadastroPessoal.nome = dado.nome;
+            this.cadastroPessoal.cpf = dado.cpf;
+            this.cadastroPessoal.enderecoImovel = dado.dadosImovel.enderecoImovel;
+            this.cadastroPessoal.cepImovel = dado.dadosImovel.cepImovel;
+            this.cadastroPessoal.ufImovel = dado.dadosImovel.ufImovel;
+            this.cadastroPessoal.municipioImovel = dado.dadosImovel.municipioImovel;
+            this.cadastroPessoal.bairroImovel = dado.dadosImovel.bairroImovel;
+            this.cadastroPessoal.situacaoCadastro = dado.situacaoCadastro;
+            this.cadastrosPessoais.push(this.cadastroPessoal);
+          });
+        }
       },
 
       error => {

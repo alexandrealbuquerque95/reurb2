@@ -4,6 +4,7 @@
     <p class="fs-18 pt-2"><b>Tela de consulta dos cadastros </b></p>
     <br>
 
+
     <div class="form-row m-0">
       <div class="form-group col-md-6 col-lg-6 pr-3">
         <label for="inputNome"> <b> Nome: </b> </label>
@@ -16,10 +17,10 @@
 
       <div class="form-group col-md-3 col-lg-3 px-3">
         <label for="selectSituacao"> <b> Situação: </b> </label>
-        <select id="selectSituacao" class="form-control" name="selectSituacao">
+        <select id="selectSituacao" class="form-control" name="selectSituacao" [(ngModel)]="filtroSituacao">
           <option value="0">Selecione</option>
           <option value="1">Envio Pendente</option>
-          <option value="2">Cadastro Enviado</option>
+          <option value="2">Dados Enviados</option>
           <option value="3">Regularização Concluída</option>
         </select>
       </div>
@@ -27,7 +28,7 @@
 
     <div class="form-row m-0">
       <div class="form-group col-md-6 col-lg-6 pr-3">
-        <label for="inputLocalizacao"> <b> Localização: </b> </label>
+        <label for="inputLocalizacao"> <b> Endereço: </b> </label>
         <input type="text" class="form-control" id="inputLocalizacao">
       </div>
       <div class="form-group col-md-3 col-lg-3 px-3">
@@ -82,9 +83,10 @@
 
     <div class="form-row m-0 ">
       <div class="form-group col-md-12 col-lg-12 px-3 ">
-        <button class="btn btn-primary float-right" id="botaoPesquisar" (click)="pesquisar()">Pesquisar</button>
+        <button type="submit" class="btn btn-primary float-right" id="botaoPesquisar" (click)="pesquisar()">Pesquisar</button>
       </div>
     </div>
+
 
 
     <br>

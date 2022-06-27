@@ -281,6 +281,11 @@ export class FormularioCadastroComponent implements OnInit {
     this.dadosPessoais.listaIntegranteImovel = this.integrantesFamiliar;
     this.dadosPessoais.caracteristicasDomicilio = this.caracteristicasDomicilio;
 
+    if(this.dadosPessoais.situacaoCadastro == undefined || this.dadosPessoais.situacaoCadastro == 0)
+    {
+      this.dadosPessoais.situacaoCadastro = 1;
+    }
+
     this.dadosPessoaisService.create(this.dadosPessoais).subscribe
     (
       response => {

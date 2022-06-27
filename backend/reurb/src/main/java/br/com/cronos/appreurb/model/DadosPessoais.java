@@ -127,6 +127,9 @@ public class DadosPessoais implements Serializable
 	@JoinColumn(name = "FK_CARACTERISTICAS_DOMICILIO")
 	private CaracteristicasDomicilio caracteristicasDomicilio;
 	
+	@Column(name = "situacaoCadastro")
+	private Integer situacaoCadastro;
+	
 	@Override
 	public String toString() {
 		return "DadosPessoais [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", celular=" + celular + ", telefone="
@@ -401,6 +404,14 @@ public class DadosPessoais implements Serializable
 
 	public void setBeneficiosSociais(String beneficiosSociais) {
 		this.beneficiosSociais = beneficiosSociais;
+	}
+
+	public Integer getSituacaoCadastro() {
+		return situacaoCadastro;
+	}
+
+	public void setSituacaoCadastro(Integer situacaoCadastro) {
+		this.situacaoCadastro = situacaoCadastro;
 	}
 
 	@Override

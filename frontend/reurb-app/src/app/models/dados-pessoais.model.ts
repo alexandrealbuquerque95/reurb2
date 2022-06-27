@@ -59,5 +59,5 @@ export class DadosPessoais {
 
   listaIntegranteImovel?: IntegranteFamiliar[] = [];
 
-  //situacaoCadastro: string = 'Início do Cadastro';
+  situacaoCadastro: number = 0;
 }

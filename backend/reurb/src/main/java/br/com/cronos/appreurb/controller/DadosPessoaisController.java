@@ -32,6 +32,7 @@ import br.com.cronos.appreurb.repository.ArquivoDocumentoPessoalRepository;
 import br.com.cronos.appreurb.repository.DadosConjugeRepository;
 import br.com.cronos.appreurb.repository.DadosPessoaisRepository;
 import br.com.cronos.appreurb.repository.IntegranteImovelRepository;
+import br.com.cronos.appreurb.service.DadosPessoaisService;
 
 //@CrossOrigin(origins = "*")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -44,7 +45,6 @@ public class DadosPessoaisController
     private final String pathFotosImovel= "anexos/fotos_imovel/";
     private final String pathComprovanteRenda= "anexos/comprovante_renda/";
 
-
 	@Autowired
 	DadosPessoaisRepository dadosPessoaisRepository;
 	
@@ -53,6 +53,9 @@ public class DadosPessoaisController
 	
 	@Autowired
 	IntegranteImovelRepository integranteImovelRepository;
+	
+	@Autowired
+	DadosPessoaisService dadosPessoaisService;
 	
 	@Autowired
 	ArquivoDocumentoPessoalRepository arquivoDocumentoPessoalRepository;
@@ -289,22 +292,27 @@ public class DadosPessoaisController
 		}
 	}
 			
-	@GetMapping("/dados_pessoais/pesquisar/{cpf}/{nome}")
-	public ResponseEntity<List<DadosPessoais>> pesquisar(@PathVariable("cpf") String cpf, @PathVariable("nome") String nome, String situacao, String localizacao,
-			Integer cep, String bairro, String municipio, String uf) 
+//	public ResponseEntity<List<DadosPessoais>> pesquisar(@PathVariable("cpf") String cpf, @PathVariable("nome") String nome, String situacao, String localizacao,
+//			Integer cep, String bairro, String municipio, String uf) 
+	
+	@GetMapping(value = "/dados_pessoais/pesquisar")
+    public ResponseEntity<List<DadosPessoais>> pesquisar(@RequestParam("cpf") String cpf, @RequestParam("nome") String nome, 
+    		@RequestParam("situacaoCadastro") Integer situacaoCadastro) 
 	{
 		try 
 		{
-			List<DadosPessoais> dadosPessoais = dadosPessoaisRepository.consultarDadosPessoais(cpf, nome);
+			List<DadosPessoais> dadosPessoais = dadosPessoaisService.pesquisarDadosPessoais(cpf, nome, situacaoCadastro, null, null
+					, null, null, null);
 
-			if (dadosPessoais.isEmpty()) {
+			if (dadosPessoais == null || dadosPessoais.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(dadosPessoais, HttpStatus.OK);
 			
+			return new ResponseEntity<>(dadosPessoais, HttpStatus.OK);
 		} 
 		catch (Exception e) 
 		{
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -346,6 +354,5 @@ public class DadosPessoaisController
 //
 //	}
 //
-
 
 }
