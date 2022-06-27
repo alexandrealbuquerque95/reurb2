@@ -4,6 +4,7 @@ import { DadosCadastroPessoal } from 'src/app/models/cadastros-pessoas.model'
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { DadosPessoaisService } from 'src/app/services/dados-pessoais.service';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-board-moderator',
@@ -13,6 +14,10 @@ import { Observable } from 'rxjs';
 export class BoardModeratorComponent implements OnInit {
 
   constructor(private dadosPessoaisService: DadosPessoaisService) { }
+
+  filtroCPF: string = '';
+  filtroNome: string = '';
+  //let params = new HttpParams();
 
   dadosPessoais: DadosPessoais[] = [];
 
@@ -85,6 +90,27 @@ export class BoardModeratorComponent implements OnInit {
 
     //console.log();
     return this.dadosPessoais;
+  }
+
+  pesquisar(): void
+  {
+    console.log(this.filtroCPF);
+    console.log(this.filtroNome);
+
+    //params.set(this.filtroCPF);
+    //params.append(this.filtroNome);
+
+    this.dadosPessoaisService.pesquisar(this.filtroCPF).subscribe
+    (
+      data => {
+        console.log(data);
+        this.dadosPessoais = data;
+      },
+
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

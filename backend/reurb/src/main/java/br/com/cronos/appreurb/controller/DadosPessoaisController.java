@@ -56,14 +56,6 @@ public class DadosPessoaisController
 	
 	@Autowired
 	ArquivoDocumentoPessoalRepository arquivoDocumentoPessoalRepository;
-	
-	@RequestMapping(value="/dados_pessoais", method= RequestMethod.GET)
-	public ResponseEntity<List<DadosPessoais>> listarDadosPessoais() 
-	{
-		List<DadosPessoais> listaDadosPessoais = dadosPessoaisRepository.findAll();
-		//System.out.println(listaDadosPessoais.get(0).getListaBeneficiosSocial().get(0).getNomeBeneficioSocial());
-		return new ResponseEntity<>(listaDadosPessoais, HttpStatus.OK);
-	}
 		
 	@Transactional
 	@RequestMapping(value="/dados_pessoais", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -278,6 +270,44 @@ public class DadosPessoaisController
         }
     }
 	
+	@GetMapping("/dados_pessoais/pesquisar/{cpf}/{nome}")
+	public ResponseEntity<List<DadosPessoais>> listarTodos() 
+	{
+		try 
+		{
+			List<DadosPessoais> dadosPessoais = dadosPessoaisRepository.findAll();
+
+			if (dadosPessoais.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(dadosPessoais, HttpStatus.OK);
+			
+		} 
+		catch (Exception e) 
+		{
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+			
+	@GetMapping("/dados_pessoais/pesquisar/{cpf}/{nome}")
+	public ResponseEntity<List<DadosPessoais>> pesquisar(@PathVariable("cpf") String cpf, @PathVariable("nome") String nome, String situacao, String localizacao,
+			Integer cep, String bairro, String municipio, String uf) 
+	{
+		try 
+		{
+			List<DadosPessoais> dadosPessoais = dadosPessoaisRepository.consultarDadosPessoais(cpf, nome);
+
+			if (dadosPessoais.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(dadosPessoais, HttpStatus.OK);
+			
+		} 
+		catch (Exception e) 
+		{
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 
 //	@PutMapping("/tutorials/{id}")
 //	public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {
@@ -315,18 +345,6 @@ public class DadosPessoaisController
 //
 //	}
 //
-//	@GetMapping("/tutorials/published")
-//	public ResponseEntity<List<Tutorial>> findByPublished() {
-//		try {
-//			List<Tutorial> tutorials = loginRepository.findByPublished(true);
-//
-//			if (tutorials.isEmpty()) {
-//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//			}
-//			return new ResponseEntity<>(tutorials, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
+
 
 }

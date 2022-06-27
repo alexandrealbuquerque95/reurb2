@@ -7,6 +7,7 @@ const baseUrl = 'http://localhost:8080/api/dados_pessoais';
 //const baseUrl = 'http://ec2-3-89-8-186.compute-1.amazonaws.com:8080/api/dados_pessoais';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +21,10 @@ export class DadosPessoaisService {
 
   get(id: any): Observable<any> {
     return this.http.get(`${baseUrl}/${id}`);
+  }
+
+  pesquisar(cpf: string): Observable<any> {
+    return this.http.get(`${baseUrl}/${cpf}`);
   }
 
   create(data: any): Observable<any> {
