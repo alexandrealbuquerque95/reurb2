@@ -1,13 +1,11 @@
 export class DadosCadastroPessoal {
-  id: number;
-
-  nome: string;
-  cpf: string;
-  enderecoImovel: string;
-  cepImovel: number;
-  ufImovel: string = '0';
-  municipioImovel: string;
-  bairroImovel: string;
-  situacaoCadastro: number;
+  Nome: string;
+  CPF: string;
+  Endereco_Imovel: string;
+  CEP_Imovel: number;
+  UF_Imovel: string = '';
+  Municipio_Imovel: string;
+  Bairro_Imovel: string;
+  Situacao_Cadastro: string;
 
 }

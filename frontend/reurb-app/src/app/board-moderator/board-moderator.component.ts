@@ -4,6 +4,8 @@ import { DadosCadastroPessoal } from 'src/app/models/cadastros-pessoas.model'
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { DadosPessoaisService } from 'src/app/services/dados-pessoais.service';
 import { Observable } from 'rxjs';
+import { ExcelService } from 'src/app/services/excel.service';
+
 
 @Component({
   selector: 'app-board-moderator',
@@ -12,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class BoardModeratorComponent implements OnInit {
 
-  constructor(private dadosPessoaisService: DadosPessoaisService) { }
+  constructor(private dadosPessoaisService: DadosPessoaisService, private excelService:ExcelService) { }
 
   filtroCPF: string = '';
   filtroNome: string = '';
@@ -43,14 +45,33 @@ export class BoardModeratorComponent implements OnInit {
           this.dadosPessoais.forEach(async dado =>
           {
             this.cadastroPessoal = new DadosCadastroPessoal();
-            this.cadastroPessoal.nome = dado.nome;
-            this.cadastroPessoal.cpf = dado.cpf;
-            this.cadastroPessoal.enderecoImovel = dado.dadosImovel.enderecoImovel;
-            this.cadastroPessoal.cepImovel = dado.dadosImovel.cepImovel;
-            this.cadastroPessoal.ufImovel = dado.dadosImovel.ufImovel;
-            this.cadastroPessoal.municipioImovel = dado.dadosImovel.municipioImovel;
-            this.cadastroPessoal.bairroImovel = dado.dadosImovel.bairroImovel;
-            this.cadastroPessoal.situacaoCadastro = dado.situacaoCadastro;
+            this.cadastroPessoal.Nome = dado.nome;
+            this.cadastroPessoal.CPF = dado.cpf;
+            this.cadastroPessoal.Endereco_Imovel = dado.dadosImovel.enderecoImovel;
+            this.cadastroPessoal.CEP_Imovel = dado.dadosImovel.cepImovel;
+            if(dado.dadosImovel.ufImovel != undefined && dado.dadosImovel.ufImovel != '0')
+            {
+              this.cadastroPessoal.UF_Imovel = dado.dadosImovel.ufImovel;
+            }
+            this.cadastroPessoal.Municipio_Imovel = dado.dadosImovel.municipioImovel;
+            this.cadastroPessoal.Bairro_Imovel = dado.dadosImovel.bairroImovel;
+
+            if(dado.situacaoCadastro != undefined)
+            {
+              if(dado.situacaoCadastro == 1)
+              {
+                this.cadastroPessoal.Situacao_Cadastro = 'Envio Pendente';
+              }
+              if(dado.situacaoCadastro == 2)
+              {
+                this.cadastroPessoal.Situacao_Cadastro = 'Dados Enviados';
+              }
+              if(dado.situacaoCadastro == 3)
+              {
+                this.cadastroPessoal.Situacao_Cadastro = 'Regularização Concluída';
+              }
+            }
+
             this.cadastrosPessoais.push(this.cadastroPessoal);
           }
           );
@@ -87,14 +108,34 @@ export class BoardModeratorComponent implements OnInit {
           this.dadosPessoais.forEach(async dado =>
           {
             this.cadastroPessoal = new DadosCadastroPessoal();
-            this.cadastroPessoal.nome = dado.nome;
-            this.cadastroPessoal.cpf = dado.cpf;
-            this.cadastroPessoal.enderecoImovel = dado.dadosImovel.enderecoImovel;
-            this.cadastroPessoal.cepImovel = dado.dadosImovel.cepImovel;
-            this.cadastroPessoal.ufImovel = dado.dadosImovel.ufImovel;
-            this.cadastroPessoal.municipioImovel = dado.dadosImovel.municipioImovel;
-            this.cadastroPessoal.bairroImovel = dado.dadosImovel.bairroImovel;
-            this.cadastroPessoal.situacaoCadastro = dado.situacaoCadastro;
+            this.cadastroPessoal.Nome = dado.nome;
+            this.cadastroPessoal.CPF = dado.cpf;
+            this.cadastroPessoal.Endereco_Imovel = dado.dadosImovel.enderecoImovel;
+            this.cadastroPessoal.CEP_Imovel = dado.dadosImovel.cepImovel;
+
+            if(dado.dadosImovel.ufImovel != undefined && dado.dadosImovel.ufImovel != '0')
+            {
+              this.cadastroPessoal.UF_Imovel = dado.dadosImovel.ufImovel;
+            }
+            this.cadastroPessoal.Municipio_Imovel = dado.dadosImovel.municipioImovel;
+            this.cadastroPessoal.Bairro_Imovel = dado.dadosImovel.bairroImovel;
+
+            if(dado.situacaoCadastro != undefined)
+            {
+              if(dado.situacaoCadastro == 1)
+              {
+                this.cadastroPessoal.Situacao_Cadastro = 'Envio Pendente';
+              }
+              if(dado.situacaoCadastro == 2)
+              {
+                this.cadastroPessoal.Situacao_Cadastro = 'Dados Enviados';
+              }
+              if(dado.situacaoCadastro == 3)
+              {
+                this.cadastroPessoal.Situacao_Cadastro = 'Regularização Concluída';
+              }
+            }
+
             this.cadastrosPessoais.push(this.cadastroPessoal);
           });
         }
@@ -104,6 +145,10 @@ export class BoardModeratorComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.cadastrosPessoais, 'dados_cadastrais');
   }
 
 }

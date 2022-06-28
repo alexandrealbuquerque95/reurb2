@@ -79,15 +79,21 @@
         </select>
       </div>
 
-    </div>
-
-    <div class="form-row m-0 ">
-      <div class="form-group col-md-12 col-lg-12 px-3 ">
-        <button type="submit" class="btn btn-primary float-right" id="botaoPesquisar" (click)="pesquisar()">Pesquisar</button>
+      <div class="form-group col-md-5 col-lg-5 pr-3">
       </div>
+
+      <div class="form-group col-md-2 col-lg-2 pr-3 pt-4">
+        <button type="submit" class="btn btn-primary float-right" id="botaoPesquisar"
+          (click)="pesquisar()">Pesquisar</button>
+      </div>
+
     </div>
 
+    <br>
 
+    <button (click)="exportAsXLSX()" class="btn btn-success float-right mr-2 mb-2"> Exportar
+      <fa-icon class="fa-lg ml-1" [icon]="['fas', 'file-excel']"></fa-icon>
+    </button>
 
     <br>
     <table class="table table-bordered table-responsive-md text-center table-striped">
@@ -108,37 +114,35 @@
       <tbody class="">
         <tr *ngFor="let cadastro of cadastrosPessoais ">
           <td class="pt-3-half" >
-            <span tabindex="0">{{cadastro.nome}}</span>
+            <span tabindex="0">{{cadastro.Nome}}</span>
           </td>
 
           <td class="pt-3-half" >
-            <span tabindex="0">{{cadastro.cpf}}</span>
+            <span tabindex="0">{{cadastro.CPF}}</span>
           </td>
 
           <td class="pt-3-half" >
-            <span tabindex="0">{{cadastro.enderecoImovel}}</span>
+            <span tabindex="0">{{cadastro.Endereco_Imovel}}</span>
           </td>
 
           <td class="pt-3-half" >
-            <span tabindex="0">{{cadastro.cepImovel}}</span>
+            <span tabindex="0">{{cadastro.CEP_Imovel}}</span>
           </td>
 
           <td class="pt-3-half" >
-            <span tabindex="0">{{cadastro.bairroImovel}}</span>
+            <span tabindex="0">{{cadastro.Bairro_Imovel}}</span>
           </td>
 
           <td class="pt-3-half" >
-            <span tabindex="0">{{cadastro.municipioImovel}}</span>
+            <span tabindex="0">{{cadastro.Municipio_Imovel}}</span>
           </td>
 
           <td class="pt-3-half" >
-            <span tabindex="0">{{cadastro.ufImovel}}</span>
+            <span tabindex="0">{{cadastro.UF_Imovel}}</span>
           </td>
 
           <td class="pt-3-half" >
-            <span *ngIf="cadastro.situacaoCadastro == 1" tabindex="0">Envio Pendente</span>
-            <span *ngIf="cadastro.situacaoCadastro == 2" tabindex="0">Dados Enviados</span>
-            <span *ngIf="cadastro.situacaoCadastro == 3" tabindex="0">Regularização Concluída</span>
+            <span tabindex="0">{{cadastro.Situacao_Cadastro}}</span>
           </td>
 
           <td class="d-flex">

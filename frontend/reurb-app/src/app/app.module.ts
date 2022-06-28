@@ -27,6 +27,7 @@ import { BoardModeratorComponent } from './board-moderator/board-moderator.compo
 import { BoardUserComponent } from './board-user/board-user.component';
 import { LoginComponent } from './login/login.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { ExcelService } from './services/excel.service';
 
 
 @NgModule({
@@ -59,7 +60,10 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     BrowserAnimationsModule,
     CurrencyMaskModule,
   ],
-  providers: [authInterceptorProviders],
+  providers: [
+    authInterceptorProviders,
+    ExcelService
+  ],
   bootstrap: [AppComponent],
 
   exports: [
