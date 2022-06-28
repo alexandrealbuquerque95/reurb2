@@ -297,12 +297,14 @@ public class DadosPessoaisController
 	
 	@GetMapping(value = "/dados_pessoais/pesquisar")
     public ResponseEntity<List<DadosPessoais>> pesquisar(@RequestParam("cpf") String cpf, @RequestParam("nome") String nome, 
-    		@RequestParam("situacaoCadastro") Integer situacaoCadastro) 
+    		@RequestParam("situacaoCadastro") Integer situacaoCadastro, @RequestParam("enderecoImovel") String enderecoImovel,
+    		@RequestParam("cep") Integer cep, @RequestParam("bairro") String bairro, @RequestParam("municipio") String municipio, 
+    		@RequestParam("uf") String uf) 
 	{
 		try 
 		{
-			List<DadosPessoais> dadosPessoais = dadosPessoaisService.pesquisarDadosPessoais(cpf, nome, situacaoCadastro, null, null
-					, null, null, null);
+			List<DadosPessoais> dadosPessoais = dadosPessoaisService.pesquisarDadosPessoais(cpf, nome, situacaoCadastro, 
+					enderecoImovel, cep, bairro, municipio, uf);
 
 			if (dadosPessoais == null || dadosPessoais.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);

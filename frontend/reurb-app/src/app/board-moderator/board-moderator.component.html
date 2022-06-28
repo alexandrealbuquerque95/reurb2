@@ -28,26 +28,26 @@
 
     <div class="form-row m-0">
       <div class="form-group col-md-6 col-lg-6 pr-3">
-        <label for="inputLocalizacao"> <b> Endereço: </b> </label>
-        <input type="text" class="form-control" id="inputLocalizacao">
+        <label for="inputEndereco"> <b> Endereço: </b> </label>
+        <input type="text" class="form-control" [(ngModel)]="filtroEndereco" id="inputEndereco">
       </div>
       <div class="form-group col-md-3 col-lg-3 px-3">
         <label for="inputCEP" > <b> CEP: </b> </label>
-        <input type="text" class="form-control" id="inputCEP" mask="00.000.000">
+        <input type="text" class="form-control" id="inputCEP" [(ngModel)]="filtroCep" mask="00.000.000">
       </div>
 
       <div class="form-group col-md-3 col-lg-3 px-3">
-        <label for="inputNome"> <b> Bairro: </b> </label>
-        <input type="text" class="form-control" id="inputNome">
+        <label for="inputBairro"> <b> Bairro: </b> </label>
+        <input type="text" class="form-control" [(ngModel)]="filtroBairro" id="inputBairro">
       </div>
       <div class="form-group col-md-3 col-lg-3 pr-3">
-        <label for="inputCPF"> <b> Município: </b> </label>
-        <input type="text" class="form-control" id="inputCPF">
+        <label for="inputMunicipio"> <b> Município: </b> </label>
+        <input type="text" class="form-control" [(ngModel)]="filtroMunicipio" id="inputMunicipio">
       </div>
 
       <div class="form-group col-md-2 col-lg-2 pr-3">
         <label for="selectUf"> <b> UF: </b> </label>
-        <select id="selectUf" class="form-control" name="uf">
+        <select id="selectUf" class="form-control" name="uf" [(ngModel)]="filtroUf">
           <option value="">Selecione</option>
           <option value="AC">Acre</option>
           <option value="AL">Alagoas</option>
@@ -136,7 +136,9 @@
           </td>
 
           <td class="pt-3-half" >
-            <span tabindex="0">{{cadastro.situacaoCadastro}}</span>
+            <span *ngIf="cadastro.situacaoCadastro == 1" tabindex="0">Envio Pendente</span>
+            <span *ngIf="cadastro.situacaoCadastro == 2" tabindex="0">Dados Enviados</span>
+            <span *ngIf="cadastro.situacaoCadastro == 3" tabindex="0">Regularização Concluída</span>
           </td>
 
           <td class="d-flex">

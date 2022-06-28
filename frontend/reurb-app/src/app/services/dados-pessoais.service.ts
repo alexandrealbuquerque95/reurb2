@@ -25,8 +25,10 @@ export class DadosPessoaisService {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
-  pesquisar(cpf: string, nome: string, situacaoCadastro: number) {
-    const params = new HttpParams({ fromString: `cpf=${cpf}&nome=${nome}&situacaoCadastro=${situacaoCadastro}` })
+  pesquisar(cpf: string, nome: string, situacaoCadastro: number, enderecoImovel: string, cep: number,
+    bairro: string, municipio: string, uf: string) {
+    const params = new HttpParams({ fromString: `cpf=${cpf}&nome=${nome}&situacaoCadastro=${situacaoCadastro}
+    &enderecoImovel=${enderecoImovel}&cep=${cep}&bairro=${bairro}&municipio=${municipio}&uf=${uf}` })
 
     return this.http.get<DadosPessoais[]>(`${baseUrl}/pesquisar`,
     {

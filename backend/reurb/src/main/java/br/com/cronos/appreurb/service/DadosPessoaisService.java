@@ -48,7 +48,23 @@ public class DadosPessoaisService
         }
         if(enderecoImovel != null && !enderecoImovel.equals(""))
         {
-        	predicates.add(builder.like(builder.lower(root.get("dadosImovel.enderecoImovel")), "%" + enderecoImovel.toLowerCase() + "%"));
+        	predicates.add(builder.like(builder.lower(root.get("dadosImovel").get("enderecoImovel")), "%" + enderecoImovel.toLowerCase() + "%"));
+        }
+        if(cep != null && cep != 0)
+        {
+            predicates.add(builder.equal(root.get("dadosImovel").get("cepImovel"), cep));
+        }
+        if(bairro != null && !bairro.equals(""))
+        {
+        	predicates.add(builder.like(builder.lower(root.get("dadosImovel").get("bairroImovel")), "%" + bairro.toLowerCase() + "%"));
+        }
+        if(municipio != null && !municipio.equals(""))
+        {
+        	predicates.add(builder.like(builder.lower(root.get("dadosImovel").get("municipioImovel")), "%" + municipio.toLowerCase() + "%"));
+        }
+        if(uf != null && !uf.equals(""))
+        {
+            predicates.add(builder.equal(root.get("dadosImovel").get("ufImovel"), uf));
         }
         
         query.select(root).where(predicates.toArray(new Predicate[] {}));

@@ -4,7 +4,6 @@ import { DadosCadastroPessoal } from 'src/app/models/cadastros-pessoas.model'
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { DadosPessoaisService } from 'src/app/services/dados-pessoais.service';
 import { Observable } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-board-moderator',
@@ -18,8 +17,11 @@ export class BoardModeratorComponent implements OnInit {
   filtroCPF: string = '';
   filtroNome: string = '';
   filtroSituacao: number = 0;
-
-  //let params = new HttpParams();
+  filtroEndereco: string = '';
+  filtroCep: number;
+  filtroBairro: string = '';
+  filtroMunicipio: string = '';
+  filtroUf: string = '';
 
   dadosPessoais: DadosPessoais[] = [];
 
@@ -64,14 +66,16 @@ export class BoardModeratorComponent implements OnInit {
 
   pesquisar(): void
   {
-    console.log(this.filtroCPF);
-    console.log(this.filtroNome);
-    console.log(this.filtroNome);
+    //console.log(this.filtroCPF);
+    //console.log(this.filtroNome);
+    //console.log(this.filtroNome);
 
     //params.set(this.filtroCPF);
     //params.append(this.filtroNome);
 
-    this.dadosPessoaisService.pesquisar(this.filtroCPF, this.filtroNome, this.filtroSituacao).subscribe
+    this.dadosPessoaisService.pesquisar(this.filtroCPF, this.filtroNome, this.filtroSituacao, this.filtroEndereco,
+      this.filtroCep, this.filtroBairro, this.filtroMunicipio , this.filtroUf)
+    .subscribe
     (
       data => {
         console.log(data);
