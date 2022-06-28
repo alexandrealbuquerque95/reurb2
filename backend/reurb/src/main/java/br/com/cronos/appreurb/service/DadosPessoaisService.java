@@ -23,7 +23,7 @@ public class DadosPessoaisService
     private EntityManager entityManager;
 	
 	public List<DadosPessoais> pesquisarDadosPessoais(String cpf, String nome, Integer situacaoCadastro, String enderecoImovel, 
-			Integer cep, String bairro, String municipio, String uf) 
+			String cep, String bairro, String municipio, String uf) 
 	{
 		List<DadosPessoais> dadosPessoais = null;
 		
@@ -50,9 +50,9 @@ public class DadosPessoaisService
         {
         	predicates.add(builder.like(builder.lower(root.get("dadosImovel").get("enderecoImovel")), "%" + enderecoImovel.toLowerCase() + "%"));
         }
-        if(cep != null && cep != 0)
+        if(cep != null && !cep.equals("") && !cep.equals("undefined"))
         {
-            predicates.add(builder.equal(root.get("dadosImovel").get("cepImovel"), cep));
+            predicates.add(builder.equal(root.get("dadosImovel").get("cepImovel"), Integer.valueOf(cep)));
         }
         if(bairro != null && !bairro.equals(""))
         {
