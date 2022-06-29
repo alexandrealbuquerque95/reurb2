@@ -3,6 +3,21 @@
 
   <div class="col-12 col-md-12 col-xl-12 form-div">
 
+    <ng-template #modalTemplate>
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Modal</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        {{mensagemValidacao}}
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>
+      </div>
+    </ng-template>
+
     <mat-tab-group [(selectedIndex)]="tabIndex" (selectedTabChange)="onTabChanged($event);">
       <mat-tab label = "Titular do imóvel" >
 
@@ -2376,10 +2391,6 @@
       </mat-tab>
 
     </mat-tab-group>
-
-
-
-
 
   </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 
 import { DadosPessoaisService } from 'src/app/services/dados-pessoais.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +10,8 @@ import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model';
 import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model';
 
 import { AlertModalService } from 'src/app/services/alert-modal.service';
+
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -51,8 +53,14 @@ export class FormularioCadastroComponent implements OnInit {
 
   submitted = false;
 
+  bsModalRef: BsModalRef;
+  @ViewChild('modalTemplate') mymodal: ElementRef;
+
+  mensagemValidacao: string = 'Preencha o campo CPF';
+
   constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute,
-    private alertModalService: AlertModalService) {
+    private alertModalService: AlertModalService,
+    private modalService: BsModalService) {
 
   }
 
@@ -85,6 +93,10 @@ export class FormularioCadastroComponent implements OnInit {
     //{
       //this.dadosConjuge = new DadosPessoais();
     //}
+  }
+
+  openModal() {
+    this.bsModalRef = this.modalService.show(this.mymodal);
   }
 
   handleKeyUp(e: any){
@@ -272,7 +284,8 @@ export class FormularioCadastroComponent implements OnInit {
     {
       this.tabIndex = 0;
       window.scrollTo(0, 0);
-      this.alertModalService.showAlertDanger('Preencha o campo CPF');
+      //this.alertModalService.showAlertDanger('Preencha o campo CPF');
+      this.openModal();
       return;
     }
 

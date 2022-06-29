@@ -28,8 +28,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { LoginComponent } from './login/login.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { ExcelService } from './services/excel.service';
-import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -64,7 +63,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   ],
   providers: [
     authInterceptorProviders,
-    ExcelService
+    ExcelService,
+    BsModalService,
   ],
   bootstrap: [AppComponent],
 
