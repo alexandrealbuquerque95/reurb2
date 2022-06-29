@@ -28,6 +28,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { LoginComponent } from './login/login.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { ExcelService } from './services/excel.service';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { ExcelService } from './services/excel.service';
     MatTabsModule,
     BrowserAnimationsModule,
     CurrencyMaskModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     authInterceptorProviders,

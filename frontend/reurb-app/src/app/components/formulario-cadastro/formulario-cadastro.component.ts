@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoginService } from 'src/app/services/login.service';
 import { DadosPessoaisService } from 'src/app/services/dados-pessoais.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,6 +8,9 @@ import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoa
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
 import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model';
 import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model';
+
+import { AlertModalService } from 'src/app/services/alert-modal.service';
+
 
 @Component({
   selector: 'app-formulario-cadastro.component',
@@ -49,7 +51,8 @@ export class FormularioCadastroComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute) {
+  constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute,
+    private alertModalService: AlertModalService) {
 
   }
 
@@ -267,7 +270,9 @@ export class FormularioCadastroComponent implements OnInit {
   {
     if(!this.validadorDadosPessoais.validarCpf(this.dadosPessoais))
     {
+      this.tabIndex = 0;
       window.scrollTo(0, 0);
+      this.alertModalService.showAlertDanger('Preencha o campo CPF');
       return;
     }
 
