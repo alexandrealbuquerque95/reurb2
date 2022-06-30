@@ -4,17 +4,19 @@
   <div class="col-12 col-md-12 col-xl-12 form-div">
 
     <ng-template #modalTemplate>
-      <div class="modal-header">
-          <h4 class="modal-title pull-left">Modal</h4>
-          <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-            <span aria-hidden="true">×</span>
-          </button>
+      <div class="modal-header ">
+        <fa-icon [icon]="['fas', 'times-circle']" class="pt-1 mr-1" style="color: red"></fa-icon>
+        <h3 class="modal-title pull-left m-0 text-danger"><b>Preencha os campos obrigátorios</b></h3>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
       </div>
       <div class="modal-body">
+        <b>Aba Titular do Imóvel: </b>
         {{mensagemValidacao}}
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>
+        <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Close</button>
       </div>
     </ng-template>
 
