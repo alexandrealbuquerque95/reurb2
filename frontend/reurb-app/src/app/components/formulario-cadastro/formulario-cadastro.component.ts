@@ -529,6 +529,8 @@ export class FormularioCadastroComponent implements OnInit {
       this.openModal();
       return;
     }
+
+    this.dadosPessoais.situacaoCadastro = 2;
   }
 
   adicionarRendaTitularOuConjuge(): void
