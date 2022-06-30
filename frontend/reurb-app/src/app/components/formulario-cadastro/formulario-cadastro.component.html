@@ -12,8 +12,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <b>Aba Titular do Imóvel: </b>
-        {{mensagemValidacao}}
+        <div>
+          <b>Aba Titular do Imóvel: </b>
+          {{mensagemValidacao}}.
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Close</button>
@@ -652,17 +654,24 @@
 
               <div class="form-group col-md-9 col-lg-9 px-0">
 
-                <div class="custom-file">
+                <div class="custom-file" >
                   <input type="file" class="custom-file-input" id="customFile"
                     (change)="onChangeArquivo($event)" multiple="multiple">
                   <label id="customFileLabel" class="custom-file-label" for="customFile">Escolha o(s) arquivo(s)</label>
+                </div>
+
+                <div class="px-2" *ngIf="!validadorDadosPessoais.anexoDocumentoIdentidade">
+                  <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                  <span class="text-danger">
+                    {{validadorDadosPessoais.anexoDocumentoIdentidadeMensagem}}
+                  </span>
                 </div>
 
               </div>
             </div>
           </div>
 
-          <div class="form-row m-0" *ngIf="arquivosSelecionados != undefined && arquivosSelecionados.length > 0">
+          <div class="form-row m-0" *ngIf="dadosPessoais.arquivosSelecionados != undefined && dadosPessoais.arquivosSelecionados.length > 0">
 
             <table class="table table-bordered table-responsive-md text-center col-md-8 col-lg-8">
               <thead>
@@ -673,7 +682,7 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let file of arquivosSelecionados">
+                <tr *ngFor="let file of dadosPessoais.arquivosSelecionados">
                   <td class="pt-1-half" >
                     <span tabindex="0">{{ file.name }}</span>
                   </td>

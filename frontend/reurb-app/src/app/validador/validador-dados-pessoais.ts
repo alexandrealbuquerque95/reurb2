@@ -69,38 +69,50 @@ export class ValidadorDadosPessoais {
   anexoDocumentoIdentidade: boolean = true;
   anexoDocumentoIdentidadeMensagem: string = 'Selecione o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento)';
 
-
+  camposInvalidos: string = '';
   validouDados: boolean = true;
 
   validarDados(dadosPessoais: DadosPessoais): ValidadorDadosPessoais
   {
+    this.camposInvalidos = '';
     this.validouDados = true;
 
     this.validarNome(dadosPessoais);
     this.validarSexo(dadosPessoais);
+    this.validarCpf(dadosPessoais);
+    this.validarRg(dadosPessoais);
+    this.validarOrgaoEmissorRG(dadosPessoais);
+    this.validarUfEmissorRG(dadosPessoais);
     this.validarCelular(dadosPessoais);
     this.validarPessoaComDeficiencia(dadosPessoais);
     this.validarNomeMae(dadosPessoais);
     this.validarMunicipioNascimento(dadosPessoais);
     this.validarUfNascimento(dadosPessoais);
     this.validarDataNascimento(dadosPessoais);
-    this.validarRg(dadosPessoais);
-    this.validarOrgaoEmissorRG(dadosPessoais);
-    this.validarUfEmissorRG(dadosPessoais);
-    this.validarCpf(dadosPessoais);
-    //this.validarNis(dadosPessoais);
     this.validarEscolaridade(dadosPessoais);
     this.validarEscolaridadeTexto(dadosPessoais);
     this.validarOcupacoes(dadosPessoais);
     this.validarMostrarOutrosOcupacao(dadosPessoais);
-    //this.validarBeneficiosSociais(dadosPessoais);
+    this.validarBeneficiosSociais(dadosPessoais)
     this.validarMostrarOutrosBeneficiosSociais(dadosPessoais);
     this.validarEstadoCivil(dadosPessoais);
     this.validarDataCasamento(dadosPessoais);
     this.validarRegimeBens(dadosPessoais);
-    //this.validarAnexoDocumentoIdentidade(dadosPessoais);
+    this.validarAnexos(dadosPessoais);
 
     return this;
+  }
+
+  adicionarCampoInvalido(campo: string)
+  {
+    if(this.camposInvalidos == undefined || this.camposInvalidos == '')
+    {
+      this.camposInvalidos = campo;
+    }
+    else
+    {
+      this.camposInvalidos += ', ' + campo;
+    }
   }
 
   validarNome(dadosPessoais: DadosPessoais)
@@ -109,6 +121,7 @@ export class ValidadorDadosPessoais {
     {
       this.nome = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Nome Completo');
     }
     else
     {
@@ -122,6 +135,7 @@ export class ValidadorDadosPessoais {
     {
       this.sexo = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Sexo');
     }
     else
     {
@@ -129,81 +143,19 @@ export class ValidadorDadosPessoais {
     }
   }
 
-  validarCelular(dadosPessoais: DadosPessoais)
+  validarCpf(dadosPessoais: DadosPessoais): boolean
   {
-    if(dadosPessoais.celular == undefined || dadosPessoais.celular == 0)
+    if(dadosPessoais.cpf == undefined || dadosPessoais.cpf == '')
     {
-      this.celular = false;
+      this.cpf = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('CPF');
+      return false;
     }
     else
     {
-      this.celular = true;
-    }
-  }
-
-  validarPessoaComDeficiencia(dadosPessoais: DadosPessoais)
-  {
-    if(dadosPessoais.pessoaComDeficiencia == undefined || dadosPessoais.pessoaComDeficiencia == '')
-    {
-      this.pessoaComDeficiencia = false;
-      this.validouDados = false;
-    }
-    else
-    {
-      this.pessoaComDeficiencia = true;
-    }
-  }
-
-  validarNomeMae(dadosPessoais: DadosPessoais)
-  {
-    if(dadosPessoais.nomeMae == undefined || dadosPessoais.nomeMae == '')
-    {
-      this.nomeMae = false;
-      this.validouDados = false;
-    }
-    else
-    {
-      this.nomeMae = true;
-    }
-  }
-
-  validarMunicipioNascimento(dadosPessoais: DadosPessoais)
-  {
-    if(dadosPessoais.municipioNascimento == undefined || dadosPessoais.municipioNascimento == '')
-    {
-      this.municipioNascimento = false;
-      this.validouDados = false;
-    }
-    else
-    {
-      this.municipioNascimento = true;
-    }
-  }
-
-  validarUfNascimento(dadosPessoais: DadosPessoais)
-  {
-    if(dadosPessoais.ufNascimento == undefined || dadosPessoais.ufNascimento == '')
-    {
-      this.ufNascimento = false;
-      this.validouDados = false;
-    }
-    else
-    {
-      this.ufNascimento = true;
-    }
-  }
-
-  validarDataNascimento(dadosPessoais: DadosPessoais)
-  {
-    if(dadosPessoais.dataNascimento == undefined || dadosPessoais.dataNascimento == '')
-    {
-      this.dataNascimento = false;
-      this.validouDados = false;
-    }
-    else
-    {
-      this.dataNascimento = true;
+      this.cpf = true;
+      return true;
     }
   }
 
@@ -213,6 +165,7 @@ export class ValidadorDadosPessoais {
     {
       this.rg = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Carteira de identidade');
     }
     else
     {
@@ -226,6 +179,7 @@ export class ValidadorDadosPessoais {
     {
       this.orgaoEmissorRG = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Órgão emissor');
     }
     else
     {
@@ -239,6 +193,7 @@ export class ValidadorDadosPessoais {
     {
       this.ufEmissorRG = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('UF emissor');
     }
     else
     {
@@ -246,31 +201,87 @@ export class ValidadorDadosPessoais {
     }
   }
 
-  validarCpf(dadosPessoais: DadosPessoais): boolean
+  validarCelular(dadosPessoais: DadosPessoais)
   {
-    if(dadosPessoais.cpf == undefined || dadosPessoais.cpf == '')
+    if(dadosPessoais.celular == undefined || dadosPessoais.celular == 0)
     {
-      this.cpf = false;
+      this.celular = false;
       this.validouDados = false;
-      return false;
+      this.adicionarCampoInvalido('Celular para contato com DDD');
     }
     else
     {
-      this.cpf = true;
-      return true;
+      this.celular = true;
     }
   }
 
-  validarNis(dadosPessoais: DadosPessoais)
+  validarPessoaComDeficiencia(dadosPessoais: DadosPessoais)
   {
-    if(dadosPessoais.nis == undefined || dadosPessoais.nis == '')
+    if(dadosPessoais.pessoaComDeficiencia == undefined || dadosPessoais.pessoaComDeficiencia == '')
     {
-      this.nis = false;
+      this.pessoaComDeficiencia = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Pessoa com deficiência');
     }
     else
     {
-      this.nis = true;
+      this.pessoaComDeficiencia = true;
+    }
+  }
+
+  validarNomeMae(dadosPessoais: DadosPessoais)
+  {
+    if(dadosPessoais.nomeMae == undefined || dadosPessoais.nomeMae == '')
+    {
+      this.nomeMae = false;
+      this.validouDados = false;
+      this.adicionarCampoInvalido('Nome da mãe');
+    }
+    else
+    {
+      this.nomeMae = true;
+    }
+  }
+
+  validarMunicipioNascimento(dadosPessoais: DadosPessoais)
+  {
+    if(dadosPessoais.municipioNascimento == undefined || dadosPessoais.municipioNascimento == '')
+    {
+      this.municipioNascimento = false;
+      this.validouDados = false;
+      this.adicionarCampoInvalido('Município de nascimento');
+    }
+    else
+    {
+      this.municipioNascimento = true;
+    }
+  }
+
+  validarUfNascimento(dadosPessoais: DadosPessoais)
+  {
+    if(dadosPessoais.ufNascimento == undefined || dadosPessoais.ufNascimento == '')
+    {
+      this.ufNascimento = false;
+      this.validouDados = false;
+      this.adicionarCampoInvalido('UF');
+    }
+    else
+    {
+      this.ufNascimento = true;
+    }
+  }
+
+  validarDataNascimento(dadosPessoais: DadosPessoais)
+  {
+    if(dadosPessoais.dataNascimento == undefined || dadosPessoais.dataNascimento == '')
+    {
+      this.dataNascimento = false;
+      this.validouDados = false;
+      this.adicionarCampoInvalido('Data de nascimento');
+    }
+    else
+    {
+      this.dataNascimento = true;
     }
   }
 
@@ -285,6 +296,7 @@ export class ValidadorDadosPessoais {
     {
       this.escolaridade = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Escolaridade');
     }
     else
     {
@@ -298,6 +310,7 @@ export class ValidadorDadosPessoais {
     {
       this.escolaridadeTexto = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Escolaridade | Outros');
     }
     else
     {
@@ -307,10 +320,11 @@ export class ValidadorDadosPessoais {
 
   validarOcupacoes(dadosPessoais: DadosPessoais)
   {
-    if(dadosPessoais.ocupacao == undefined || dadosPessoais.ocupacao.length == 0)
+    if(dadosPessoais.ocupacaoArray == undefined || dadosPessoais.ocupacaoArray.length == 0)
     {
       this.ocupacao = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Ocupação');
     }
     else
     {
@@ -324,6 +338,7 @@ export class ValidadorDadosPessoais {
     {
       this.ocupacaoTexto = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Ocupação | Outros');
     }
     else
     {
@@ -333,10 +348,11 @@ export class ValidadorDadosPessoais {
 
   validarBeneficiosSociais(dadosPessoais: DadosPessoais)
   {
-    if(dadosPessoais.beneficiosSociais == undefined || dadosPessoais.beneficiosSociais.length == 0)
+    if(dadosPessoais.beneficiosSociaisArray == undefined || dadosPessoais.beneficiosSociaisArray.length == 0)
     {
       this.beneficiosSociais = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Beneficios sociais');
     }
     else
     {
@@ -350,6 +366,7 @@ export class ValidadorDadosPessoais {
     {
       this.beneficiosSociaisTexto = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Benefícios sociais | Outros');
     }
     else
     {
@@ -363,6 +380,7 @@ export class ValidadorDadosPessoais {
     {
       this.estadoCivil = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Estado Civil');
     }
     else
     {
@@ -377,6 +395,7 @@ export class ValidadorDadosPessoais {
     {
       this.dataCasamento = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Data do casamento ou início da união estável');
     }
     else
     {
@@ -390,10 +409,25 @@ export class ValidadorDadosPessoais {
     {
       this.regimeBens = false;
       this.validouDados = false;
+      this.adicionarCampoInvalido('Regime de bens');
     }
     else
     {
       this.regimeBens = true;
+    }
+  }
+
+  validarAnexos(dadosPessoais: DadosPessoais)
+  {
+    if(dadosPessoais.arquivosSelecionados == undefined || dadosPessoais.arquivosSelecionados.length == 0)
+    {
+      this.anexoDocumentoIdentidade = false;
+      this.validouDados = false;
+      this.adicionarCampoInvalido('Faça o anexo de algum documento de identificação (RG, CPF, CNH, Certidão Casamento)');
+    }
+    else
+    {
+      this.anexoDocumentoIdentidade = true;
     }
   }
 

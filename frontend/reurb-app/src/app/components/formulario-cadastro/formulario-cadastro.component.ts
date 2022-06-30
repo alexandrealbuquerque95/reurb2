@@ -45,7 +45,6 @@ export class FormularioCadastroComponent implements OnInit {
   valorRendaTotal: number = 0.00;
   valorRendaTotalString: string = '0,00';
 
-  arquivosSelecionados: File[] = [];
   fotosImovelSelecionados: File[] = [];
   comprovanteRenda: File;
 
@@ -56,7 +55,7 @@ export class FormularioCadastroComponent implements OnInit {
   bsModalRef: BsModalRef;
   @ViewChild('modalTemplate') mymodal: ElementRef;
 
-  mensagemValidacao: string = 'Preencha o campo CPF';
+  mensagemValidacao: string = 'CPF';
 
   constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute,
     private alertModalService: AlertModalService,
@@ -282,6 +281,7 @@ export class FormularioCadastroComponent implements OnInit {
   {
     if(!this.validadorDadosPessoais.validarCpf(this.dadosPessoais))
     {
+      this.mensagemValidacao = 'CPF';
       this.tabIndex = 0;
       window.scrollTo(0, 0);
       //this.alertModalService.showAlertDanger('Preencha o campo CPF');
@@ -313,10 +313,10 @@ export class FormularioCadastroComponent implements OnInit {
 
         var file: File;
 
-        for (var i = 0; i < this.arquivosSelecionados.length; i++)
+        for (var i = 0; i < this.dadosPessoais.arquivosSelecionados.length; i++)
         {
           // obtém o item
-          file = this.arquivosSelecionados[i];
+          file = this.dadosPessoais.arquivosSelecionados[i];
 
           this.uploadArquivoPessoal(file, response.id);
         }
@@ -519,7 +519,16 @@ export class FormularioCadastroComponent implements OnInit {
 
   enviarDados(): void
   {
+    this.validadorDadosPessoais.validarDados(this.dadosPessoais);
 
+    if(!this.validadorDadosPessoais.validouDados)
+    {
+      this.mensagemValidacao = this.validadorDadosPessoais.camposInvalidos;
+      this.tabIndex = 0;
+      window.scrollTo(0, 0);
+      this.openModal();
+      return;
+    }
   }
 
   adicionarRendaTitularOuConjuge(): void
@@ -695,13 +704,13 @@ export class FormularioCadastroComponent implements OnInit {
     //
 
     //validar quantidade carregada ao todo:
-    if(this.arquivosSelecionados == undefined || this.arquivosSelecionados.length == 0)
+    if(this.dadosPessoais.arquivosSelecionados == undefined || this.dadosPessoais.arquivosSelecionados.length == 0)
     {
-      //this.arquivosSelecionados = selectedFiles;
+      //this.dadosPessoais.arquivosSelecionados = selectedFiles;
     }
     else
     {
-      if(this.arquivosSelecionados.length >= 3 || (selectedFiles.length + this.arquivosSelecionados.length > 3))
+      if(this.dadosPessoais.arquivosSelecionados.length >= 3 || (selectedFiles.length + this.dadosPessoais.arquivosSelecionados.length > 3))
       {
         alert("Escolha no máximo 3 arquivos")
         return;
@@ -715,7 +724,7 @@ export class FormularioCadastroComponent implements OnInit {
     {
       // obtém o item
       file = selectedFiles.item(i);
-      this.arquivosSelecionados.push(file);
+      this.dadosPessoais.arquivosSelecionados.push(file);
 
       //if(this.nomeArquivos == undefined || this.nomeArquivos == '')
       //{
@@ -736,10 +745,10 @@ export class FormularioCadastroComponent implements OnInit {
     // Setar nome dos arquivos na label
     //var file;
 
-    //for (var i = 0; i < this.arquivosSelecionados.length; i++)
+    //for (var i = 0; i < this.dadosPessoais.arquivosSelecionados.length; i++)
     //{
       // obtém o item
-      //file = this.arquivosSelecionados[i];
+      //file = this.dadosPessoais.arquivosSelecionados[i];
 
       //if(this.nomeArquivos == undefined || this.nomeArquivos == '')
       //{
@@ -809,11 +818,11 @@ export class FormularioCadastroComponent implements OnInit {
   {
     console.log(event);
 
-    for (var i = 0; i < this.arquivosSelecionados.length; i++)
+    for (var i = 0; i < this.dadosPessoais.arquivosSelecionados.length; i++)
     {
-      if(this.arquivosSelecionados[i] == event)
+      if(this.dadosPessoais.arquivosSelecionados[i] == event)
       {
-        this.arquivosSelecionados.splice(i, 1);
+        this.dadosPessoais.arquivosSelecionados.splice(i, 1);
       }
     }
 
