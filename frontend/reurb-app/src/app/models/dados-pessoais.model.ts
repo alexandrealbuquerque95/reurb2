@@ -20,7 +20,7 @@ export class DadosPessoais {
   ufNascimento?: string = '';
 
   dataNascimento?: string;
-  emancipado?: string = '';
+  emancipado?: string = '0';
 
   rg?: string;
   orgaoEmissorRG?: string;

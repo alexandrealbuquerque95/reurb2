@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoais';
+import { ValidadorDadosConjuge } from 'src/app/validador/validador-dados-conjuge';
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
 import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model';
 import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model';
@@ -31,7 +32,7 @@ export class FormularioCadastroComponent implements OnInit {
   validadorDadosPessoais: ValidadorDadosPessoais;
 
   dadosConjuge: DadosPessoais = new DadosPessoais();
-  validadorDadosConjuge: ValidadorDadosPessoais;
+  validadorDadosConjuge: ValidadorDadosConjuge;
 
   dadosImovel: DadosImovel = new DadosImovel();
 
@@ -55,7 +56,8 @@ export class FormularioCadastroComponent implements OnInit {
   bsModalRef: BsModalRef;
   @ViewChild('modalTemplate') mymodal: ElementRef;
 
-  mensagemValidacao: string = 'CPF';
+  mensagemValidacaoDadosPessoais: string = 'CPF';
+  mensagemValidacaoDadosConjuge: string = '';
 
   constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute,
     private alertModalService: AlertModalService,
@@ -72,7 +74,7 @@ export class FormularioCadastroComponent implements OnInit {
     //this.dadosPessoais.cpf = this.route.snapshot.paramMap.get('cpf');
 
     this.validadorDadosPessoais = new ValidadorDadosPessoais();
-    this.validadorDadosConjuge = new ValidadorDadosPessoais();
+    this.validadorDadosConjuge = new ValidadorDadosConjuge();
 
     //this.integranteTitular = new IntegranteFamiliar();
     //this.integranteTitular.nome = 'Nome do Titular';
@@ -95,7 +97,7 @@ export class FormularioCadastroComponent implements OnInit {
   }
 
   openModal() {
-    this.bsModalRef = this.modalService.show(this.mymodal);
+    this.bsModalRef = this.modalService.show(this.mymodal, { class: 'modal-lg' });
   }
 
   handleKeyUp(e: any){
@@ -109,19 +111,6 @@ export class FormularioCadastroComponent implements OnInit {
     this.validouFormularioCadastro1 = true;
     this.tabIndex++;
     window.scrollTo(0, 0);
-
-    //this.validadorDadosPessoais = this.validadorDadosPessoais.validarDados(this.dadosPessoais);
-    //if(this.validadorDadosPessoais.validouDados)
-    //{
-      //this.validouFormularioCadastro1 = true;
-      //this.tabIndex = 1;
-      //this.mostrarFormularioCadastro1 = false;
-      //this.mostrarFormularioCadastro2 = true;
-    //}
-    //else
-    //{
-      //this.tabIndex = 0;
-    //}
   }
 
   continuar(): void
@@ -205,7 +194,6 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    //this.validadorDadosPessoais.validarOcupacoes(this.dadosPessoais);
   }
 
   onCheckboxOcupacaoConjugeChange(event: any)
@@ -228,7 +216,6 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    //this.validadorDadosConjuge.validarOcupacoes(this.dadosConjuge);
   }
 
   onCheckboxBeneficiosSociaisChange(event: any)
@@ -251,7 +238,6 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    //this.validadorDadosPessoais.validarBeneficiosSociais(this.dadosPessoais);
   }
 
   onCheckboxBeneficiosSociaisConjugeChange(event: any)
@@ -274,14 +260,13 @@ export class FormularioCadastroComponent implements OnInit {
       }
     }
 
-    //this.validadorDadosConjuge.validarBeneficiosSociais(this.dadosConjuge);
   }
 
   salvar(): void
   {
     if(!this.validadorDadosPessoais.validarCpf(this.dadosPessoais))
     {
-      this.mensagemValidacao = 'CPF';
+      this.mensagemValidacaoDadosPessoais = 'CPF';
       this.tabIndex = 0;
       window.scrollTo(0, 0);
       //this.alertModalService.showAlertDanger('Preencha o campo CPF');
@@ -519,14 +504,36 @@ export class FormularioCadastroComponent implements OnInit {
 
   enviarDados(): void
   {
-    this.validadorDadosPessoais.validarDados(this.dadosPessoais);
+    var retornar = undefined;
 
+    // Validar Dados Conjuge:
+    this.mensagemValidacaoDadosConjuge = '';
+    if(this.dadosPessoais.estadoCivil != undefined && (this.dadosPessoais.estadoCivil == 2 || this.dadosPessoais.estadoCivil == 6))
+    {
+      this.validadorDadosConjuge.validarDados(this.dadosConjuge);
+      if(!this.validadorDadosConjuge.validouDados)
+      {
+        this.mensagemValidacaoDadosConjuge = this.validadorDadosConjuge.camposInvalidos;
+        retornar = 1;
+      }
+    }
+    //
+
+    // Validar Dados Pessoais:
+    this.mensagemValidacaoDadosPessoais = '';
+    this.validadorDadosPessoais.validarDados(this.dadosPessoais);
     if(!this.validadorDadosPessoais.validouDados)
     {
-      this.mensagemValidacao = this.validadorDadosPessoais.camposInvalidos;
-      this.tabIndex = 0;
-      window.scrollTo(0, 0);
+      this.mensagemValidacaoDadosPessoais = this.validadorDadosPessoais.camposInvalidos;
+      retornar = 0;
+    }
+    //
+
+    if(retornar != undefined)
+    {
+      this.tabIndex = retornar;
       this.openModal();
+      window.scrollTo(0, 0);
       return;
     }
 

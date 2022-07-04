@@ -12,9 +12,14 @@
         </button>
       </div>
       <div class="modal-body">
-        <div>
+        <div *ngIf="mensagemValidacaoDadosPessoais != ''">
           <b>Aba Titular do Imóvel: </b>
-          {{mensagemValidacao}}.
+          {{mensagemValidacaoDadosPessoais}}.
+          <br>
+        </div>
+        <div *ngIf="mensagemValidacaoDadosConjuge != ''">
+          <b>Aba Cônjuge ou companheiro(a): </b>
+          {{mensagemValidacaoDadosConjuge}}.
         </div>
       </div>
       <div class="modal-footer">
@@ -544,13 +549,6 @@
                 </label>
               </div>
 
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="9" (change)="onCheckboxBeneficiosSociaisChange($event)" id="nenhum">
-                <label class="form-check-label" for="nenhum">
-                    Nenhum
-                </label>
-              </div>
-
               <div class="px-2" *ngIf="!validadorDadosPessoais.beneficiosSociais">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
                 <span class="text-danger">
@@ -728,7 +726,16 @@
 
             <div class="form-group col-md-9 col-lg-9 pr-3">
               <label for="inputNomeConjuge"> <b> Nome Completo: <span style="color:red" >*</span> </b> </label>
-              <input type="text" [(ngModel)]="dadosConjuge.nome" class="form-control" id="inputNomeConjuge" >
+              <input type="text" [(ngModel)]="dadosConjuge.nome" name="inputNomeConjuge"
+                (change)="validadorDadosConjuge.validarNome(dadosConjuge)"
+                [ngStyle]="!validadorDadosConjuge.nome && {'border-color': 'red'} " class="form-control" id="inputNomeConjuge" >
+
+              <div class="px-2" *ngIf="!validadorDadosConjuge.nome">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorDadosConjuge.nomeMensagem}}
+                </span>
+              </div>
 
             </div>
 
@@ -763,7 +770,7 @@
               <label for="inputCPFConjuge"> <b> CPF: <span style="color:red" >*</span> </b> </label>
               <input type="text" value={{dadosConjuge.cpf}} [(ngModel)]="dadosConjuge.cpf"
                 class="form-control" id="inputCPFConjuge" mask="000.000.000-00"
-                [ngStyle]="!validadorDadosConjuge.cpf && {'border-color': 'red'}"> >
+                [ngStyle]="!validadorDadosConjuge.cpf && {'border-color': 'red'}">
 
               <div class="px-2" *ngIf="!validadorDadosConjuge.cpf">
                 <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
@@ -1238,13 +1245,6 @@
                   id="outrosConjuge">
                 <label class="form-check-label" for="outrosConjuge">
                     Outros
-                </label>
-              </div>
-
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="9" (change)="onCheckboxBeneficiosSociaisConjugeChange($event)" id="nenhum">
-                <label class="form-check-label" for="nenhum">
-                    Nenhum
                 </label>
               </div>
 
