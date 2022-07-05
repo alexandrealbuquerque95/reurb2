@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoais';
 import { ValidadorDadosConjuge } from 'src/app/validador/validador-dados-conjuge';
+import { ValidadorIdentificacaoImovel } from 'src/app/validador/validador-identificacao-imovel';
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
 import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model';
 import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model';
@@ -35,6 +36,7 @@ export class FormularioCadastroComponent implements OnInit {
   validadorDadosConjuge: ValidadorDadosConjuge;
 
   dadosImovel: DadosImovel = new DadosImovel();
+  validadorIdentificacaoImovel: ValidadorIdentificacaoImovel;
 
   caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();
 
@@ -46,7 +48,6 @@ export class FormularioCadastroComponent implements OnInit {
   valorRendaTotal: number = 0.00;
   valorRendaTotalString: string = '0,00';
 
-  fotosImovelSelecionados: File[] = [];
   comprovanteRenda: File;
 
   //nomeArquivos: string = ''
@@ -58,6 +59,7 @@ export class FormularioCadastroComponent implements OnInit {
 
   mensagemValidacaoDadosPessoais: string = 'CPF';
   mensagemValidacaoDadosConjuge: string = '';
+  mensagemValidacaoIdentificacaoImovel: string = '';
 
   constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute,
     private alertModalService: AlertModalService,
@@ -75,6 +77,7 @@ export class FormularioCadastroComponent implements OnInit {
 
     this.validadorDadosPessoais = new ValidadorDadosPessoais();
     this.validadorDadosConjuge = new ValidadorDadosConjuge();
+    this.validadorIdentificacaoImovel = new ValidadorIdentificacaoImovel();
 
     //this.integranteTitular = new IntegranteFamiliar();
     //this.integranteTitular.nome = 'Nome do Titular';
@@ -306,10 +309,10 @@ export class FormularioCadastroComponent implements OnInit {
           this.uploadArquivoPessoal(file, response.id);
         }
 
-        for (var i = 0; i < this.fotosImovelSelecionados.length; i++)
+        for (var i = 0; i < this.dadosImovel.anexoFotos.length; i++)
         {
           // obtém o item
-          file = this.fotosImovelSelecionados[i];
+          file = this.dadosImovel.anexoFotos[i];
 
           this.uploadFotoImovel(file, response.id);
         }
@@ -505,6 +508,21 @@ export class FormularioCadastroComponent implements OnInit {
   enviarDados(): void
   {
     var retornar = undefined;
+
+    // Validar Identificação Imóvel:
+    this.mensagemValidacaoIdentificacaoImovel = '';
+    this.validadorIdentificacaoImovel.validarDados(this.dadosImovel);
+    if(!this.validadorIdentificacaoImovel.validouDados)
+    {
+      this.mensagemValidacaoIdentificacaoImovel = this.validadorIdentificacaoImovel.camposInvalidos;
+      retornar = 1;
+
+      if(this.dadosPessoais.estadoCivil != undefined && (this.dadosPessoais.estadoCivil == 2 || this.dadosPessoais.estadoCivil == 6))
+      {
+        retornar++;
+      }
+    }
+    //
 
     // Validar Dados Conjuge:
     this.mensagemValidacaoDadosConjuge = '';
@@ -859,13 +877,13 @@ export class FormularioCadastroComponent implements OnInit {
     //
 
     //validar quantidade carregada ao todo:
-    if(this.fotosImovelSelecionados == undefined || this.fotosImovelSelecionados.length == 0)
+    if(this.dadosImovel.anexoFotos == undefined || this.dadosImovel.anexoFotos.length == 0)
     {
-      //this.fotosImovelSelecionados = selectedFiles;
+      //this.dadosImovel.anexoFotos = selectedFiles;
     }
     else
     {
-      if(this.fotosImovelSelecionados.length >= 4 || (selectedFiles.length + this.fotosImovelSelecionados.length > 4))
+      if(this.dadosImovel.anexoFotos.length >= 4 || (selectedFiles.length + this.dadosImovel.anexoFotos.length > 4))
       {
         alert("Escolha no máximo 4 fotos")
         return;
@@ -879,7 +897,7 @@ export class FormularioCadastroComponent implements OnInit {
     {
       // obtém o item
       file = selectedFiles.item(i);
-      this.fotosImovelSelecionados.push(file);
+      this.dadosImovel.anexoFotos.push(file);
     }
     //
   }
@@ -888,11 +906,11 @@ export class FormularioCadastroComponent implements OnInit {
   {
     console.log(event);
 
-    for (var i = 0; i < this.fotosImovelSelecionados.length; i++)
+    for (var i = 0; i < this.dadosImovel.anexoFotos.length; i++)
     {
-      if(this.fotosImovelSelecionados[i] == event)
+      if(this.dadosImovel.anexoFotos[i] == event)
       {
-        this.fotosImovelSelecionados.splice(i, 1);
+        this.dadosImovel.anexoFotos.splice(i, 1);
       }
     }
   }

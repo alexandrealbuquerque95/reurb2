@@ -6,7 +6,7 @@
     <ng-template #modalTemplate>
       <div class="modal-header ">
         <fa-icon [icon]="['fas', 'times-circle']" class="pt-1 mr-1" style="color: red"></fa-icon>
-        <h3 class="modal-title pull-left m-0 text-danger"><b>Preencha os campos obrigátorios</b></h3>
+        <h3 class="modal-title pull-left m-0 text-danger"><b>Preencha/Selecione os campos obrigátorios</b></h3>
         <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
           <span aria-hidden="true">×</span>
         </button>
@@ -20,6 +20,10 @@
         <div *ngIf="mensagemValidacaoDadosConjuge != ''">
           <b>Aba Cônjuge ou companheiro(a): </b>
           {{mensagemValidacaoDadosConjuge}}.
+        </div>
+        <div *ngIf="mensagemValidacaoIdentificacaoImovel != ''">
+          <b>Aba Identificação do Imóvel: </b>
+          {{mensagemValidacaoIdentificacaoImovel}}.
         </div>
       </div>
       <div class="modal-footer">
@@ -88,6 +92,7 @@
               <label for="inputCPF"> <b> CPF: <span style="color:red" >*</span> </b> </label>
               <input type="text" value={{dadosPessoais.cpf}} [(ngModel)]="dadosPessoais.cpf"
                 class="form-control" id="inputCPF" mask="000.000.000-00"
+                (change)="validadorDadosPessoais.validarCpf(dadosPessoais)"
                 [ngStyle]="!validadorDadosPessoais.cpf && {'border-color': 'red'}" >
 
               <div class="px-2" *ngIf="!validadorDadosPessoais.cpf">
@@ -770,6 +775,7 @@
               <label for="inputCPFConjuge"> <b> CPF: <span style="color:red" >*</span> </b> </label>
               <input type="text" value={{dadosConjuge.cpf}} [(ngModel)]="dadosConjuge.cpf"
                 class="form-control" id="inputCPFConjuge" mask="000.000.000-00"
+                (change)="validadorDadosConjuge.validarCpf(dadosConjuge)"
                 [ngStyle]="!validadorDadosConjuge.cpf && {'border-color': 'red'}">
 
               <div class="px-2" *ngIf="!validadorDadosConjuge.cpf">
@@ -1306,19 +1312,42 @@
 
             <div class="form-group col-md-10 col-lg-10 pr-3">
               <label for="enderecoImovel"> <b> Localização do imóvel (rua, número, quadra, lote): <span style="color:red" >*</span> </b> </label>
-              <input type="text" class="form-control" [(ngModel)]="dadosImovel.enderecoImovel" id="enderecoImovel" name="enderecoImovel" placeholder="Rua dos Bandeirantes, nº 0">
+              <input type="text" class="form-control" [(ngModel)]="dadosImovel.enderecoImovel" id="enderecoImovel" name="enderecoImovel" placeholder="Rua dos Bandeirantes, nº 0"
+              (change)="validadorIdentificacaoImovel.validarEnderecoImovel(dadosImovel)"
+              [ngStyle]="!validadorIdentificacaoImovel.enderecoImovel && {'border-color': 'red'}">
+
+              <div class="px-2" *ngIf="!validadorIdentificacaoImovel.enderecoImovel">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorIdentificacaoImovel.enderecoImovelMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-2 col-lg-2 px-3">
               <label for="cepImovel" ><b>CEP: <span style="color:red" >*</span> </b></label>
-              <input type="text" mask="00.000.000" [(ngModel)]="dadosImovel.cepImovel" class="form-control" id="cepImovel"  name="cepImovel">
+              <input type="text" mask="00.000.000" [(ngModel)]="dadosImovel.cepImovel" class="form-control"
+                id="cepImovel"  name="cepImovel"
+                (change)="validadorIdentificacaoImovel.validarCepImovel(dadosImovel)"
+                [ngStyle]="!validadorIdentificacaoImovel.cepImovel && {'border-color': 'red'}">
+
+              <div class="px-2" *ngIf="!validadorIdentificacaoImovel.cepImovel">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorIdentificacaoImovel.cepImovelMensagem}}
+                </span>
+              </div>
+
             </div>
           </div>
 
           <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4 pr-3">
                 <label for="ufImovel"><b>UF: <span style="color:red" >*</span> </b></label>
-                <select id="ufImovel" class="form-control" [(ngModel)]="dadosImovel.ufImovel" name="ufImovel">
+                <select id="ufImovel" class="form-control" [(ngModel)]="dadosImovel.ufImovel" name="ufImovel"
+                  (change)="validadorIdentificacaoImovel.validarUfImovel(dadosImovel)"
+                  [ngStyle]="!validadorIdentificacaoImovel.ufImovel && {'border-color': 'red'}">
+
                   <option value="">Selecione</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -1348,16 +1377,41 @@
                   <option value="SE">Sergipe</option>
                   <option value="TO">Tocantins</option>
                 </select>
+
+                <div class="px-2" *ngIf="!validadorIdentificacaoImovel.ufImovel">
+                  <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                  <span class="text-danger">
+                    {{validadorIdentificacaoImovel.ufImovelMensagem}}
+                  </span>
+                </div>
               </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
               <label for="municipioImovel"><b>Município: <span style="color:red" >*</span> </b></label>
-              <input type="text" class="form-control" [(ngModel)]="dadosImovel.municipioImovel" id="municipioImovel" name="municipioImovel" >
+              <input type="text" class="form-control" [(ngModel)]="dadosImovel.municipioImovel" id="municipioImovel" name="municipioImovel"
+                (change)="validadorIdentificacaoImovel.validarMunicipioImovel(dadosImovel)"
+                [ngStyle]="!validadorIdentificacaoImovel.municipioImovel && {'border-color': 'red'}">
+
+              <div class="px-2" *ngIf="!validadorIdentificacaoImovel.municipioImovel">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorIdentificacaoImovel.municipioImovelMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
               <label for="bairroImovel"><b>Bairro: <span style="color:red" >*</span> </b></label>
-              <input type="text" class="form-control" [(ngModel)]="dadosImovel.bairroImovel" id="bairroImovel" name="bairroImovel">
+              <input type="text" class="form-control" [(ngModel)]="dadosImovel.bairroImovel" id="bairroImovel" name="bairroImovel"
+                (change)="validadorIdentificacaoImovel.validarBairroImovel(dadosImovel)"
+                [ngStyle]="!validadorIdentificacaoImovel.bairroImovel && {'border-color': 'red'}">
+
+              <div class="px-2" *ngIf="!validadorIdentificacaoImovel.bairroImovel">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorIdentificacaoImovel.bairroImovelMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
@@ -1371,25 +1425,45 @@
 
             <div class="form-group col-md-4 col-lg-4 px-3">
               <label for="imovelEh"> <b> Esse imóvel é: <span style="color:red" >*</span> </b> </label>
-              <select  id="imovelEh" [(ngModel)]="dadosImovel.imovelEh" class="form-control" name="imovelEh">
-                <option value="0">Selecione</option>
+              <select  id="imovelEh" [(ngModel)]="dadosImovel.imovelEh" class="form-control" name="imovelEh"
+                (change)="validadorIdentificacaoImovel.validarImovelEh(dadosImovel)"
+                [ngStyle]="!validadorIdentificacaoImovel.imovelEh && {'border-color': 'red'}">
+
+                <option value="">Selecione</option>
                 <option value="1">Próprio</option>
                 <option value="2">Locado</option>
                 <option value="3">Emprestado</option>
                 <option value="4">Cedido</option>
                 <option value="5">Outros</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorIdentificacaoImovel.imovelEh">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorIdentificacaoImovel.imovelEhMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
               <label for="usoImovel"> <b> Esse imóvel é para uso: <span style="color:red" >*</span> </b> </label>
-              <select id="usoImovel" [(ngModel)]="dadosImovel.usoImovel" class="form-control" name="usoImovel">
-                <option value="0">Selecione</option>
+              <select id="usoImovel" [(ngModel)]="dadosImovel.usoImovel" class="form-control" name="usoImovel"
+                (change)="validadorIdentificacaoImovel.validarUsoImovel(dadosImovel)"
+                [ngStyle]="!validadorIdentificacaoImovel.usoImovel && {'border-color': 'red'}">
+
+                <option value="">Selecione</option>
                 <option value="1">Residencial</option>
                 <option value="2">Comercial</option>
                 <option value="3">Misto</option>
                 <option value="4">Outros</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorIdentificacaoImovel.usoImovel">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorIdentificacaoImovel.usoImovelMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
@@ -1397,8 +1471,11 @@
           <div class="form-row m-0">
             <div class="form-group col-md-4 col-lg-4 pr-3">
               <label for="tempoOcupacaoImovel"> <b> Tempo de ocupação do imóvel: <span style="color:red" >*</span> </b> </label>
-              <select id="tempoOcupacaoImovel" [(ngModel)]="dadosImovel.tempoOcupacaoImovel" class="form-control" name="tempoOcupacaoImovel">
-                <option value="0">Selecione</option>
+              <select id="tempoOcupacaoImovel" [(ngModel)]="dadosImovel.tempoOcupacaoImovel" class="form-control" name="tempoOcupacaoImovel"
+                (change)="validadorIdentificacaoImovel.validarTempoOcupacaoImovel(dadosImovel)"
+                [ngStyle]="!validadorIdentificacaoImovel.tempoOcupacaoImovel && {'border-color': 'red'}">
+
+                <option value="">Selecione</option>
                 <option value="1">1 ano ou menos</option>
                 <option value="2">2 anos</option>
                 <option value="3">3 anos</option>
@@ -1425,6 +1502,13 @@
                 <option value="24">24 anos</option>
                 <option value="25">25 anos ou mais</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorIdentificacaoImovel.tempoOcupacaoImovel">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorIdentificacaoImovel.tempoOcupacaoImovelMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-4 col-lg-4 px-3">
@@ -1433,7 +1517,7 @@
               <div class="d-flex">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="mais1DomicilioLote" id="mais1DomicilioLoteNao"
-                    value="0" [(ngModel)]="dadosImovel.mais1DomicilioLote">
+                    value="" [(ngModel)]="dadosImovel.mais1DomicilioLote">
                   <label class="form-check-label" for="mais1DomicilioLoteNao">
                     Não
                   </label>
@@ -1450,13 +1534,22 @@
 
             <div class="form-group col-md-4 col-lg-4 px-3" *ngIf="dadosImovel.mais1DomicilioLote == '1'">
               <label for="quantidadeDomiciliosLote"> <b> Quantos domicílios existem no lote no total? <span style="color:red" >*</span> </b> </label>
-              <select id="quantidadeDomiciliosLote" [(ngModel)]="dadosImovel.quantidadeDomiciliosLote" class="form-control" name="quantidadeDomiciliosLote">
-                <option value="0">Selecione</option>
+              <select id="quantidadeDomiciliosLote" [(ngModel)]="dadosImovel.quantidadeDomiciliosLote" class="form-control" name="quantidadeDomiciliosLote"
+                (change)="validadorIdentificacaoImovel.validarQuantidadeDomiciliosLote(dadosImovel)"
+                [ngStyle]="!validadorIdentificacaoImovel.quantidadeDomiciliosLote && {'border-color': 'red'}">
+                <option value="">Selecione</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4 ou mais</option>
               </select>
+
+              <div class="px-2" *ngIf="!validadorIdentificacaoImovel.quantidadeDomiciliosLote">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorIdentificacaoImovel.quantidadeDomiciliosLoteMensagem}}
+                </span>
+              </div>
             </div>
 
           </div>
@@ -1605,11 +1698,18 @@
                   <label id="customFileLabel2" class="custom-file-label" for="customFile2">Escolha a(s) fotos(s)</label>
                 </div>
 
+                <div class="px-2" *ngIf="!validadorIdentificacaoImovel.anexoFotos">
+                  <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                  <span class="text-danger">
+                    {{validadorIdentificacaoImovel.anexoFotosMensagem}}
+                  </span>
+                </div>
+
               </div>
             </div>
           </div>
 
-          <div class="form-row m-0" *ngIf="fotosImovelSelecionados != undefined && fotosImovelSelecionados.length > 0">
+          <div class="form-row m-0" *ngIf="dadosImovel.anexoFotos != undefined && dadosImovel.anexoFotos.length > 0">
 
             <table class="table table-bordered table-responsive-md text-center col-md-8 col-lg-8">
               <thead>
@@ -1620,7 +1720,7 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let file of fotosImovelSelecionados">
+                <tr *ngFor="let file of dadosImovel.anexoFotos">
                   <td class="pt-1-half" >
                     <span tabindex="0">{{ file.name }}</span>
                   </td>

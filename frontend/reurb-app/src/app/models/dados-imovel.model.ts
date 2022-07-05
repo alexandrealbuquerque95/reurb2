@@ -3,17 +3,17 @@ export class DadosImovel {
 
   enderecoImovel: string;
   cepImovel: number;
-  ufImovel: string = '0';
+  ufImovel: string = '';
   municipioImovel: string;
   bairroImovel: string;
 
   nucleoUrbanoImovel: string;
-  imovelEh: string = '0';
-  usoImovel: string = '0';
+  imovelEh: string = '';
+  usoImovel: string = '';
 
-  tempoOcupacaoImovel: string = '0';
-  mais1DomicilioLote: string = '0';
-  quantidadeDomiciliosLote: string = '0';
+  tempoOcupacaoImovel: string = '';
+  mais1DomicilioLote: string = '';
+  quantidadeDomiciliosLote: string = '';
 
   acessoIndependente: string = '0';
   atendidoEnergiaEletrica: string = '0';
@@ -21,5 +21,7 @@ export class DadosImovel {
   atendidoEsgoto: string = '0';
   atendidoAguasPluviais: string = '0';
   atendidoPavimentacao: string = '0';
+
+  anexoFotos?: File[] = [];
 
 }
