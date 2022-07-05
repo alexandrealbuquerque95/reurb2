@@ -516,9 +516,12 @@ export class FormularioCadastroComponent implements OnInit {
   enviarDados(): void
   {
     var retornar = undefined;
+    this.mensagemValidacaoDadosPessoais = '';
+    this.mensagemValidacaoDadosConjuge = '';
+    this.mensagemValidacaoIdentificacaoImovel = '';
+    this.mensagemValidacaoAdicaoIntegranteFamiliar = '';
 
     // Validar Identificação Imóvel:
-    this.mensagemValidacaoIdentificacaoImovel = '';
     this.validadorIdentificacaoImovel.validarDados(this.dadosImovel);
     if(!this.validadorIdentificacaoImovel.validouDados)
     {
@@ -533,7 +536,6 @@ export class FormularioCadastroComponent implements OnInit {
     //
 
     // Validar Dados Conjuge:
-    this.mensagemValidacaoDadosConjuge = '';
     if(this.dadosPessoais.estadoCivil != undefined && (this.dadosPessoais.estadoCivil == 2 || this.dadosPessoais.estadoCivil == 6))
     {
       this.validadorDadosConjuge.validarDados(this.dadosConjuge);
@@ -546,7 +548,6 @@ export class FormularioCadastroComponent implements OnInit {
     //
 
     // Validar Dados Pessoais:
-    this.mensagemValidacaoDadosPessoais = '';
     this.validadorDadosPessoais.validarDados(this.dadosPessoais);
     if(!this.validadorDadosPessoais.validouDados)
     {
