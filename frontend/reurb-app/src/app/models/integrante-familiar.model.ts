@@ -4,7 +4,7 @@ export class IntegranteFamiliar {
   nome: string;
   documento: string = '';
   sexo: string = '1';
-  relacaoComTitular: string = 'Selecione';
+  relacaoComTitular: string = '';
   dataNascimento: string;
   valorRenda: number;
 

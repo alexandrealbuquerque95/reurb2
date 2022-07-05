@@ -7,6 +7,7 @@ import { DadosPessoais } from 'src/app/models/dados-pessoais.model';
 import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoais';
 import { ValidadorDadosConjuge } from 'src/app/validador/validador-dados-conjuge';
 import { ValidadorIdentificacaoImovel } from 'src/app/validador/validador-identificacao-imovel';
+import { ValidadorIntegranteFamiliar } from 'src/app/validador/validador-integrante-familiar';
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
 import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model';
 import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model';
@@ -45,6 +46,7 @@ export class FormularioCadastroComponent implements OnInit {
   integranteTitular: IntegranteFamiliar;
   integranteFamiliar: IntegranteFamiliar;
   integrantesFamiliar: IntegranteFamiliar[] = [];
+  validadorIntegranteFamiliar: ValidadorIntegranteFamiliar;
   valorRendaTotal: number = 0.00;
   valorRendaTotalString: string = '0,00';
 
@@ -57,9 +59,10 @@ export class FormularioCadastroComponent implements OnInit {
   bsModalRef: BsModalRef;
   @ViewChild('modalTemplate') mymodal: ElementRef;
 
-  mensagemValidacaoDadosPessoais: string = 'CPF';
+  mensagemValidacaoDadosPessoais: string = '';
   mensagemValidacaoDadosConjuge: string = '';
   mensagemValidacaoIdentificacaoImovel: string = '';
+  mensagemValidacaoAdicaoIntegranteFamiliar: string = '';
 
   constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute,
     private alertModalService: AlertModalService,
@@ -78,6 +81,7 @@ export class FormularioCadastroComponent implements OnInit {
     this.validadorDadosPessoais = new ValidadorDadosPessoais();
     this.validadorDadosConjuge = new ValidadorDadosConjuge();
     this.validadorIdentificacaoImovel = new ValidadorIdentificacaoImovel();
+    this.validadorIntegranteFamiliar = new ValidadorIntegranteFamiliar();
 
     //this.integranteTitular = new IntegranteFamiliar();
     //this.integranteTitular.nome = 'Nome do Titular';
@@ -267,6 +271,10 @@ export class FormularioCadastroComponent implements OnInit {
 
   salvar(): void
   {
+    this.mensagemValidacaoDadosConjuge = '';
+    this.mensagemValidacaoIdentificacaoImovel = '';
+    this.mensagemValidacaoAdicaoIntegranteFamiliar = '';
+
     if(!this.validadorDadosPessoais.validarCpf(this.dadosPessoais))
     {
       this.mensagemValidacaoDadosPessoais = 'CPF';
@@ -588,11 +596,17 @@ export class FormularioCadastroComponent implements OnInit {
 
   adicionarIntegrante(): void
   {
-    if(this.integranteFamiliar.nome != undefined && this.integranteFamiliar.nome != '' &&
-      this.integranteFamiliar.relacaoComTitular != undefined && this.integranteFamiliar.relacaoComTitular != 'Selecione'
-      && this.integranteFamiliar.documento != undefined && this.integranteFamiliar.documento != '' &&
-      this.integranteFamiliar.sexo != undefined && this.integranteFamiliar.sexo != '' &&
-      this.integranteFamiliar.dataNascimento != undefined && this.integranteFamiliar.dataNascimento != '')
+    // Validar Adição Integrante Familiar:
+    this.mensagemValidacaoDadosPessoais = '';
+    this.mensagemValidacaoAdicaoIntegranteFamiliar = '';
+    this.validadorIntegranteFamiliar.validarDados(this.integranteFamiliar);
+    if(!this.validadorIntegranteFamiliar.validouDados)
+    {
+      this.mensagemValidacaoAdicaoIntegranteFamiliar = this.validadorIntegranteFamiliar.camposInvalidos;
+      this.openModal();
+    }
+    //
+    else
     {
       if(this.integranteFamiliar.valorRenda != undefined && this.integranteFamiliar.valorRenda > 0)
       {
