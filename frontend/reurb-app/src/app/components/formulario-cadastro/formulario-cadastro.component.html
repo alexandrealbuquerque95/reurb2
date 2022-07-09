@@ -15,20 +15,30 @@
         <div *ngIf="mensagemValidacaoDadosPessoais != ''">
           <b>Aba Titular do Imóvel: </b>
           {{mensagemValidacaoDadosPessoais}}.
-          <br>
         </div>
+
         <div *ngIf="mensagemValidacaoDadosConjuge != ''">
+          <br>
           <b>Aba Cônjuge ou companheiro(a): </b>
           {{mensagemValidacaoDadosConjuge}}.
         </div>
+
         <div *ngIf="mensagemValidacaoIdentificacaoImovel != ''">
+          <br>
           <b>Aba Identificação do Imóvel: </b>
           {{mensagemValidacaoIdentificacaoImovel}}.
         </div>
 
         <div *ngIf="mensagemValidacaoAdicaoIntegranteFamiliar != ''">
+          <br>
           <b>Aba Integrantes do grupo familiar: </b>
           {{mensagemValidacaoAdicaoIntegranteFamiliar}}.
+        </div>
+
+        <div *ngIf="mensagemValidacaoCaracteristicasDomicilio != ''">
+          <br>
+          <b>Aba Características do seu domicílio: </b>
+          {{mensagemValidacaoCaracteristicasDomicilio}}.
         </div>
 
       </div>
@@ -713,7 +723,7 @@
 
             <button (click)="continuar()" class="btn btn-primary float-right mx-2">Continuar</button>
 
-            <button (click)="salvar()" class="btn btn-primary float-right">Salvar</button>
+            <button (click)="salvar(false)" class="btn btn-primary float-right">Salvar</button>
           </div>
 
           <br>
@@ -1293,7 +1303,7 @@
             <button (click)="continuar()" class="btn btn-primary float-right mx-2">Continuar</button>
             <button (click)="voltar()" class="btn btn-primary float-right">Voltar</button>
 
-            <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
+            <button (click)="salvar(false)" class="btn btn-primary float-right mx-2">Salvar</button>
           </div>
 
           <br>
@@ -1750,7 +1760,7 @@
             <button (click)="continuar()"  class="btn btn-primary float-right mx-2">Continuar</button>
             <button (click)="voltar()" class="btn btn-primary float-right">Voltar</button>
 
-            <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
+            <button (click)="salvar(false)" class="btn btn-primary float-right mx-2">Salvar</button>
           </div>
 
           <br>
@@ -2000,7 +2010,7 @@
             class="btn btn-primary float-right mx-2 mb-2">Continuar</button>
           <button (click)="voltar()" class="btn btn-primary float-right">Voltar</button>
 
-          <button (click)="salvar()" class="btn btn-primary float-right mx-2">Salvar</button>
+          <button (click)="salvar(false)" class="btn btn-primary float-right mx-2">Salvar</button>
         </div>
         <br>
       </mat-tab>
@@ -2076,7 +2086,10 @@
               <label for="totalComodos"> <b> Número total de cômodos: <span style="color:red" >*</span> </b> </label>
 
               <select id="totalComodos" class="form-control" name="totalComodos"
-                [(ngModel)]="caracteristicasDomicilio.numeroComodos">
+                [(ngModel)]="caracteristicasDomicilio.numeroComodos"
+                (change)="validadorCaracteristicasDomicilio.validarNumeroComodos(caracteristicasDomicilio)"
+                [ngStyle]="!validadorCaracteristicasDomicilio.numeroComodos && {'border-color': 'red'} " >
+
                 <option value="0">Selecione</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -2088,6 +2101,13 @@
                 <option value="8">8 ou mais</option>
               </select>
 
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.numeroComodos">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.numeroComodosMensagem}}
+                </span>
+              </div>
+
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3 ">
@@ -2095,7 +2115,10 @@
 
               <div class="form-group col-md-6 col-lg-6 p-0 ">
                 <select id="totalMoradoresPorComodo" class="form-control" name="totalMoradoresPorComodo"
-                  [(ngModel)]="caracteristicasDomicilio.numeroMoradoresPorComodo">
+                  [(ngModel)]="caracteristicasDomicilio.numeroMoradoresPorComodo"
+                  (change)="validadorCaracteristicasDomicilio.validarNumeroMoradoresPorComodo(caracteristicasDomicilio)"
+                  [ngStyle]="!validadorCaracteristicasDomicilio.numeroMoradoresPorComodo && {'border-color': 'red'} " >
+
                   <option value="0">Selecione</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -2104,6 +2127,14 @@
                   <option value="5">5</option>
                   <option value="6">6 ou mais</option>
                 </select>
+
+                <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.numeroMoradoresPorComodo">
+                  <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                  <span class="text-danger">
+                    {{validadorCaracteristicasDomicilio.numeroMoradoresPorComodoMensagem}}
+                  </span>
+                </div>
+
               </div>
 
             </div>
@@ -2113,12 +2144,22 @@
 
               <div class="col-md-6 col-lg-6 p-0">
                 <select id="numeroBanheiros" class="form-control" name="numeroBanheiros"
-                  [(ngModel)]="caracteristicasDomicilio.numeroBanheiros">
+                  [(ngModel)]="caracteristicasDomicilio.numeroBanheiros"
+                  (change)="validadorCaracteristicasDomicilio.validarNumeroBanheiros(caracteristicasDomicilio)"
+                  [ngStyle]="!validadorCaracteristicasDomicilio.numeroBanheiros && {'border-color': 'red'} " >
                   <option value="0">Selecione</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3 ou mais</option>
                 </select>
+
+                <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.numeroBanheiros">
+                  <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                  <span class="text-danger">
+                    {{validadorCaracteristicasDomicilio.numeroBanheirosMensagem}}
+                  </span>
+                </div>
+
               </div>
 
             </div>
@@ -2169,12 +2210,29 @@
                     Outros
                 </label>
               </div>
+
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.materialParedeExternaArray">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.materialParedeExternaArrayMensagem}}
+                </span>
+              </div>
+
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="caracteristicasDomicilio.mostrarOutrosMaterialParedeExterna">
               <label for="materiaisTexto"> <b> Paredes externas | Outros: <span style="color:red" >*</span> </b> </label>
               <input type="text" class="form-control" id="materiaisTexto"
-                [(ngModel)]="caracteristicasDomicilio.materialParedeExternaTexto">
+                [(ngModel)]="caracteristicasDomicilio.materialParedeExternaTexto"
+                (change)="validadorCaracteristicasDomicilio.validarMaterialParedeExternaTexto(caracteristicasDomicilio)"
+                [ngStyle]="!validadorCaracteristicasDomicilio.materialParedeExternaTexto && {'border-color': 'red'} "  >
+
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.materialParedeExternaTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.materialParedeExternaTextoMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-4 col-lg-4 pr-3 ">
@@ -2254,12 +2312,28 @@
                 </label>
               </div>
 
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.materialPisoArray">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.materialPisoArrayMensagem}}
+                </span>
+              </div>
+
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="caracteristicasDomicilio.mostrarOutrosMaterialPiso">
               <label for="pisoTexto"> <b> Piso | Outros: <span style="color:red" >*</span> </b> </label>
               <input type="text" class="form-control" id="pisoTexto"
-                [(ngModel)]="caracteristicasDomicilio.materialPisoTexto">
+                [(ngModel)]="caracteristicasDomicilio.materialPisoTexto"
+                (change)="validadorCaracteristicasDomicilio.validarMaterialPisoTexto(caracteristicasDomicilio)"
+                [ngStyle]="!validadorCaracteristicasDomicilio.materialPisoTexto && {'border-color': 'red'} "  >
+
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.materialPisoTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.materialPisoTextoMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-4 col-lg-4 pr-3 ">
@@ -2354,12 +2428,28 @@
                 </label>
               </div>
 
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.materialInstalacaoEletricaArray">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.materialInstalacaoEletricaArrayMensagem}}
+                </span>
+              </div>
+
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="caracteristicasDomicilio.mostrarOutrosMaterialInstalacaoEletrica">
               <label for="escolaridadeTexto"> <b> Instalações elétricas | Outros: <span style="color:red" >*</span> </b> </label>
               <input type="text" class="form-control" id="instalacoesEletricasTexto"
-                [(ngModel)]="caracteristicasDomicilio.materialInstalacaoEletricaTexto">
+                [(ngModel)]="caracteristicasDomicilio.materialInstalacaoEletricaTexto"
+                (change)="validadorCaracteristicasDomicilio.validarMaterialInstalacaoEletricaTexto(caracteristicasDomicilio)"
+                [ngStyle]="!validadorCaracteristicasDomicilio.materialInstalacaoEletricaTexto && {'border-color': 'red'} "  >
+
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.materialInstalacaoEletricaTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.materialInstalacaoEletricaTextoMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-4 col-lg-4 pr-3 ">
@@ -2437,12 +2527,28 @@
                 </label>
               </div>
 
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.esgotoSanitarioArray">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.esgotoSanitarioArrayMensagem}}
+                </span>
+              </div>
+
             </div>
 
             <div class="form-group col-md-6 col-lg-6 px-3" *ngIf="caracteristicasDomicilio.mostrarOutrosEsgotoSanitario">
               <label for="esgotamentoSanitario"> <b> Esgotamento sanitário | Outros: <span style="color:red" >*</span> </b> </label>
               <input type="text" class="form-control" id="esgotamentoSanitario"
-                [(ngModel)]="caracteristicasDomicilio.esgotoSanitarioTexto">
+                [(ngModel)]="caracteristicasDomicilio.esgotoSanitarioTexto"
+                (change)="validadorCaracteristicasDomicilio.validarEsgotoSanitarioTexto(caracteristicasDomicilio)"
+                [ngStyle]="!validadorCaracteristicasDomicilio.esgotoSanitarioTexto && {'border-color': 'red'} "  >
+
+              <div class="px-2" *ngIf="!validadorCaracteristicasDomicilio.esgotoSanitarioTexto">
+                <fa-icon [icon]="['fas', 'times-circle']" style="color: red"></fa-icon>
+                <span class="text-danger">
+                  {{validadorCaracteristicasDomicilio.esgotoSanitarioTextoMensagem}}
+                </span>
+              </div>
             </div>
 
             <div class="form-group col-md-4 col-lg-4 pr-3 ">
@@ -2478,7 +2584,7 @@
 
           <button (click)="enviarDados()" class="btn btn-primary float-right ">Enviar Dados</button>
           <button (click)="voltar()" class="btn btn-primary float-right mx-2 mb-2">Voltar</button>
-          <button (click)="salvar()" class="btn btn-primary float-right">Salvar</button>
+          <button (click)="salvar(false)" class="btn btn-primary float-right">Salvar</button>
 
         </div>
         <br>

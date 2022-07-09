@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 
 import { DadosPessoaisService } from 'src/app/services/dados-pessoais.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { ValidadorDadosPessoais } from 'src/app/validador/validador-dados-pessoa
 import { ValidadorDadosConjuge } from 'src/app/validador/validador-dados-conjuge';
 import { ValidadorIdentificacaoImovel } from 'src/app/validador/validador-identificacao-imovel';
 import { ValidadorIntegranteFamiliar } from 'src/app/validador/validador-integrante-familiar';
+import { ValidadorCaracteristicasDomicilio } from 'src/app/validador/validador-caracteristicas-domicilio';
 import { DadosImovel } from 'src/app/models/dados-imovel.model';
 import { IntegranteFamiliar } from 'src/app/models/integrante-familiar.model';
 import { CaracteristicasDomicilio } from 'src/app/models/caracteristicas-domicilio.model';
@@ -40,6 +42,7 @@ export class FormularioCadastroComponent implements OnInit {
   validadorIdentificacaoImovel: ValidadorIdentificacaoImovel;
 
   caracteristicasDomicilio: CaracteristicasDomicilio = new CaracteristicasDomicilio();
+  validadorCaracteristicasDomicilio: ValidadorCaracteristicasDomicilio
 
   tabIndex = 0;
 
@@ -63,8 +66,10 @@ export class FormularioCadastroComponent implements OnInit {
   mensagemValidacaoDadosConjuge: string = '';
   mensagemValidacaoIdentificacaoImovel: string = '';
   mensagemValidacaoAdicaoIntegranteFamiliar: string = '';
+  mensagemValidacaoCaracteristicasDomicilio: string = '';
 
   constructor(private dadosPessoaisService: DadosPessoaisService, private route: ActivatedRoute,
+    private location: Location,
     private alertModalService: AlertModalService,
     private modalService: BsModalService) {
 
@@ -82,6 +87,7 @@ export class FormularioCadastroComponent implements OnInit {
     this.validadorDadosConjuge = new ValidadorDadosConjuge();
     this.validadorIdentificacaoImovel = new ValidadorIdentificacaoImovel();
     this.validadorIntegranteFamiliar = new ValidadorIntegranteFamiliar();
+    this.validadorCaracteristicasDomicilio = new ValidadorCaracteristicasDomicilio();
 
     //this.integranteTitular = new IntegranteFamiliar();
     //this.integranteTitular.nome = 'Nome do Titular';
@@ -269,11 +275,12 @@ export class FormularioCadastroComponent implements OnInit {
 
   }
 
-  salvar(): void
+  salvar(ehEnviar: boolean): void
   {
     this.mensagemValidacaoDadosConjuge = '';
     this.mensagemValidacaoIdentificacaoImovel = '';
     this.mensagemValidacaoAdicaoIntegranteFamiliar = '';
+    this.mensagemValidacaoCaracteristicasDomicilio = '';
 
     if(!this.validadorDadosPessoais.validarCpf(this.dadosPessoais))
     {
@@ -335,6 +342,16 @@ export class FormularioCadastroComponent implements OnInit {
         this.adicionarRendaTitularOuConjuge();
 
         this.submitted = true;
+
+        if(!ehEnviar)
+        {
+          this.alertModalService.showAlertSuccess('Dados salvos com sucesso!');
+        }
+        else
+        {
+          this.alertModalService.showAlertSuccess('Dados enviados com sucesso!');
+          location.reload();
+        }
       },
       error => {
         console.log(error);
@@ -520,6 +537,21 @@ export class FormularioCadastroComponent implements OnInit {
     this.mensagemValidacaoDadosConjuge = '';
     this.mensagemValidacaoIdentificacaoImovel = '';
     this.mensagemValidacaoAdicaoIntegranteFamiliar = '';
+    this.mensagemValidacaoCaracteristicasDomicilio = '';
+
+    // Validar Caracteristicas Domicilio:
+    this.validadorCaracteristicasDomicilio.validarDados(this.caracteristicasDomicilio);
+    if(!this.validadorCaracteristicasDomicilio.validouDados)
+    {
+      this.mensagemValidacaoCaracteristicasDomicilio = this.validadorCaracteristicasDomicilio.camposInvalidos;
+      retornar = 3;
+
+      if(this.dadosPessoais.estadoCivil != undefined && (this.dadosPessoais.estadoCivil == 2 || this.dadosPessoais.estadoCivil == 6))
+      {
+        retornar++;
+      }
+    }
+    //
 
     // Validar Identificação Imóvel:
     this.validadorIdentificacaoImovel.validarDados(this.dadosImovel);
@@ -565,6 +597,7 @@ export class FormularioCadastroComponent implements OnInit {
     }
 
     this.dadosPessoais.situacaoCadastro = 2;
+    this.salvar(true);
   }
 
   adicionarRendaTitularOuConjuge(): void
