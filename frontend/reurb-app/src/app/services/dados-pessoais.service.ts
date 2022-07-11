@@ -5,8 +5,8 @@ import { DadosPessoais } from '../models/dados-pessoais.model';
 
 import { HttpParams } from '@angular/common/http';
 
-const baseUrl = 'http://localhost:8080/api/dados_pessoais';
-//const baseUrl = 'http://ec2-3-89-8-186.compute-1.amazonaws.com:8080/api/dados_pessoais';
+//const baseUrl = 'http://localhost:8080/api/dados_pessoais';
+const baseUrl = 'http://ec2-3-89-8-186.compute-1.amazonaws.com:8080/api/dados_pessoais';
 
 
 

@@ -540,15 +540,18 @@ export class FormularioCadastroComponent implements OnInit {
     this.mensagemValidacaoCaracteristicasDomicilio = '';
 
     // Validar Caracteristicas Domicilio:
-    this.validadorCaracteristicasDomicilio.validarDados(this.caracteristicasDomicilio);
-    if(!this.validadorCaracteristicasDomicilio.validouDados)
+    if(2000 > this.valorRendaTotal)
     {
-      this.mensagemValidacaoCaracteristicasDomicilio = this.validadorCaracteristicasDomicilio.camposInvalidos;
-      retornar = 3;
-
-      if(this.dadosPessoais.estadoCivil != undefined && (this.dadosPessoais.estadoCivil == 2 || this.dadosPessoais.estadoCivil == 6))
+    this.validadorCaracteristicasDomicilio.validarDados(this.caracteristicasDomicilio);
+      if(!this.validadorCaracteristicasDomicilio.validouDados)
       {
-        retornar++;
+        this.mensagemValidacaoCaracteristicasDomicilio = this.validadorCaracteristicasDomicilio.camposInvalidos;
+        retornar = 3;
+
+        if(this.dadosPessoais.estadoCivil != undefined && (this.dadosPessoais.estadoCivil == 2 || this.dadosPessoais.estadoCivil == 6))
+        {
+          retornar++;
+        }
       }
     }
     //
