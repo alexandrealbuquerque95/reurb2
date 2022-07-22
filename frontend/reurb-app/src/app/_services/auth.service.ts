@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 //const AUTH_API = 'http://localhost:8080/api/auth/';
-const AUTH_API = 'http://ec2-3-89-8-186.compute-1.amazonaws.com:8080/api/auth/';
+const AUTH_API = 'http://ec2-3-87-199-199.compute-1.amazonaws.com:8080/api/auth/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

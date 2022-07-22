@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Tutorial } from '../models/tutorial.model';
 
 //const baseUrl = 'http://localhost:8080/api/';
-const baseUrl = 'http://ec2-3-89-8-186.compute-1.amazonaws.com:8080/api/';
+const baseUrl = 'http://ec2-3-87-199-199.compute-1.amazonaws.com:8080/api/';
 
 
 @Injectable({
